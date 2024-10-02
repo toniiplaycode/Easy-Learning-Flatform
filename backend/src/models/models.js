@@ -25,47 +25,51 @@ Course.hasMany(Section, { foreignKey: "id" });
 Section.belongsTo(Course, { foreignKey: "course_id" });
 
 // Section - Lecture (1 - N)
-Section.hasMany(Lecture, { foreignKey: "section_id" });
+Section.hasMany(Lecture, { foreignKey: "id" });
 Lecture.belongsTo(Section, { foreignKey: "section_id" });
 
 // Course - Review (1 - N)
-Course.hasMany(Review, { foreignKey: "course_id" });
+Course.hasMany(Review, { foreignKey: "id" });
 Review.belongsTo(Course, { foreignKey: "course_id" });
 
+// User - Review (1 - N)
+User.hasMany(Review, { foreignKey: "id" });
+Review.belongsTo(User, { foreignKey: "course_id" });
+
 // User - Enrollment (1 - N)
-User.hasMany(Enrollment, { foreignKey: "user_id" });
+User.hasMany(Enrollment, { foreignKey: "id" });
 Enrollment.belongsTo(User, { foreignKey: "user_id" });
 
 // Course - Enrollment (1 - N)
-Course.hasMany(Enrollment, { foreignKey: "course_id" });
+Course.hasMany(Enrollment, { foreignKey: "id" });
 Enrollment.belongsTo(Course, { foreignKey: "course_id" });
 
 // User - Payment (1 - N)
-User.hasMany(Payment, { foreignKey: "user_id" });
+User.hasMany(Payment, { foreignKey: "id" });
 Payment.belongsTo(User, { foreignKey: "user_id" });
 
 // Course - Payment (1 - N)
-Course.hasMany(Payment, { foreignKey: "course_id" });
+Course.hasMany(Payment, { foreignKey: "id" });
 Payment.belongsTo(Course, { foreignKey: "course_id" });
 
 // User - Certificate (1 - N)
-User.hasMany(Certificate, { foreignKey: "user_id" });
+User.hasMany(Certificate, { foreignKey: "id" });
 Certificate.belongsTo(User, { foreignKey: "user_id" });
 
 // Course - Certificate (1 - N)
-Course.hasMany(Certificate, { foreignKey: "course_id" });
+Course.hasMany(Certificate, { foreignKey: "id" });
 Certificate.belongsTo(Course, { foreignKey: "course_id" });
 
 // User - Wishlist (1 - N)
-User.hasMany(Wishlist, { foreignKey: "user_id" });
+User.hasMany(Wishlist, { foreignKey: "id" });
 Wishlist.belongsTo(User, { foreignKey: "user_id" });
 
 // Course - Wishlist (1 - N)
-Course.hasMany(Wishlist, { foreignKey: "course_id" });
+Course.hasMany(Wishlist, { foreignKey: "id" });
 Wishlist.belongsTo(Course, { foreignKey: "course_id" });
 
 // Course - Coupon (1 - N)
-Course.hasMany(Coupon, { foreignKey: "course_id" });
+Course.hasMany(Coupon, { foreignKey: "id" });
 Coupon.belongsTo(Course, { foreignKey: "course_id" });
 
 // Đồng bộ hóa các model với cơ sở dữ liệu

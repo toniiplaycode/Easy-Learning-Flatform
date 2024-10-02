@@ -17,10 +17,6 @@ const Wishlist = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    added_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     timestamps: false,

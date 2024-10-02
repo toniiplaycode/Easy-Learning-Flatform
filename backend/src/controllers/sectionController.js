@@ -7,14 +7,14 @@ export const addSection = async (req, res) => {
   if (!title || !course_id || !position) {
     return res
       .status(400)
-      .json({ message: "Title and course_id, position are required" });
+      .json({ error: "Title and course_id, position are required" });
   }
 
   try {
     const course = await Course.findByPk(course_id);
 
     if (!course) {
-      return res.status(404).json({ message: "không tồn tại khóa học" });
+      return res.status(404).json({ error: "không tồn tại khóa học" });
     }
 
     // Tạo một section mới
@@ -39,7 +39,7 @@ export const detailSectionCourse = async (req, res) => {
     const course = await Course.findByPk(course_id);
 
     if (!course) {
-      return res.status(404).json({ message: "Course not found" });
+      return res.status(404).json({ error: "Course not found" });
     }
 
     // Lấy danh sách các phần của khóa học
@@ -62,7 +62,7 @@ export const updateSection = async (req, res) => {
     const section = await Section.findByPk(id);
 
     if (!section) {
-      return res.status(404).json({ message: "Section not found" });
+      return res.status(404).json({ error: "Section not found" });
     }
 
     section.title = title || section.title;
@@ -84,7 +84,7 @@ export const deleteSection = async (req, res) => {
     const section = await Section.findByPk(id);
 
     if (!section) {
-      return res.status(404).json({ message: "Section not found" });
+      return res.status(404).json({ error: "Section not found" });
     }
 
     // Xóa section

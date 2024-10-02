@@ -9,6 +9,7 @@ import {
   deleteCourse,
   detailCourse,
   getAllCourse,
+  getCourseInstructor,
   updateCourse,
 } from "../controllers/courseController.js";
 
@@ -22,6 +23,8 @@ router.post(
 );
 
 router.get("/getAllCourse", getAllCourse);
+
+router.get("/getCourseInstructor", getCourseInstructor); // lấy khóa học theo người hướng dẫn
 
 router.get("/detailCourse", detailCourse);
 

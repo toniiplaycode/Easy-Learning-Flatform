@@ -17,10 +17,6 @@ const Certificate = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    issue_date: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
     certificate_url: {
       type: DataTypes.STRING,
     },

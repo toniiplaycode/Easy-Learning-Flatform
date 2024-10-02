@@ -14,7 +14,7 @@ export const addCourse = async (req, res) => {
   // Kiểm tra xem các trường cần thiết có tồn tại không
   if (!title || !instructor_id || !price || !category_id) {
     return res.status(400).json({
-      message: "Title, instructor_id, category_id, and price are required",
+      error: "Title, instructor_id, category_id, and price are required",
     });
   }
 
@@ -52,6 +52,23 @@ export const getAllCourse = async (req, res) => {
     res.status(200).json(courses);
   } catch (error) {
     console.error("Error fetching courses:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getCourseInstructor = async (req, res) => {
+  const { instructor_id } = req.query;
+
+  try {
+    const course = await Course.findAll({ where: { instructor_id } });
+
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json({ message: "OK", course });
+  } catch (error) {
+    console.error("Error updating course:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
