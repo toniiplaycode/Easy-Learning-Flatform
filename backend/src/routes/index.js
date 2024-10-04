@@ -8,6 +8,7 @@ import enrollmentRouter from "./enrollmentRouter.js";
 import paymentRouter from "./paymentRouter.js";
 import certificateRouter from "./certificateRouter.js";
 import wishlistRouter from "./wishlistRouter.js";
+import couponRouter from "./couponRouter.js";
 
 const initRoutes = (app) => {
   app.use("/api/user", userRouter);
@@ -20,6 +21,7 @@ const initRoutes = (app) => {
   app.use("/api/payment", paymentRouter);
   app.use("/api/certificate", certificateRouter);
   app.use("/api/wishlist", wishlistRouter);
+  app.use("/api/coupon", couponRouter);
 };
 
 export default initRoutes;

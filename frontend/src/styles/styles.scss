@@ -1,17 +1,239 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: "Rubik";
+  src: url("../fonts/Rubik-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.container_header{
+@font-face {
+  font-family: "Rubik Italic";
+  src: url("../fonts/Rubik-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", Arial, Helvetica, sans-serif;
+}
+
+//--------header---------
+.container_header-top {
+  background-color: #5022c3;
+  padding: 20px 0;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.header-pc {
+  //   @media (max-width: 750px) {
+  display: none;
+  //   }
+}
+
+.header-mobile {
+  //   @media (max-width: 750px) {
+  display: block;
+  //   }
+}
+
+.header-pc {
+  font-size: 0.9em;
+
+  .container_header {
     display: flex;
     flex-direction: row;
-    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 15px 40px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    .logo {
+      width: 140px;
+    }
+
+    //----hover header
+    .header-hover {
+      position: relative;
+      cursor: pointer;
+
+      /* Dropdown is hidden by default */
+      .header-container-hover {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        width: 220px;
+        padding: 10px 0;
+        z-index: 10;
+
+        &.right {
+          right: 0;
+          left: auto; /* Ensure left is unset when right is applied */
+        }
+      }
+
+      /* Show the dropdown when hovering over  */
+      &:hover .header-container-hover {
+        display: block;
+      }
+
+      .header-hover-item {
+        padding: 10px 20px;
+        color: #333;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+
+    .header_search {
+      position: relative;
+      width: 40%; /* Adjust width as needed */
+      height: 50px;
+      border-radius: 25px;
+      background-color: #f6f7f9;
+      border: 1px solid #d1d5db;
+      display: flex;
+      align-items: center;
+      padding-left: 40px;
+
+      @media (max-width: 750px) {
+        width: 30%;
+      }
+
+      input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        padding: 0 6px;
+        border-radius: 25px;
+        color: #333;
+        text-overflow: ellipsis;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 10px;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .header_your-profile {
+      img {
+        width: 2rem;
+      }
+    }
+  }
+
+  .container_header-category {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 12px 0;
+    padding: 10px;
+    box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.2);
+
+    .header-category-item {
+      text-align: center;
+    }
+  }
+
+  /* Button Container */
+  .header_button-container {
+    display: flex;
+    gap: 10px;
     align-items: center;
 
-    .logo{
-        width: 200px;
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: bold;
     }
+
+    .btn-outline {
+      background-color: white;
+      border: 2px solid #333;
+      color: #333;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+
+    .btn-primary {
+      background-color: #333;
+      color: white;
+      border: 2px solid #333;
+
+      &:hover {
+        background-color: #444;
+      }
+    }
+
+    .btn-icon {
+      background-color: white;
+      border: 2px solid #333;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}
+
+.header-mobile {
+  display: flex;
+  justify-content: center; /* Centers the logo */
+  align-items: center;
+  padding: 10px 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative; /* Allows positioning of icons */
+
+  .menu-icon {
+    position: absolute;
+    left: 20px; /* Adjust based on your design */
+  }
+
+  .header-icons {
+    position: absolute;
+    right: 20px; /* Adjust based on your design */
+    display: flex;
+    gap: 20px;
+  }
+
+  .logo {
+    width: 140px; /* Adjust logo size */
+  }
 }

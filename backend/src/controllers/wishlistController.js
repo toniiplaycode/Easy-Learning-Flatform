@@ -37,3 +37,42 @@ export const addWishlist = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getWishlistEachUser = async (req, res) => {
+  const { user_id } = req.query;
+
+  try {
+    const wishlists = await Wishlist.findAll({
+      where: { user_id },
+      include: [
+        {
+          model: Course, // Liên kết với bảng Course
+        },
+      ],
+    });
+
+    res.status(200).json({ message: "OK", wishlists });
+  } catch (error) {
+    console.error("Error fetching user wishlist:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const deleteWishlist = async (req, res) => {
+  const { id } = req.query;
+
+  try {
+    const wishlist = await Wishlist.findByPk(id);
+
+    if (!wishlist) {
+      return res.status(404).json({ message: "Wishlist item not found" });
+    }
+
+    await wishlist.destroy();
+
+    res.status(200).json({ message: "OK" });
+  } catch (error) {
+    console.error("Error removing course from wishlist:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
