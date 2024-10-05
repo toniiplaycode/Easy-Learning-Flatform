@@ -12,6 +12,31 @@
   font-style: italic;
 }
 
+.webkit-line-clamp {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: box;
+
+  -webkit-line-clamp: 2; /* Limit the text to 2 lines */
+  -moz-line-clamp: 2;
+  -o-line-clamp: 2;
+  line-clamp: 2;
+
+  -webkit-box-orient: vertical; /* Required for WebKit browsers */
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+
+  overflow: hidden; /* Hide the overflowed content */
+  text-overflow: ellipsis; /* Show ellipsis when text overflows */
+}
+
+.container-paddingX {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -30,15 +55,19 @@
 }
 
 .header-pc {
-  //   @media (max-width: 750px) {
-  display: none;
-  //   }
+  display: block;
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 }
 
 .header-mobile {
-  //   @media (max-width: 750px) {
-  display: block;
-  //   }
+  display: none;
+
+  @media (max-width: 750px) {
+    display: flex;
+  }
 }
 
 .header-pc {
@@ -214,12 +243,17 @@
 }
 
 .header-mobile {
-  display: flex;
   justify-content: center; /* Centers the logo */
   align-items: center;
   padding: 10px 30px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   position: relative; /* Allows positioning of icons */
+
+  .custom-navbar-toggle {
+    background-color: #ffffff; /* White background */
+    border: none; /* Optional: Remove border */
+    align-items: center;
+  }
 
   .menu-icon {
     position: absolute;
@@ -235,5 +269,144 @@
 
   .logo {
     width: 140px; /* Adjust logo size */
+  }
+}
+
+//--------slideshow---------
+.slideshow-text {
+  font-weight: bold;
+  font-size: 1.4rem;
+  font-family: "Rubik Italic", Arial, Helvetica, sans-serif;
+}
+
+//--------course popular---------
+.slider-container {
+  overflow: hidden;
+  margin-bottom: 50px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.slick-dots li {
+  margin: 0 1px; /* Control spacing between the dots */
+}
+
+.slick-dots li button {
+  border-radius: 50%;
+}
+
+.course-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  height: 400px;
+  margin: 50px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  .course-image {
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 5px 5px 0 0;
+    }
+  }
+
+  .course-details {
+    padding: 10px;
+    height: 100%;
+
+    .course-title {
+      height: 10%;
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 10px 0;
+      @extend .webkit-line-clamp;
+    }
+
+    .course-author {
+      height: 10%;
+      color: gray;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+      @extend .webkit-line-clamp;
+    }
+
+    .course-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+
+      .stars {
+        color: #f39c12; // Star color
+      }
+    }
+
+    .course-price {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  }
+}
+
+//--------infinite scrolling---------
+.integrations-slider {
+  width: 100%;
+  overflow: hidden; // Ensures the content doesn't overflow outside the slider container
+  padding: 20px 0;
+
+  .integrations-slide-track {
+    display: flex;
+    gap: 4rem;
+    animation: scroll 40s linear infinite; // Infinite horizontal scroll animation
+  }
+
+  .integrations-slide {
+    min-width: 200px; // Adjust width according to the panel size
+    text-align: center;
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .panel {
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease-in-out;
+
+      img {
+        max-width: 100px;
+        max-height: 50px;
+        object-fit: contain;
+      }
+
+      &:hover {
+        transform: translateY(-10px); // Slight hover effect
+      }
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 }
