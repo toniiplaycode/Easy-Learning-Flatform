@@ -10,12 +10,15 @@ import HoverWishlist from "./HoverWishlist";
 import HoverCart from "./HoverCart";
 import HoverNotify from "./HoverNotify";
 import HoverProfile from "./HoverProfile";
+import { useNavigate } from "react-router-dom";
 
 const HeaderPC = ({ isLogged }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="header-pc">
       <div className="container_header">
-        <div>
+        <div style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
           <img src={"imgs/logo.png"} className="logo" />
         </div>
         <div className="header-hover">
@@ -58,8 +61,18 @@ const HeaderPC = ({ isLogged }) => {
           <>
             <div className="header-hover">Giảng dạy trên easy learning</div>
             <div className="header_button-container">
-              <button class="btn btn-outline">Đăng nhập</button>
-              <button class="btn btn-primary">Đăng ký</button>
+              <button
+                class="btn btn-outline"
+                onClick={() => navigate("/login")}
+              >
+                Đăng nhập
+              </button>
+              <button
+                class="btn btn-primary"
+                onClick={() => navigate("/signup")}
+              >
+                Đăng ký
+              </button>
               <button class="btn btn-icon">
                 <TbWorld size={20} />
               </button>
@@ -67,21 +80,6 @@ const HeaderPC = ({ isLogged }) => {
           </>
         )}
       </div>
-
-      {isLogged && (
-        <div className="container_header-category">
-          <div class="header-category-item">Phát triển</div>
-          <div class="header-category-item">Kinh doanh</div>
-          <div class="header-category-item">Tài chính & Kế toán</div>
-          <div class="header-category-item">CNTT & Phần mềm</div>
-          <div class="header-category-item">Năng suất văn phòng</div>
-          <div class="header-category-item">Phát triển cá nhân</div>
-          <div class="header-category-item">Thiết kế</div>
-          <div class="header-category-item">Marketing</div>
-          <div class="header-category-item">Sức khỏe & Thể dục</div>
-          <div class="header-category-item">Âm nhạc</div>
-        </div>
-      )}
     </div>
   );
 };

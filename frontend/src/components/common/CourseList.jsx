@@ -86,67 +86,65 @@ function CourseList() {
     ],
   };
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        <CourseCard
-          imageSrc="imgs/profile.png"
-          title="Notion with Snow"
-          author="Snow Dang Tuyet"
-          rating="4,7"
-          reviews="283"
-          price="₫ 399.000"
-        />
+    <Slider {...settings}>
+      <CourseCard
+        imageSrc="imgs/profile.png"
+        title="Notion with Snow"
+        author="Snow Dang Tuyet"
+        rating="4,7"
+        reviews="283"
+        price="₫ 399.000"
+      />
 
-        <CourseCard
-          imageSrc="imgs/logo.png"
-          title="AWS Cloud for beginner (Vietnamese)"
-          author="Linh Nguyen"
-          rating="4,8"
-          reviews="718"
-          price="₫ 1.699.000"
-          popular={true}
-        />
+      <CourseCard
+        imageSrc="imgs/logo.png"
+        title="AWS Cloud for beginner (Vietnamese)"
+        author="Linh Nguyen"
+        rating="4,8"
+        reviews="718"
+        price="₫ 1.699.000"
+        popular={true}
+      />
 
-        <CourseCard
-          imageSrc="imgs/logo.png"
-          title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
-          author="Skill Sharing School, Le Phuong Thanh"
-          rating="4,7"
-          reviews="33"
-          price="₫ 749.000"
-          trending={true}
-        />
+      <CourseCard
+        imageSrc="imgs/logo.png"
+        title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
+        author="Skill Sharing School, Le Phuong Thanh"
+        rating="4,7"
+        reviews="33"
+        price="₫ 749.000"
+        trending={true}
+      />
 
-        <CourseCard
-          imageSrc="imgs/logo.png"
-          title="Notion with Snow"
-          author="Snow Dang Tuyet"
-          rating="4,7"
-          reviews="283"
-          price="₫ 399.000"
-        />
+      <CourseCard
+        imageSrc="imgs/logo.png"
+        title="Notion with Snow"
+        author="Snow Dang Tuyet"
+        rating="4,7"
+        reviews="283"
+        price="₫ 399.000"
+      />
 
-        <CourseCard
-          imageSrc="imgs/logo.png"
-          title="AWS Cloud for beginner (Vietnamese)"
-          author="Linh Nguyen"
-          rating="4,8"
-          reviews="718"
-          price="₫ 1.699.000"
-          popular={true}
-        />
+      <CourseCard
+        imageSrc="imgs/logo.png"
+        title="AWS Cloud for beginner (Vietnamese)"
+        author="Linh Nguyen"
+        rating="4,8"
+        reviews="718"
+        price="₫ 1.699.000"
+        popular={true}
+      />
 
-        <CourseCard
-          imageSrc="imgs/logo.png"
-          title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
-          author="Skill Sharing School, Le Phuong Thanh"
-          rating="4,7"
-          reviews="33"
-          price="₫ 749.000"
-          trending={true}
-        />
-      </Slider>
-    </div>
+      <CourseCard
+        imageSrc="imgs/logo.png"
+        title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
+        author="Skill Sharing School, Le Phuong Thanh"
+        rating="4,7"
+        reviews="33"
+        price="₫ 749.000"
+        trending={true}
+      />
+    </Slider>
   );
 }
 

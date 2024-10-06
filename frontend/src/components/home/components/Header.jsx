@@ -3,7 +3,7 @@ import HeaderPC from "./components/HeaderPC";
 import HeaderMobile from "./components/HeaderMobile";
 
 const Header = () => {
-  const isLogged = false;
+  const isLogged = true;
 
   return (
     <>
@@ -11,7 +11,7 @@ const Header = () => {
         Học các kỹ năng đáp ứng nhu cầu tương lai theo lịch trình của bạn
       </div>
       <HeaderPC isLogged={isLogged} />
-      <HeaderMobile />
+      <HeaderMobile isLogged={isLogged} />
     </>
   );
 };

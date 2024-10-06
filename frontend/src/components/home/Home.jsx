@@ -1,19 +1,17 @@
 import React from "react";
-import Header from "./components/Header";
 import SlideShow from "./components/SlideShow";
 import CourseList from "../common/CourseList";
-import CourseCard from "../common/components/CourseCard";
 import InfiniteScroll from "./components/InfiniteScroll";
+import Testimonial from "./components/Testimonial";
 
 const Home = () => {
   return (
     <>
-      <Header />
       <SlideShow />
       <div className="container-paddingX">
         <p
           style={{
-            margin: "30px 0 -30px 0",
+            margin: "40px 0 -30px 0",
             textAlign: "center",
             fontSize: "2rem",
           }}
@@ -23,7 +21,7 @@ const Home = () => {
         <CourseList />
         <p
           style={{
-            margin: "30px 0 -30px 0",
+            margin: "40px 0 -30px 0",
             textAlign: "center",
             fontSize: "2rem",
           }}
@@ -35,7 +33,7 @@ const Home = () => {
       </div>
       <p
         style={{
-          margin: "30px 0 30px 0",
+          margin: "40px 0 30px 0",
           textAlign: "center",
           fontSize: "2rem",
         }}
@@ -43,6 +41,18 @@ const Home = () => {
         Tích hợp với các công cụ yêu thích của bạn để học dễ dàng
       </p>
       <InfiniteScroll />
+      <p
+        style={{
+          margin: "10px 0 30px 0",
+          textAlign: "center",
+          fontSize: "2rem",
+        }}
+      >
+        Những học viên đã học hỏi được điều gì ?
+      </p>
+      <div className="container-paddingX">
+        <Testimonial />
+      </div>
     </>
   );
 };

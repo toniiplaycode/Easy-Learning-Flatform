@@ -1,87 +1,136 @@
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { IoMenu } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
-const Drawer = () => {
+const Drawer = ({ isLogged }) => {
+  const [show, setShow] = useState(false); // Manage Offcanvas visibility
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
-      {[false].map((expand) => (
-        <Navbar key={expand} expand={expand}>
-          <Container fluid>
-            <Navbar.Toggle
-              aria-controls={`offcanvasNavbar-expand-${expand}`}
-              className="custom-navbar-toggle"
-            >
-              <IoMenu size={30} color="black" />
-            </Navbar.Toggle>
-            <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="start"
-              className="custom-offcanvas"
-            >
-              <Offcanvas.Header closeButton />
-              <Offcanvas.Body>
-                <Nav className="flex-column">
-                  <Nav.Link href="#login" className="custom-nav-link">
-                    Đăng nhập
-                  </Nav.Link>
-                  <Nav.Link href="#signup" className="custom-nav-link">
-                    Đăng ký
-                  </Nav.Link>
+      <Navbar expand={false}>
+        <Container fluid>
+          <Navbar.Toggle
+            aria-controls="offcanvasNavbar"
+            className="custom-navbar-toggle"
+            onClick={handleShow} // Show Offcanvas on toggle click
+          >
+            <IoMenu size={30} color="black" />
+          </Navbar.Toggle>
 
-                  <hr />
+          <Navbar.Offcanvas
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+            placement="start"
+            show={show} // Control Offcanvas visibility with state
+            onHide={handleClose} // Close Offcanvas when clicked outside
+            className="custom-offcanvas"
+          >
+            <Offcanvas.Header closeButton onClick={handleClose} />
+            <Offcanvas.Body>
+              <Nav className="flex-column">
+                {isLogged ? (
+                  <>
+                    <div className="drawer-profile">
+                      <img src="imgs/profile.png" />
+                      <Link
+                        to="/profile"
+                        className="custom-nav-link mb-2"
+                        onClick={handleClose} // Đóng Offcanvas khi nhấn vào liên kết
+                      >
+                        Le Thanh Toan
+                      </Link>
+                    </div>
+                    <Link
+                      to="/instructor"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Chuyển sang giảng viên
+                    </Link>
+                    <Link
+                      to="/logout"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Đăng xuất
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      to="/login"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Đăng nhập
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Đăng ký
+                    </Link>
+                  </>
+                )}
 
-                  <Nav.Link href="#popular" className="fw-bold">
-                    Phổ biến nhất
-                  </Nav.Link>
-                  <Nav.Link href="#web-dev">Phát triển web</Nav.Link>
-                  <Nav.Link href="#mobile-apps">
-                    Phát triển ứng dụng di động
-                  </Nav.Link>
-                  <Nav.Link href="#gaming">Phát triển trò chơi</Nav.Link>
-                  <Nav.Link href="#entrepreneurship">
-                    Tinh thần khởi nghiệp
-                  </Nav.Link>
-                  <Nav.Link href="#data-analysis">
-                    BI và phân tích dữ liệu kinh doanh
-                  </Nav.Link>
-                  <Nav.Link href="#finance">Tài chính</Nav.Link>
-                  <Nav.Link href="#certifications">Chứng chỉ CNTT</Nav.Link>
-                  <Nav.Link href="#self-development">
-                    Chuyển hóa bản thân
-                  </Nav.Link>
-                  <Nav.Link href="#design">Thiết kế & Minh họa đồ họa</Nav.Link>
-                  <Nav.Link href="#digital-marketing">
-                    Marketing kỹ thuật số
-                  </Nav.Link>
-                  <Nav.Link href="#all-categories">Tất cả thể loại</Nav.Link>
+                <hr />
 
-                  <hr />
+                <Link to="#popular" className="fw-bold mb-2">
+                  Phổ biến nhất
+                </Link>
+                <Link to="#web-dev" className="mb-2">
+                  Phát triển web
+                </Link>
+                <Link to="#mobile-apps" className="mb-2">
+                  Phát triển ứng dụng di động
+                </Link>
+                <Link to="#gaming" className="mb-2">
+                  Phát triển trò chơi
+                </Link>
+                <Link to="#entrepreneurship" className="mb-2">
+                  Tinh thần khởi nghiệp
+                </Link>
+                <Link to="#data-analysis" className="mb-2">
+                  BI và phân tích dữ liệu kinh doanh
+                </Link>
+                <Link to="#finance" className="mb-2">
+                  Tài chính
+                </Link>
+                <Link to="#certifications" className="mb-2">
+                  Chứng chỉ CNTT
+                </Link>
+                <Link to="#self-development" className="mb-2">
+                  Chuyển hóa bản thân
+                </Link>
+                <Link to="#design" className="mb-2">
+                  Thiết kế & Minh họa đồ họa
+                </Link>
+                <Link to="#digital-marketing" className="mb-2">
+                  Marketing kỹ thuật số
+                </Link>
+                <Link to="#all-categories" className="mb-2">
+                  Tất cả thể loại
+                </Link>
 
-                  {/* <Nav.Link href="#udemy-business" className="fw-bold">
-                    Thể loại khác trên Udemy
-                  </Nav.Link>
-                  <Nav.Link href="#udemy-business">Udemy Business</Nav.Link>
-                  <Nav.Link href="#app-download">Tải ứng dụng</Nav.Link>
-                  <Nav.Link href="#invite-friends">Mời bạn bè</Nav.Link>
-                  <Nav.Link href="#help-support">Trợ giúp và Hỗ trợ</Nav.Link>
+                <hr />
 
-                  <hr /> */}
-
-                  <Button variant="outline-secondary" className="w-100 mt-2">
-                    🌐 Tiếng Việt
-                  </Button>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      ))}
+                <Button variant="outline-secondary" className="w-100 mt-2">
+                  🌐 Tiếng Việt
+                </Button>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
     </>
   );
 };
