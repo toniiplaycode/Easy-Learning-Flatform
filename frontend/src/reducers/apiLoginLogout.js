@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { url } from "../utils/common";
 
 const initialState = {
@@ -8,10 +7,9 @@ const initialState = {
     localStorage.getItem("token") != undefined
       ? localStorage.getItem("token")
       : "",
-  idRoleUser: {},
   inforUser:
     localStorage.getItem("inforUser") != undefined
-      ? localStorage.getItem("token")
+      ? JSON.parse(localStorage.getItem("inforUser"))
       : {},
   statusPostLogin: "idle",
   statusFetchLogin: "idle",
@@ -31,15 +29,12 @@ export const fetchInforUser = createAsyncThunk(
   "apiLoginLogout/fetchInforUser",
   async (id, thunkAPI) => {
     const token = thunkAPI.getState().apiLoginLogout.token;
-    const res = await axios.get(
-      `https://website-booking-ticket-movie-render.onrender.com/api/user/getDetailUser?id=${id}`,
-      {
-        headers: {
-          token: `${token}`,
-        },
-      }
-    );
-    return res.data.data[0];
+    const res = await axios.get(`${url}/api/user/detailUser?id=${id}`, {
+      headers: {
+        token: `${token}`,
+      },
+    });
+    return res.data;
   }
 );
 
@@ -49,7 +44,7 @@ const apiLoginLogout = createSlice({
   reducers: {
     handleLogout(state, action) {
       state.statusLogout = "logout";
-      state.idRoleUser = {};
+      state.statusPostLogin = "idle";
       state.inforUser = {};
       state.token = "";
       localStorage.removeItem("token");
@@ -62,35 +57,37 @@ const apiLoginLogout = createSlice({
         state.statusPostLogin = "loading";
       })
       .addCase(postLogin.fulfilled, (state, action) => {
-        if (action.payload.status == "OK") {
+        if (action.payload.message == "OK") {
           state.statusPostLogin = "succeeded";
-          state.idRoleUser = jwtDecode(action.payload.access_token);
-          state.token = action.payload.access_token;
-          localStorage.setItem("token", action.payload.access_token);
+          state.token = action.payload.token;
+          state.inforUser = action.payload.user;
+          localStorage.setItem("token", action.payload.token);
+          localStorage.setItem(
+            "inforUser",
+            JSON.stringify(action.payload.user)
+          );
           state.statusLogout = "logged";
-        }
-        if (action.payload.status == "ERR") {
-          state.statusPostLogin = "login failed";
         }
       })
       .addCase(postLogin.rejected, (state, action) => {
         state.statusPostLogin = "failed";
-        state.error = action.error.message;
       })
+
       .addCase(fetchInforUser.pending, (state) => {
         state.statusFetchLogin = "loading";
       })
       .addCase(fetchInforUser.fulfilled, (state, action) => {
         state.statusFetchLogin = "succeeded";
-        if (action.payload) {
-          // Kiểm tra xem action.payload có giá trị không
-          state.inforUser = action.payload;
-          localStorage.setItem("inforUser", JSON.stringify(action.payload));
+        if (action.payload.user) {
+          state.inforUser = action.payload.user;
+          localStorage.setItem(
+            "inforUser",
+            JSON.stringify(action.payload.user)
+          );
         }
       })
       .addCase(fetchInforUser.rejected, (state, action) => {
         state.statusFetchLogin = "failed";
-        state.error = action.error.message;
       });
   },
 });

@@ -11,9 +11,11 @@ import HoverCart from "./HoverCart";
 import HoverNotify from "./HoverNotify";
 import HoverProfile from "./HoverProfile";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const HeaderPC = ({ isLogged }) => {
+const HeaderPC = () => {
   const navigate = useNavigate();
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
   return (
     <div className="header-pc">
@@ -31,10 +33,13 @@ const HeaderPC = ({ isLogged }) => {
             <IoSearchOutline size={22} />
           </span>
         </div>
-        {isLogged ? (
+        {Object.keys(inforUser).length > 0 ? (
           <>
             <div className="header-hover">Giảng viên</div>
-            <div className="header-hover">
+            <div
+              className="header-hover"
+              onClick={() => navigate("/mycourses")}
+            >
               Học tập
               <HoverCourse right={true} />
             </div>
@@ -52,7 +57,10 @@ const HeaderPC = ({ isLogged }) => {
             </div>
             <div className="header_your-profile">
               <div className="header-hover">
-                <img src="imgs/profile.png" />
+                <img
+                  src="imgs/profile.png"
+                  onClick={() => navigate("/profile")}
+                />
                 <HoverProfile right={true} />
               </div>
             </div>

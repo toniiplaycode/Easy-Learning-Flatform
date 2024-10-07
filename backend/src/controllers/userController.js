@@ -5,13 +5,14 @@ import { User } from "../models/models.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
+    const role = "student"; // mặc định khi mới đăng ký tk là student
 
     // Kiểm tra xem email đã tồn tại hay chưa
     const existingUser = await User.findOne({ where: { email } });
 
     if (existingUser) {
-      return res.status(400).json({ error: "Email đã được sử dụng" });
+      return res.status(200).json({ message: "email already exist" });
     }
 
     // Mã hóa mật khẩu
@@ -55,17 +56,13 @@ export const loginUser = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res
-        .status(401)
-        .json({ error: "Email hoặc mật khẩu không chính xác" });
+      return res.status(401).json({ message: "ERROR" });
     }
 
     // So sánh mật khẩu
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res
-        .status(401)
-        .json({ error: "Email hoặc mật khẩu không chính xác" });
+      return res.status(401).json({ message: "ERROR" });
     }
 
     // Tạo JWT token
@@ -90,6 +87,7 @@ export const loginUser = async (req, res) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
+        bio: user.bio,
       },
       token,
     });

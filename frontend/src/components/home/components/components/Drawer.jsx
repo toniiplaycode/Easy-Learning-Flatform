@@ -1,3 +1,5 @@
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -5,13 +7,19 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { IoMenu } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { handleLogout } from "../../../../reducers/apiLoginLogout";
 
-const Drawer = ({ isLogged }) => {
+const Drawer = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false); // Manage Offcanvas visibility
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
   return (
     <>
@@ -36,14 +44,23 @@ const Drawer = ({ isLogged }) => {
             <Offcanvas.Header closeButton onClick={handleClose} />
             <Offcanvas.Body>
               <Nav className="flex-column">
-                {isLogged ? (
+                {Object.keys(inforUser).length > 0 ? (
                   <>
                     <div className="drawer-profile">
-                      <img src="imgs/profile.png" />
+                      <img
+                        src="imgs/profile.png"
+                        onClick={() => {
+                          handleClose();
+                          navigate("/profile");
+                        }}
+                      />
                       <Link
                         to="/profile"
                         className="custom-nav-link mb-2"
-                        onClick={handleClose} // Đóng Offcanvas khi nhấn vào liên kết
+                        onClick={() => {
+                          handleClose();
+                          navigate("/profile");
+                        }}
                       >
                         Le Thanh Toan
                       </Link>
@@ -56,9 +73,32 @@ const Drawer = ({ isLogged }) => {
                       Chuyển sang giảng viên
                     </Link>
                     <Link
-                      to="/logout"
+                      to="/mycourses"
                       className="custom-nav-link mb-2"
                       onClick={handleClose}
+                    >
+                      Học tập
+                    </Link>
+                    <Link
+                      to="/instructor"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Mong muốn
+                    </Link>
+                    <Link
+                      to="/instructor"
+                      className="custom-nav-link mb-2"
+                      onClick={handleClose}
+                    >
+                      Giỏ hàng
+                    </Link>
+                    <Link
+                      className="custom-nav-link mb-2"
+                      onClick={() => {
+                        handleClose();
+                        dispatch(handleLogout());
+                      }}
                     >
                       Đăng xuất
                     </Link>
@@ -87,37 +127,55 @@ const Drawer = ({ isLogged }) => {
                 <Link to="#popular" className="fw-bold mb-2">
                   Phổ biến nhất
                 </Link>
-                <Link to="#web-dev" className="mb-2">
-                  Phát triển web
+                <Link to="#web-dev" className="caterogy-drawer-mobile mb-2">
+                  Phát triển web <FontAwesomeIcon icon={faAngleRight} />
                 </Link>
-                <Link to="#mobile-apps" className="mb-2">
+                <Link to="#mobile-apps" className="caterogy-drawer-mobile mb-2">
                   Phát triển ứng dụng di động
                 </Link>
-                <Link to="#gaming" className="mb-2">
+                <Link to="#gaming" className="caterogy-drawer-mobile mb-2">
                   Phát triển trò chơi
                 </Link>
-                <Link to="#entrepreneurship" className="mb-2">
+                <Link
+                  to="#entrepreneurship"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   Tinh thần khởi nghiệp
                 </Link>
-                <Link to="#data-analysis" className="mb-2">
+                <Link
+                  to="#data-analysis"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   BI và phân tích dữ liệu kinh doanh
                 </Link>
-                <Link to="#finance" className="mb-2">
+                <Link to="#finance" className="caterogy-drawer-mobile mb-2">
                   Tài chính
                 </Link>
-                <Link to="#certifications" className="mb-2">
+                <Link
+                  to="#certifications"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   Chứng chỉ CNTT
                 </Link>
-                <Link to="#self-development" className="mb-2">
+                <Link
+                  to="#self-development"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   Chuyển hóa bản thân
                 </Link>
-                <Link to="#design" className="mb-2">
+                <Link to="#design" className="caterogy-drawer-mobile mb-2">
                   Thiết kế & Minh họa đồ họa
                 </Link>
-                <Link to="#digital-marketing" className="mb-2">
+                <Link
+                  to="#digital-marketing"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   Marketing kỹ thuật số
                 </Link>
-                <Link to="#all-categories" className="mb-2">
+                <Link
+                  to="#all-categories"
+                  className="caterogy-drawer-mobile mb-2"
+                >
                   Tất cả thể loại
                 </Link>
 

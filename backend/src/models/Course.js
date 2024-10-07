@@ -36,6 +36,10 @@ const Course = sequelize.define(
     language: {
       type: DataTypes.STRING,
     },
+    img: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

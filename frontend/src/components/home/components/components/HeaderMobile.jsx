@@ -5,14 +5,14 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import Drawer from "./Drawer";
 import { useNavigate } from "react-router-dom";
 
-const HeaderMobile = ({ isLogged }) => {
+const HeaderMobile = () => {
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false);
 
   return (
     <div className="header-mobile">
       <div class="menu-icon">
-        <Drawer isLogged={isLogged} />
+        <Drawer />
       </div>
 
       {isSearch ? (

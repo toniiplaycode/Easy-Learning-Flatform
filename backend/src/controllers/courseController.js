@@ -9,6 +9,7 @@ export const addCourse = async (req, res) => {
     price,
     level,
     language,
+    img,
   } = req.body;
 
   // Kiểm tra xem các trường cần thiết có tồn tại không
@@ -27,6 +28,7 @@ export const addCourse = async (req, res) => {
       price,
       level,
       language,
+      img,
     });
 
     res.status(201).json({ message: "OK", newCourse });
@@ -101,7 +103,7 @@ export const detailCourse = async (req, res) => {
 };
 
 export const updateCourse = async (req, res) => {
-  const { id, title, description, category_id, price, level, language } =
+  const { id, title, description, category_id, price, level, language, img } =
     req.body;
 
   try {
@@ -117,6 +119,7 @@ export const updateCourse = async (req, res) => {
     course.price = price || course.price;
     course.level = level || course.level;
     course.language = language || course.language;
+    course.img = img || course.img;
 
     await course.save(); // Lưu các thay đổi
 

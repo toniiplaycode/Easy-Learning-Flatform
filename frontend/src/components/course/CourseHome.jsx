@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { TiTickOutline } from "react-icons/ti";
+import { AiFillStar } from "react-icons/ai"; // Import star icon
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
 
 const CourseHome = () => {
   const [expandedSections, setExpandedSections] = useState({});
@@ -22,10 +26,34 @@ const CourseHome = () => {
             các videos tại khoá này trước nhé.
           </p>
           <ul>
-            <li>Các kiến thức cơ bản, nền móng của ngành IT</li>
-            <li>Các khái niệm, thuật ngữ cốt lõi khi triển khai ứng dụng</li>
-            <li>Các mô hình, kiến trúc cơ bản khi triển khai ứng dụng</li>
-            <li>Hiểu hơn về cách internet và máy vi tính hoạt động</li>
+            <li>
+              <TiTickOutline
+                size={22}
+                style={{ display: "inline-block", color: "#5022c3" }}
+              />
+              Các kiến thức cơ bản, nền móng của ngành IT
+            </li>
+            <li>
+              <TiTickOutline
+                size={22}
+                style={{ display: "inline-block", color: "#5022c3" }}
+              />
+              Các khái niệm, thuật ngữ cốt lõi khi triển khai ứng dụng
+            </li>
+            <li>
+              <TiTickOutline
+                size={22}
+                style={{ display: "inline-block", color: "#5022c3" }}
+              />
+              Các mô hình, kiến trúc cơ bản khi triển khai ứng dụng
+            </li>
+            <li>
+              <TiTickOutline
+                size={22}
+                style={{ display: "inline-block", color: "#5022c3" }}
+              />
+              Hiểu hơn về cách internet và máy vi tính hoạt động
+            </li>
           </ul>
         </div>
 
@@ -50,8 +78,37 @@ const CourseHome = () => {
         </div>
       </div>
 
+      {/* Add the new course rating section here */}
+      <div className="course-details">
+        <div className="course-rating-container">
+          <p className="highlight-label">Bán chạy nhất</p>
+          <div className="course-rating">
+            <p>
+              4.6{" "}
+              <AiFillStar
+                size={18}
+                color="#ffa41b"
+                style={{ display: "inline-block" }}
+              />
+            </p>
+            <p>1.528 học viên</p>
+          </div>
+          <p>(303 xếp hạng)</p>
+        </div>
+        <p>
+          Được tạo bởi <a href="#">Nguyen Duc Hoang</a>
+        </p>
+        <p>
+          <span>Lần cập nhật gần đây nhất 2/2024 </span>
+          <span>
+            <FontAwesomeIcon icon={faEarthAmericas} /> Vietnamese
+          </span>
+        </p>
+      </div>
+
+      {/* Section: Nội dung khóa học */}
       <div className="course-content">
-        <h2>Nội dung khóa học</h2>
+        <h1>Nội dung khóa học</h1>
         <p>4 chương - 12 bài học - Thời lượng 03 giờ 26 phút</p>
 
         {/* Section 1 */}
@@ -62,9 +119,18 @@ const CourseHome = () => {
           </h3>
           {expandedSections["section1"] && (
             <ul>
-              <li>Mô hình Client - Server là gì?</li>
-              <li>Domain là gì? Tên miền là gì?</li>
-              <li>Mua áo F8 | Đăng ký học Offline</li>
+              <li>
+                <FontAwesomeIcon icon={faCirclePlay} /> Mô hình Client - Server
+                là gì?
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faCirclePlay} /> Domain là gì? Tên miền
+                là gì?
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faCirclePlay} /> Mua áo F8 | Đăng ký học
+                Offline
+              </li>
             </ul>
           )}
         </div>
