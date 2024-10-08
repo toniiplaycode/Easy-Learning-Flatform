@@ -13,6 +13,7 @@ const UserProfile = () => {
     if (Object.keys(inforUser).length == 0) navigate("/");
   }, [inforUser]);
 
+  const [isDisable, setisDisable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(inforUser.name || "");
   const [password, setPassword] = useState("");
@@ -64,7 +65,10 @@ const UserProfile = () => {
                 className="form-control"
                 value={name}
                 placeholder="Tên của bạn"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setisDisable(false);
+                  setName(e.target.value);
+                }}
               />
             </div>
 
@@ -76,7 +80,10 @@ const UserProfile = () => {
                 type="password"
                 className="form-control"
                 placeholder="Mật khẩu của bạn"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setisDisable(false);
+                  setPassword(e.target.value);
+                }}
               />
             </div>
 
@@ -89,7 +96,10 @@ const UserProfile = () => {
                 className="form-control pb-5"
                 value={bio}
                 placeholder="Giáo viên dạy toán, giảng viên CNTT,..."
-                onChange={(e) => setBio(e.target.value)}
+                onChange={(e) => {
+                  setisDisable(false);
+                  setBio(e.target.value);
+                }}
               />
             </div>
 
@@ -99,8 +109,11 @@ const UserProfile = () => {
                 className="btn btn-primary w-100"
                 loadingText="Đang cập nhật"
                 colorScheme="#007bff"
+                disabled={isDisable}
                 onClick={() => {
-                  dispath(putUpdateUser({ id: inforUser.id, name }));
+                  dispath(
+                    putUpdateUser({ id: inforUser.id, name, password, bio })
+                  );
                 }}
               >
                 Cập nhật

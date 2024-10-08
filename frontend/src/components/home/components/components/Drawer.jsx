@@ -87,13 +87,6 @@ const Drawer = () => {
                       Mong muốn
                     </Link>
                     <Link
-                      to="/instructor"
-                      className="custom-nav-link mb-2"
-                      onClick={handleClose}
-                    >
-                      Giỏ hàng
-                    </Link>
-                    <Link
                       className="custom-nav-link mb-2"
                       onClick={() => {
                         handleClose();

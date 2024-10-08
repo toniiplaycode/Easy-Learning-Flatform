@@ -147,9 +147,9 @@ export const updateUser = async (req, res) => {
       return res.status(404).json({ error: "Không tìm thấy người dùng !" });
     }
 
-    // Cập nhật thông tin
-    if (name) user.name = name;
-    if (user.dataValues.email) user.email = user.dataValues.email;
+    user.name = name || user.name;
+    user.bio = bio || user.bio;
+    user.avatar = avatar || user.avatar;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);

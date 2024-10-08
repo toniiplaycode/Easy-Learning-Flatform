@@ -31,7 +31,7 @@ export const fetchInforUser = createAsyncThunk(
     const token = thunkAPI.getState().apiLoginLogout.token;
     const res = await axios.get(`${url}/api/user/detailUser?id=${id}`, {
       headers: {
-        token: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return res.data;

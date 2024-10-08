@@ -14,7 +14,7 @@ export const putUpdateUser = createAsyncThunk(
     const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
     const res = await axios.put(`${url}/api/user/updateUser`, obj, {
       headers: {
-        token: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     thunkAPI.dispatch(fetchInforUser(obj.id)); // post xong tự động fetch lại

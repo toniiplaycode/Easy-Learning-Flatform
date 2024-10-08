@@ -10,6 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import MyCourse from "./components/mycourses/MyCourse";
 import UserProfile from "./components/profile/UserProfile";
+import SearchPage from "./components/common/SearchPage";
+import CoursePage from "./components/course/CoursePage";
 
 function App() {
   return (
@@ -33,8 +35,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/courses" element={<CourseHome />} />
-        <Route path="/mycourses" element={<MyCourse />} />
+        <Route path="/course-home" element={<CourseHome />} />
+        <Route path="/course-page" element={<CoursePage />} />
+        <Route path="/my-courses" element={<MyCourse />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
       <Footer />

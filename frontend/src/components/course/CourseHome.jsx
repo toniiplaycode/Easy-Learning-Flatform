@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { TiTickOutline } from "react-icons/ti";
-import { AiFillStar } from "react-icons/ai"; // Import star icon
+import { AiFillStar } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ const CourseHome = () => {
   };
 
   return (
-    <div className="course-page">
+    <div className="course-home">
       <div className="course-header">
         <div className="course-title">
           <h1>Kiến Thức Nhập Môn IT</h1>
@@ -58,8 +58,15 @@ const CourseHome = () => {
         </div>
 
         <div className="course-video">
-          <div className="video-thumbnail">
-            <img src="imgs/logo.png" alt="Course Introduction" />
+          <div className="video-thumbnail" style={{ position: "relative" }}>
+            <img src="imgs/bannerProfile.png" alt="Course Introduction" />
+            <div className="video-thumbnail-opacity">
+              <FontAwesomeIcon
+                className="icon-play"
+                icon={faCirclePlay}
+                size="5x"
+              />
+            </div>
           </div>
           <div className="course-info">
             <h3>Miễn phí</h3>

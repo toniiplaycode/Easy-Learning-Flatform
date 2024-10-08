@@ -2,13 +2,11 @@ import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
-import { PiBellRinging } from "react-icons/pi";
 import { TbWorld } from "react-icons/tb";
 import HoverCategory from "./HoverCategory";
 import HoverCourse from "./HoverCourse";
 import HoverWishlist from "./HoverWishlist";
 import HoverCart from "./HoverCart";
-import HoverNotify from "./HoverNotify";
 import HoverProfile from "./HoverProfile";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -28,7 +26,11 @@ const HeaderPC = () => {
           <HoverCategory right={false} />
         </div>
         <div class="header_search">
-          <input type="text" placeholder="Tìm kiếm nội dung bất kỳ" />
+          <input
+            type="text"
+            placeholder="Tìm kiếm nội dung bất kỳ"
+            onChange={() => navigate("/search")}
+          />
           <span class="search-icon">
             <IoSearchOutline size={22} />
           </span>
@@ -50,10 +52,6 @@ const HeaderPC = () => {
             <div className="header-hover">
               <FiShoppingCart size={22} />
               <HoverCart right={true} />
-            </div>
-            <div className="header-hover">
-              <PiBellRinging size={22} />
-              <HoverNotify right={true} />
             </div>
             <div className="header_your-profile">
               <div className="header-hover">

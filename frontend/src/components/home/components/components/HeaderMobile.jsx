@@ -26,6 +26,7 @@ const HeaderMobile = () => {
             type="text"
             className="form-control headermobile-search"
             placeholder="Tìm kiếm..."
+            onChange={() => navigate("/search")}
           />
         </div>
       ) : (
