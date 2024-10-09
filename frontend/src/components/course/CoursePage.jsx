@@ -10,11 +10,11 @@ const CoursePage = () => {
   };
 
   return (
-    <div className="course-page">
+    <div className="course-page min-vh-100">
       <div className="course-page__left">
         <iframe
           width="100%"
-          height="400"
+          height="500"
           src="https://www.youtube.com/embed/SqcY0GlETPk" // Replace with your video ID
           title="Video Title"
           frameborder="0"
@@ -22,7 +22,7 @@ const CoursePage = () => {
           allowFullScreen
         ></iframe>
         <div className="course-page__content">
-          <h2>Cài đặt Windows Terminal</h2>
+          <h3>Cài đặt Windows Terminal</h3>
           <p>Cập nhật tháng 11 năm 2022</p>
           <p>
             Tham gia các cộng đồng để cùng học hỏi, chia sẻ và "thẩm thính" xem

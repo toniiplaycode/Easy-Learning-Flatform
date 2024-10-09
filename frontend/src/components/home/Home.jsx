@@ -3,8 +3,11 @@ import SlideShow from "./components/SlideShow";
 import CourseList from "../common/CourseList";
 import InfiniteScroll from "./components/InfiniteScroll";
 import Testimonial from "./components/Testimonial";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const courses = useSelector((state) => state.apiCourse.courses);
+
   return (
     <>
       <SlideShow />
@@ -18,7 +21,7 @@ const Home = () => {
         >
           Các khóa học phổ biến
         </p>
-        <CourseList />
+        <CourseList courses={courses} />
         <p
           style={{
             margin: "40px 0 -30px 0",
@@ -29,7 +32,7 @@ const Home = () => {
           <span>Các khóa học miễn phí</span>
         </p>
         {/* <p>Xem thêm</p> */}
-        <CourseList />
+        <CourseList courses={courses} />
       </div>
       <p
         style={{

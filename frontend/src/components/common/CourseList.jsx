@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import CourseCard from "./components/CourseCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-// Custom Arrow component for Previous button
 const PreviousArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -26,7 +25,6 @@ const PreviousArrow = (props) => {
   );
 };
 
-// Custom Arrow component for Next button
 const NextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -48,7 +46,9 @@ const NextArrow = (props) => {
   );
 };
 
-function CourseList() {
+const CourseList = ({ courses }) => {
+  console.log(courses);
+
   var settings = {
     dots: true,
     infinite: false,
@@ -87,65 +87,29 @@ function CourseList() {
   };
   return (
     <Slider {...settings}>
-      <CourseCard
-        imageSrc="imgs/profile.png"
-        title="Notion with Snow"
-        author="Snow Dang Tuyet"
-        rating="4,7"
-        reviews="283"
-        price="₫ 399.000"
-      />
-
-      <CourseCard
-        imageSrc="imgs/logo.png"
-        title="AWS Cloud for beginner (Vietnamese)"
-        author="Linh Nguyen"
-        rating="4,8"
-        reviews="718"
-        price="₫ 1.699.000"
-        popular={true}
-      />
-
-      <CourseCard
-        imageSrc="imgs/logo.png"
-        title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
-        author="Skill Sharing School, Le Phuong Thanh"
-        rating="4,7"
-        reviews="33"
-        price="₫ 749.000"
-        trending={true}
-      />
-
-      <CourseCard
-        imageSrc="imgs/logo.png"
-        title="Notion with Snow"
-        author="Snow Dang Tuyet"
-        rating="4,7"
-        reviews="283"
-        price="₫ 399.000"
-      />
-
-      <CourseCard
-        imageSrc="imgs/logo.png"
-        title="AWS Cloud for beginner (Vietnamese)"
-        author="Linh Nguyen"
-        rating="4,8"
-        reviews="718"
-        price="₫ 1.699.000"
-        popular={true}
-      />
-
-      <CourseCard
-        imageSrc="imgs/logo.png"
-        title="Canva 101 - Làm chủ kỹ năng thiết kế Canva cho người mới"
-        author="Skill Sharing School, Le Phuong Thanh"
-        rating="4,7"
-        reviews="33"
-        price="₫ 749.000"
-        trending={true}
-      />
+      {courses.map((item, index) => {
+        let avgRating = 0;
+        item.Reviews.map((review, idx) => {
+          avgRating += review.rating;
+        });
+        return (
+          <CourseCard
+            key={index}
+            imageSrc={item.img}
+            title={item.title}
+            author={item.User.name}
+            rating={
+              item.Reviews.length > 0
+                ? (avgRating / item.Reviews.length).toFixed(2)
+                : 0
+            }
+            reviews={item.Reviews.length}
+            price={item.price}
+          />
+        );
+      })}
     </Slider>
   );
-}
+};
 
 export default CourseList;

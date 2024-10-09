@@ -17,7 +17,7 @@ const CourseHome = () => {
   };
 
   return (
-    <div className="course-home">
+    <div className="course-home min-vh-100">
       <div className="course-header">
         <div className="course-title">
           <h1>Kiến Thức Nhập Môn IT</h1>

@@ -3,7 +3,7 @@ import SignupForm from "./components/auth/SignupForm";
 import Footer from "./components/home/components/Footer";
 import Header from "./components/home/components/Header";
 import Home from "./components/home/Home";
-import LoginForm from "./components/auth/loginForm";
+import LoginForm from "./components/LoginForm";
 import NotFound from "./components/NotFound";
 import CourseHome from "./components/course/CourseHome";
 import "react-toastify/dist/ReactToastify.css";

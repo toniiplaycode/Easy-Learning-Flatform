@@ -15,7 +15,7 @@ const CourseCard = ({ imageSrc, title, author, rating, reviews, price }) => {
           <span className="reviews">({reviews})</span>
         </div>
         <div className="course-price">
-          <strong>{price}</strong>
+          <strong>₫ {price}</strong>
         </div>
       </div>
     </div>

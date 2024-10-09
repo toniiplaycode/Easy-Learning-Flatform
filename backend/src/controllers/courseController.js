@@ -1,4 +1,5 @@
-import { Category, Course, User } from "../models/models.js";
+import { Sequelize } from "sequelize";
+import { Category, Course, Review, User } from "../models/models.js";
 
 export const addCourse = async (req, res) => {
   const {
@@ -48,6 +49,11 @@ export const getAllCourse = async (req, res) => {
         },
         {
           model: Category,
+        },
+        {
+          model: Review,
+          where: { course_id: Sequelize.col("Course.id") },
+          required: false,
         },
       ],
     });
