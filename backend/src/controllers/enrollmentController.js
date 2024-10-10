@@ -45,7 +45,12 @@ export const getEnrollmentEachUser = async (req, res) => {
       include: [
         {
           model: Course, // Liên kết với bảng Course
-          //   attributes: ["id", "title", "description"], // Lấy các trường cần thiết từ Course
+          include: [
+            {
+              model: User,
+              attributes: ["name", "email", "bio"],
+            },
+          ],
         },
       ],
     });

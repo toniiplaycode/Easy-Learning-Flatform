@@ -21,7 +21,7 @@ const Home = () => {
         >
           Các khóa học phổ biến
         </p>
-        <CourseList courses={courses} />
+        <CourseList courses={courses} category={"fee"} />
         <p
           style={{
             margin: "40px 0 -30px 0",
@@ -32,7 +32,7 @@ const Home = () => {
           <span>Các khóa học miễn phí</span>
         </p>
         {/* <p>Xem thêm</p> */}
-        <CourseList courses={courses} />
+        <CourseList courses={courses} category={"free"} />
       </div>
       <p
         style={{

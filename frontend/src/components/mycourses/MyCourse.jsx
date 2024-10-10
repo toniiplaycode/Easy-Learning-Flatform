@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ProgressBar from "../common/ProgressBar";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchEnrollmentEachUser } from "../../reducers/apiEnrollment";
 
 const MyCourse = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1); // Default active tab
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName); // Set the active tab based on click
   };
+
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
+  useEffect(() => {
+    dispatch(fetchEnrollmentEachUser(inforUser.id));
+  }, [inforUser.id]);
+
+  let enrollmentEachUser = useSelector(
+    (state) => state.apiEnrollment.enrollmentEachUser
+  );
 
   return (
     <div className="mycourse min-vh-100">
@@ -40,97 +56,26 @@ const MyCourse = () => {
         </ul>
       </nav>
 
-      {/* Course Cards Section */}
       <section className="mycourse__content">
-        {/* Course 1 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Web Design for Web Developers: Build Beautiful Websites
-            </h3>
-            <p className="mycourse__card-author">Jonas Schmedtmann</p>
-            <div className="mycourse__progress-bar">
-              <div
-                className="mycourse__progress"
-                style={{ width: "14%" }}
-              ></div>
+        {enrollmentEachUser?.map((enroll) => (
+          <div
+            className="mycourse__card"
+            onClick={() => navigate(`/course-home?id=${enroll.Course.id}`)}
+          >
+            <img src={enroll.Course.img} className="mycourse__card-img" />
+            <div className="mycourse__card-info">
+              <h3 className="mycourse__card-title">{enroll.Course.title}</h3>
+              <p className="mycourse__card-author">{enroll.Course.User.name}</p>
+              <div className="mycourse__progress-bar">
+                <div
+                  className="mycourse__progress"
+                  style={{ width: "14%" }}
+                ></div>
+              </div>
+              <ProgressBar completedLessons={2} totalLessons={4} />
             </div>
-            <p className="mycourse__progress-text">Hoàn thành 14%</p>
           </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
-
-        {/* Course 2 */}
-        <div className="mycourse__card">
-          <img src="imgs/logo.png" className="mycourse__card-img" />
-          <div className="mycourse__card-info">
-            <h3 className="mycourse__card-title">
-              Cách tạo một khóa học Udemy (Có phụ đề)
-            </h3>
-            <p className="mycourse__card-author">Udemy Instructor Team</p>
-            <p className="mycourse__progress-text">BẮT ĐẦU KHÓA HỌC</p>
-          </div>
-        </div>
+        ))}
       </section>
     </div>
   );

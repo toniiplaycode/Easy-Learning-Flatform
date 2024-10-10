@@ -20,6 +20,7 @@ const Drawer = () => {
   const handleShow = () => setShow(true);
 
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+  const categories = useSelector((state) => state.apiCategory.categories);
 
   return (
     <>
@@ -59,7 +60,6 @@ const Drawer = () => {
                         className="custom-nav-link mb-2"
                         onClick={() => {
                           handleClose();
-                          navigate("/profile");
                         }}
                       >
                         Le Thanh Toan
@@ -73,9 +73,11 @@ const Drawer = () => {
                       Chuyển sang giảng viên
                     </Link>
                     <Link
-                      to="/mycourses"
+                      to={`/my-courses`}
                       className="custom-nav-link mb-2"
-                      onClick={handleClose}
+                      onClick={() => {
+                        handleClose();
+                      }}
                     >
                       Học tập
                     </Link>
@@ -120,56 +122,18 @@ const Drawer = () => {
                 <Link to="#popular" className="fw-bold mb-2">
                   Phổ biến nhất
                 </Link>
-                <Link to="#web-dev" className="caterogy-drawer-mobile mb-2">
-                  Phát triển web <FontAwesomeIcon icon={faAngleRight} />
-                </Link>
-                <Link to="#mobile-apps" className="caterogy-drawer-mobile mb-2">
-                  Phát triển ứng dụng di động
-                </Link>
-                <Link to="#gaming" className="caterogy-drawer-mobile mb-2">
-                  Phát triển trò chơi
-                </Link>
-                <Link
-                  to="#entrepreneurship"
-                  className="caterogy-drawer-mobile mb-2"
-                >
-                  Tinh thần khởi nghiệp
-                </Link>
-                <Link
-                  to="#data-analysis"
-                  className="caterogy-drawer-mobile mb-2"
-                >
-                  BI và phân tích dữ liệu kinh doanh
-                </Link>
-                <Link to="#finance" className="caterogy-drawer-mobile mb-2">
-                  Tài chính
-                </Link>
-                <Link
-                  to="#certifications"
-                  className="caterogy-drawer-mobile mb-2"
-                >
-                  Chứng chỉ CNTT
-                </Link>
-                <Link
-                  to="#self-development"
-                  className="caterogy-drawer-mobile mb-2"
-                >
-                  Chuyển hóa bản thân
-                </Link>
-                <Link to="#design" className="caterogy-drawer-mobile mb-2">
-                  Thiết kế & Minh họa đồ họa
-                </Link>
-                <Link
-                  to="#digital-marketing"
-                  className="caterogy-drawer-mobile mb-2"
-                >
-                  Marketing kỹ thuật số
-                </Link>
+
+                {categories?.map((item, index) => (
+                  <Link to="#web-dev" className="caterogy-drawer-mobile mb-2">
+                    {item.name} <FontAwesomeIcon icon={faAngleRight} />
+                  </Link>
+                ))}
+
                 <Link
                   to="#all-categories"
                   className="caterogy-drawer-mobile mb-2"
                 >
-                  Tất cả thể loại
+                  Tất cả thể loại <FontAwesomeIcon icon={faAngleRight} />
                 </Link>
 
                 <hr />

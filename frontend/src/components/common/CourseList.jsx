@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import CourseCard from "./components/CourseCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { IoFastFood } from "react-icons/io5";
 
 const PreviousArrow = (props) => {
   const { className, style, onClick } = props;
@@ -46,9 +47,7 @@ const NextArrow = (props) => {
   );
 };
 
-const CourseList = ({ courses }) => {
-  console.log(courses);
-
+const CourseList = ({ courses, category }) => {
   var settings = {
     dots: true,
     infinite: false,
@@ -59,6 +58,14 @@ const CourseList = ({ courses }) => {
     prevArrow: <PreviousArrow />, // Custom Prev Arrow
     nextArrow: <NextArrow />, // Custom Next Arrow
     responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          dots: true,
+        },
+      },
       {
         breakpoint: 1024,
         settings: {
@@ -92,21 +99,41 @@ const CourseList = ({ courses }) => {
         item.Reviews.map((review, idx) => {
           avgRating += review.rating;
         });
-        return (
-          <CourseCard
-            key={index}
-            imageSrc={item.img}
-            title={item.title}
-            author={item.User.name}
-            rating={
-              item.Reviews.length > 0
-                ? (avgRating / item.Reviews.length).toFixed(2)
-                : 0
-            }
-            reviews={item.Reviews.length}
-            price={item.price}
-          />
-        );
+        if (category == "fee" && item.price > 0) {
+          return (
+            <CourseCard
+              key={index}
+              id={item.id}
+              imageSrc={item.img}
+              title={item.title}
+              author={item.User.name}
+              rating={
+                item.Reviews.length > 0
+                  ? (avgRating / item.Reviews.length).toFixed(2)
+                  : 0
+              }
+              reviews={item.Reviews.length}
+              price={item.price}
+            />
+          );
+        } else if (category == "free" && item.price == 0) {
+          return (
+            <CourseCard
+              key={index}
+              id={item.id}
+              imageSrc={item.img}
+              title={item.title}
+              author={item.User.name}
+              rating={
+                item.Reviews.length > 0
+                  ? (avgRating / item.Reviews.length).toFixed(2)
+                  : 0
+              }
+              reviews={item.Reviews.length}
+              price={item.price}
+            />
+          );
+        }
       })}
     </Slider>
   );

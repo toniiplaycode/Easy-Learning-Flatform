@@ -3,12 +3,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { putUpdateUser } from "../../reducers/apiUpdateUser";
+import { fetchEnrollmentEachUser } from "../../reducers/apiEnrollment";
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
+  useEffect(() => {
+    dispatch(fetchEnrollmentEachUser(inforUser.id));
+  }, [inforUser.id]);
+
+  let enrollmentEachUser = useSelector(
+    (state) => state.apiEnrollment.enrollmentEachUser
+  );
+
   useEffect(() => {
     if (Object.keys(inforUser).length == 0) navigate("/");
   }, [inforUser]);
@@ -20,7 +30,7 @@ const UserProfile = () => {
   const [bio, setBio] = useState(inforUser.bio || "");
 
   return (
-    <div className="profile-page">
+    <div className="profile-page min-vh-100">
       <div className="profile-header">
         <img
           src="imgs/bannerProfile.png"
@@ -111,7 +121,7 @@ const UserProfile = () => {
                 colorScheme="#007bff"
                 disabled={isDisable}
                 onClick={() => {
-                  dispath(
+                  dispatch(
                     putUpdateUser({ id: inforUser.id, name, password, bio })
                   );
                 }}
@@ -124,50 +134,25 @@ const UserProfile = () => {
           <div className="profile-courses col-xl-8 col-12">
             <p className="profile-title">Các khóa học đã tham gia</p>
             <div className="courses-list">
-              <div className="course-item">
-                <img
-                  src="imgs/logo.png"
-                  alt="React Course"
-                  className="course-img"
-                />
-                <div className="course-info">
-                  <h3>Xây Dựng Website với ReactJS</h3>
-                  <p>
-                    Khóa học ReactJS từ cơ bản tới nâng cao, kết quả của khóa
-                    học này là bạn có thể làm hầu hết các dự án thường gặp với
-                    ReactJS.
-                  </p>
-                </div>
-              </div>
-              <div className="course-item">
-                <img
-                  src="imgs/logo.png"
-                  alt="NodeJS Course"
-                  className="course-img"
-                />
-                <div className="course-info">
-                  <h3>Node & ExpressJS</h3>
-                  <p>
-                    Học Back-end với Node & ExpressJS framework, hiểu các khái
-                    niệm khi làm Back-end và xây dựng RESTful API cho trang web.
-                  </p>
-                </div>
-              </div>
-              <div className="course-item">
-                <img
-                  src="imgs/logo.png"
-                  alt="Ubuntu Course"
-                  className="course-img"
-                />
-                <div className="course-info">
-                  <h3>Làm việc với Terminal & Ubuntu</h3>
-                  <p>
-                    Sở hữu một Terminal hiện đại, mạnh mẽ trong tầm tay và học
-                    cách làm việc với Ubuntu là một bước quan trọng để trở thành
-                    một Web Developer.
-                  </p>
-                </div>
-              </div>
+              {enrollmentEachUser &&
+                enrollmentEachUser?.map((enroll) => (
+                  <div
+                    className="course-item"
+                    onClick={() =>
+                      navigate(`/course-home?id=${enroll.Course.id}`)
+                    }
+                  >
+                    <img
+                      src={enroll.Course.img}
+                      alt="React Course"
+                      className="course-img"
+                    />
+                    <div className="course-info">
+                      <h3>{enroll.Course.title}</h3>
+                      <p>{enroll.Course.description}</p>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

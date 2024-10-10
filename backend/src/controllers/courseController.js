@@ -1,5 +1,12 @@
 import { Sequelize } from "sequelize";
-import { Category, Course, Review, User } from "../models/models.js";
+import {
+  Category,
+  Course,
+  Lecture,
+  Review,
+  Section,
+  User,
+} from "../models/models.js";
 
 export const addCourse = async (req, res) => {
   const {
@@ -93,6 +100,23 @@ export const detailCourse = async (req, res) => {
         },
         {
           model: Category,
+        },
+        {
+          model: Review,
+          where: { course_id: Sequelize.col("Course.id") },
+          required: false,
+        },
+        {
+          model: Section,
+          where: { course_id: Sequelize.col("Course.id") },
+          required: false,
+          include: [
+            {
+              model: Lecture,
+              where: { course_id: Sequelize.col("Course.id") },
+              required: false,
+            },
+          ],
         },
       ],
     });

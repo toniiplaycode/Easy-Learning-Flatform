@@ -40,7 +40,7 @@ const HeaderPC = () => {
             <div className="header-hover">Giảng viên</div>
             <div
               className="header-hover"
-              onClick={() => navigate("/my-courses")}
+              onClick={() => navigate(`/my-courses`)}
             >
               Học tập
               <HoverCourse right={true} />

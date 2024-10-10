@@ -17,6 +17,10 @@ const Lecture = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     video_url: {
       type: DataTypes.STRING,
       allowNull: false,

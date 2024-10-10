@@ -64,6 +64,14 @@ $color-star: #f39c12;
   }
 }
 
+.transition-common {
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+}
+
 //======SCROLLBAR=====//
 *::-webkit-scrollbar {
   width: 10px;
@@ -354,7 +362,7 @@ $color-star: #f39c12;
   font-family: "Rubik Italic", Arial, Helvetica, sans-serif;
 }
 
-//--------course popular---------
+//--------course card---------
 .slick-dots li {
   margin: 0 1px; /* Control spacing between the dots */
 }
@@ -364,23 +372,20 @@ $color-star: #f39c12;
 }
 
 .course-card {
+  cursor: pointer;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  height: 400px;
+  height: 350px;
   margin: 50px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: translateY(-10px);
-  }
+  @extend .transition-common;
 
   .course-image {
     img {
       width: 100%;
-      height: 200px;
-      object-fit: contain;
+      height: 160px;
+      object-fit: cover;
       border-radius: 5px 5px 0 0;
     }
   }
@@ -390,7 +395,7 @@ $color-star: #f39c12;
     height: 100%;
 
     .course-title {
-      height: 10%;
+      height: 12%;
       font-size: 1rem;
       font-weight: bold;
       margin: 10px 0;
@@ -455,16 +460,12 @@ $color-star: #f39c12;
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
-      transition: transform 0.3s ease-in-out;
+      @extend .transition-common;
 
       img {
         max-width: 100px;
         max-height: 50px;
         object-fit: contain;
-      }
-
-      &:hover {
-        transform: translateY(-10px); // Slight hover effect
       }
     }
   }
@@ -563,12 +564,9 @@ $color-star: #f39c12;
     .course-title {
       width: 60%;
       h1 {
+        margin-top: 20px;
         font-size: 2rem;
         font-weight: bold;
-      }
-      p {
-        margin-top: 10px;
-        font-size: 1.2rem;
       }
       ul {
         list-style-type: none;
@@ -576,6 +574,43 @@ $color-star: #f39c12;
         li {
           font-size: 1rem;
           margin-bottom: 10px;
+        }
+      }
+
+      .course-details {
+        margin: 20px 0;
+
+        .course-rating-container {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .highlight-label {
+            background-color: #f8e71c;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            gap: 10px;
+          }
+
+          .course-rating {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+          }
+        }
+
+        p {
+          margin: 5px 0;
+          a {
+            color: #1e90ff;
+            text-decoration: none;
+          }
+
+          i {
+            margin-right: 5px;
+          }
         }
       }
     }
@@ -591,12 +626,13 @@ $color-star: #f39c12;
         img {
           border-radius: 20px;
           width: 100%;
-          height: auto;
+          height: 250px;
+          object-fit: cover;
         }
 
         .video-thumbnail-opacity {
           position: absolute;
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: rgba(0, 0, 0, 0.5);
           border-radius: 20px;
           width: 100%;
           height: 100%;
@@ -609,10 +645,22 @@ $color-star: #f39c12;
 
           .icon-play {
             color: #fff;
+            animation: jump 1s ease-in-out infinite; /* Apply the animation */
             cursor: pointer;
 
             &:hover {
               color: $primary-color;
+            }
+          }
+
+          @keyframes jump {
+            100% {
+              transform: translateY(0); /* Start and end at the same position */
+            }
+            50% {
+              transform: translateY(
+                -10px
+              ); /* Move up by 10px at the middle of the animation */
             }
           }
         }
@@ -622,7 +670,6 @@ $color-star: #f39c12;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 40px;
 
         h3 {
           font-size: 1.5rem;
@@ -648,43 +695,6 @@ $color-star: #f39c12;
             }
           }
         }
-      }
-    }
-  }
-
-  .course-details {
-    margin: 20px 0;
-
-    .course-rating-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      .highlight-label {
-        background-color: #f8e71c;
-        color: #333;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-weight: bold;
-        gap: 10px;
-      }
-
-      .course-rating {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-      }
-    }
-
-    p {
-      margin: 5px 0;
-      a {
-        color: #1e90ff;
-        text-decoration: none;
-      }
-
-      i {
-        margin-right: 5px;
       }
     }
   }
@@ -756,9 +766,19 @@ $color-star: #f39c12;
   }
 }
 //--------coures page---------
+.course-page-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
 .course-page {
   display: flex;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   gap: 20px;
 
   @media (max-width: 768px) {
@@ -812,6 +832,12 @@ $color-star: #f39c12;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          font-weight: bold;
+
+          .section-title-child {
+            font-weight: normal;
+            font-size: 0.8rem;
+          }
         }
 
         &:hover {
@@ -836,12 +862,17 @@ $color-star: #f39c12;
             padding: 5px 0;
             cursor: pointer;
 
+            .lecture-child {
+              font-size: 0.8rem;
+            }
+
             &.active {
               font-weight: bold;
+              color: $primary-color;
             }
 
             &:hover {
-              text-decoration: underline;
+              font-weight: bold;
             }
           }
         }
@@ -929,24 +960,6 @@ $color-star: #f39c12;
       }
     }
   }
-
-  &__progress-bar {
-    background-color: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    height: 5px;
-    margin-bottom: 5px;
-  }
-
-  &__progress {
-    background-color: #4caf50;
-    height: 100%;
-  }
-
-  &__progress-text {
-    color: #666;
-    font-size: 0.9rem;
-  }
 }
 
 .mycourse__card {
@@ -957,16 +970,24 @@ $color-star: #f39c12;
   flex-basis: calc(25% - 20px); /* Default for large screens */
   max-width: calc(25% - 20px);
   box-sizing: border-box;
-  height: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
+  @extend .transition-common;
 
   &-img {
     width: 100%;
+    height: 150px;
+    object-fit: cover;
     border-radius: 5px;
     margin-bottom: 10px;
+  }
+
+  &-title {
+    height: 40px;
+    @extend .webkit-line-clamp;
   }
 
   // Inline media query for tablet
@@ -1066,20 +1087,34 @@ $color-star: #f39c12;
           padding: 15px;
           border-radius: 10px;
           border: 1px solid #ddd;
+          cursor: pointer;
+          @extend .transition-common;
+
+          @media (max-width: 768px) {
+            flex-direction: column;
+          }
 
           .course-img {
-            width: 200px;
+            width: 35%;
+            height: 150px;
             object-fit: cover;
             border-radius: 10px;
             margin-right: 20px;
 
             @media (max-width: 768px) {
-              width: 120px;
+              width: 100%;
+              height: 220px;
             }
           }
 
           .course-info {
+            width: 65%;
             max-width: 800px;
+
+            @media (max-width: 768px) {
+              width: 100%;
+              margin-top: 20px;
+            }
           }
 
           .course-info h3 {
@@ -1187,6 +1222,46 @@ $color-star: #f39c12;
           margin-bottom: 20px;
         }
       }
+    }
+  }
+}
+
+//--------progress bar---------
+.progress-bar-container {
+  padding-top: 10px;
+  width: 100%;
+  max-width: 300px;
+
+  .progress-bar {
+    height: 10px;
+    background-color: #e0e0e0; // Light gray background
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+
+    &__fill {
+      height: 100%;
+      background-color: #f4595a;
+      transition: width 0.3s ease;
+    }
+  }
+
+  .progress-text {
+    text-align: right;
+    font-size: 14px;
+    color: #333; // Text color
+
+    @media (max-width: 768px) {
+      text-align: left;
+    }
+  }
+}
+
+.mycourse__card {
+  .progress-bar-container {
+    max-width: 100%;
+    .progress-text {
+      text-align: left;
     }
   }
 }
