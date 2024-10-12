@@ -8,6 +8,7 @@ import {
   addCoupon,
   deleteCoupon,
   detailCoupon,
+  getAllCoupon,
   getCouponEachCourse,
   updateCoupon,
 } from "../controllers/couponController.js";
@@ -48,5 +49,7 @@ router.delete(
   authorizeRoles("instructor"),
   deleteCoupon
 );
+
+router.get("/getAllCoupon", getAllCoupon);
 
 export default router;

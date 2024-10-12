@@ -73,22 +73,23 @@ const Drawer = () => {
                       Chuyển sang giảng viên
                     </Link>
                     <Link
-                      to={`/my-courses`}
+                      to={`/my-courses#courses`}
                       className="custom-nav-link mb-2"
                       onClick={() => {
                         handleClose();
                       }}
                     >
-                      Học tập
+                      Khóa học của tôi
                     </Link>
                     <Link
-                      to="/instructor"
+                      to={`/my-courses#cart`}
                       className="custom-nav-link mb-2"
                       onClick={handleClose}
                     >
-                      Mong muốn
+                      Giỏ hàng
                     </Link>
                     <Link
+                      to={`/`}
                       className="custom-nav-link mb-2"
                       onClick={() => {
                         handleClose();
@@ -116,28 +117,27 @@ const Drawer = () => {
                     </Link>
                   </>
                 )}
-
                 <hr />
-
                 <Link to="#popular" className="fw-bold mb-2">
                   Phổ biến nhất
                 </Link>
-
                 {categories?.map((item, index) => (
-                  <Link to="#web-dev" className="caterogy-drawer-mobile mb-2">
+                  <Link
+                    to={`/search?category_id=${item.id}`}
+                    className="caterogy-drawer-mobile mb-2"
+                    onClick={handleClose}
+                  >
                     {item.name} <FontAwesomeIcon icon={faAngleRight} />
                   </Link>
                 ))}
-
                 <Link
-                  to="#all-categories"
+                  to={`/search`}
                   className="caterogy-drawer-mobile mb-2"
+                  onClick={handleClose}
                 >
                   Tất cả thể loại <FontAwesomeIcon icon={faAngleRight} />
                 </Link>
-
                 <hr />
-
                 <Button variant="outline-secondary" className="w-100 mt-2">
                   🌐 Tiếng Việt
                 </Button>

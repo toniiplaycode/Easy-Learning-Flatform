@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IoMdHeartEmpty } from "react-icons/io";
 import { TiTickOutline } from "react-icons/ti";
 import { AiFillStar } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,9 +7,15 @@ import { faEarthAmericas } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchDetailCourse } from "../../reducers/apiCourse";
-import { formatDate, formatTime, formatTimeText } from "../../utils/common";
+import {
+  formatDate,
+  formatTime,
+  formatTimeText,
+  formatUrlYoutube,
+} from "../../utils/common";
 import ModalTrailer from "./ModalTrailer";
 import { saveUrl, toggleTrailer } from "../../reducers/modalTrailer";
+import { addCart } from "../../reducers/apiCart";
 
 const CourseHome = () => {
   const dispatch = useDispatch();
@@ -85,7 +90,14 @@ const CourseHome = () => {
   }
 
   // toggle trailer
-  const toggle = () => dispatch(toggleTrailer());
+  const toggleTrailerModal = () => {
+    dispatch(
+      saveUrl(
+        formatUrlYoutube(sortedDetailCourse?.Sections[0].Lectures[0].video_url)
+      )
+    );
+    dispatch(toggleTrailer());
+  };
 
   return (
     <div className="course-home min-vh-100">
@@ -142,25 +154,28 @@ const CourseHome = () => {
                 color="#343434"
                 size="5x"
                 onClick={() => {
-                  toggle();
-                  saveUrl("Y6aYx_KKM7A");
+                  toggleTrailerModal();
                 }}
               />
+              <p>Xem trước khóa học này</p>
             </div>
           </div>
           <div className="course-info">
             <h3>
               {sortedDetailCourse?.price == 0
                 ? "Miễn phí"
-                : "₫ " + sortedDetailCourse?.price}
+                : "₫ " + sortedDetailCourse?.price.toLocaleString()}
             </h3>
             <div className="course-info-btn">
               <div>
-                <button className="enroll-button not-bg">
+                <button
+                  className="enroll-button not-bg"
+                  onClick={() => {
+                    dispatch(addCart(detailCourse.id));
+                    navigate(`/my-courses#cart`);
+                  }}
+                >
                   Thêm vào giỏ hàng
-                </button>
-                <button className="enroll-button not-bg">
-                  <IoMdHeartEmpty size={22} style={{ display: "inline" }} />
                 </button>
               </div>
               <button
@@ -194,7 +209,8 @@ const CourseHome = () => {
               <ul>
                 {section?.Lectures?.map((lecture) => (
                   <li>
-                    <FontAwesomeIcon icon={faCirclePlay} /> {lecture?.title}
+                    <FontAwesomeIcon icon={faCirclePlay} color="#007bff" />{" "}
+                    {lecture?.title}
                   </li>
                 ))}
               </ul>

@@ -1,17 +1,17 @@
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { TbWorld } from "react-icons/tb";
 import HoverCategory from "./HoverCategory";
 import HoverCourse from "./HoverCourse";
-import HoverWishlist from "./HoverWishlist";
 import HoverCart from "./HoverCart";
 import HoverProfile from "./HoverProfile";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchCourse } from "../../../../reducers/search";
 
 const HeaderPC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
@@ -29,7 +29,10 @@ const HeaderPC = () => {
           <input
             type="text"
             placeholder="Tìm kiếm nội dung bất kỳ"
-            onChange={() => navigate("/search")}
+            onChange={(e) => {
+              navigate("/search");
+              dispatch(searchCourse(e.target.value));
+            }}
           />
           <span class="search-icon">
             <IoSearchOutline size={22} />
@@ -40,17 +43,16 @@ const HeaderPC = () => {
             <div className="header-hover">Giảng viên</div>
             <div
               className="header-hover"
-              onClick={() => navigate(`/my-courses`)}
+              onClick={() => navigate(`/my-courses#courses`)}
             >
-              Học tập
+              Khóa học của tôi
               <HoverCourse right={true} />
             </div>
             <div className="header-hover">
-              <IoMdHeartEmpty size={22} />
-              <HoverWishlist right={true} />
-            </div>
-            <div className="header-hover">
-              <FiShoppingCart size={22} />
+              <FiShoppingCart
+                size={22}
+                onClick={() => navigate(`/my-courses#cart`)}
+              />
               <HoverCart right={true} />
             </div>
             <div className="header_your-profile">

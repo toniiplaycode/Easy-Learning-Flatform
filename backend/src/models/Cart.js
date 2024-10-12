@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/connectDB.js";
 
-const Wishlist = sequelize.define(
-  "Wishlist",
+const Cart = sequelize.define(
+  "Cart",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,4 +23,4 @@ const Wishlist = sequelize.define(
   }
 );
 
-export default Wishlist;
+export default Cart;

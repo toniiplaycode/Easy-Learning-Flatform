@@ -15,7 +15,10 @@ const HoverProfile = ({ right }) => {
         </div>
         <div
           className="header-hover-item"
-          onClick={() => dispatch(handleLogout())}
+          onClick={() => {
+            navigate("/");
+            dispatch(handleLogout());
+          }}
         >
           Đăng xuất
         </div>

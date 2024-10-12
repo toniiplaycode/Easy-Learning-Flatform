@@ -4,8 +4,11 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import Drawer from "./Drawer";
 import { useNavigate } from "react-router-dom";
+import { searchCourse } from "../../../../reducers/search";
+import { useDispatch } from "react-redux";
 
 const HeaderMobile = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false);
 
@@ -26,7 +29,10 @@ const HeaderMobile = () => {
             type="text"
             className="form-control headermobile-search"
             placeholder="Tìm kiếm..."
-            onChange={() => navigate("/search")}
+            onChange={() => {
+              navigate("/search");
+              dispatch(searchCourse(e.target.value));
+            }}
           />
         </div>
       ) : (
@@ -43,7 +49,6 @@ const HeaderMobile = () => {
         }}
       >
         <FiSearch size={24} onClick={() => setIsSearch(!isSearch)} />
-        <FiShoppingCart size={24} />
       </div>
     </div>
   );

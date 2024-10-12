@@ -151,3 +151,17 @@ export const deleteCoupon = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getAllCoupon = async (req, res) => {
+  try {
+    const coupons = await Coupon.findAll();
+
+    if (!coupons) {
+      return res.status(400).json({ error: "not some coupons !" });
+    }
+
+    res.status(200).json({ message: "OK", coupons });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

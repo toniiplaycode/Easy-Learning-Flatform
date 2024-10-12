@@ -1,35 +1,58 @@
-import { Course, Enrollment, User } from "../models/models.js";
+import { Cart, Course, Enrollment, Section, User } from "../models/models.js";
 
 export const addEnrollment = async (req, res) => {
   const { user_id, course_id } = req.body;
 
   try {
-    // Kiểm tra xem khóa học có tồn tại không
-    const course = await Course.findByPk(course_id);
-
-    if (!course) {
-      return res.status(404).json({ error: "Course not found" });
+    // Ensure course_id is an array for bulk enrollment
+    if (!Array.isArray(course_id)) {
+      return res.status(400).json({ error: "course_id should be an array" });
     }
 
-    // Kiểm tra xem người dùng đã ghi danh chưa
-    const existingEnrollment = await Enrollment.findOne({
-      where: { course_id, user_id },
-    });
+    const enrollments = [];
 
-    if (existingEnrollment) {
-      return res
-        .status(400)
-        .json({ error: "User already enrolled in this course" });
+    // Loop through the array of course IDs
+    for (let i = 0; i < course_id.length; i++) {
+      const courseId = course_id[i];
+
+      // Check if the course exists
+      const course = await Course.findByPk(courseId);
+      if (!course) {
+        return res
+          .status(404)
+          .json({ error: `Course with id ${courseId} not found` });
+      }
+
+      // Check if the user is already enrolled in the course
+      const existingEnrollment = await Enrollment.findOne({
+        where: { course_id: courseId, user_id },
+      });
+
+      if (existingEnrollment) {
+        return res.status(400).json({
+          error: `User already enrolled in course with id ${courseId}`,
+        });
+      }
+
+      // Create a new enrollment record
+      const enrollment = await Enrollment.create({
+        course_id: courseId,
+        user_id,
+        progress: 0.0,
+      });
+
+      enrollments.push(enrollment); // Collect created enrollments
+
+      await Cart.destroy({
+        where: {
+          course_id: courseId,
+          user_id: user_id,
+        },
+      });
     }
 
-    // Tạo bản ghi danh mới
-    const enrollment = await Enrollment.create({
-      course_id,
-      user_id,
-      progress: 0.0,
-    });
-
-    res.status(201).json(enrollment);
+    // Return all created enrollments
+    res.status(201).json(enrollments);
   } catch (error) {
     console.error("Error enrolling user:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -49,6 +72,9 @@ export const getEnrollmentEachUser = async (req, res) => {
             {
               model: User,
               attributes: ["name", "email", "bio"],
+            },
+            {
+              model: Section,
             },
           ],
         },

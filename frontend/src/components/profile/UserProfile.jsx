@@ -12,8 +12,8 @@ const UserProfile = () => {
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
   useEffect(() => {
-    dispatch(fetchEnrollmentEachUser(inforUser.id));
-  }, [inforUser.id]);
+    dispatch(fetchEnrollmentEachUser());
+  }, [inforUser]);
 
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
@@ -134,7 +134,7 @@ const UserProfile = () => {
           <div className="profile-courses col-xl-8 col-12">
             <p className="profile-title">Các khóa học đã tham gia</p>
             <div className="courses-list">
-              {enrollmentEachUser &&
+              {enrollmentEachUser.length > 0 ? (
                 enrollmentEachUser?.map((enroll) => (
                   <div
                     className="course-item"
@@ -152,7 +152,10 @@ const UserProfile = () => {
                       <p>{enroll.Course.description}</p>
                     </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <h3>Bạn chưa tham gia khóa học nào !</h3>
+              )}
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ import MyCourse from "./components/mycourses/MyCourse";
 import UserProfile from "./components/profile/UserProfile";
 import SearchPage from "./components/common/SearchPage";
 import CoursePage from "./components/course/CoursePage";
+import PaymentPage from "./components/mycourses/components/PaymentPage";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/course-home" element={<CourseHome />} />
         <Route path="/course-page" element={<CoursePage />} />
         <Route path="/my-courses" element={<MyCourse />} />
+        <Route path="/payment" element={<PaymentPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>

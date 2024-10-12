@@ -98,7 +98,6 @@ $color-star: #f39c12;
   background-color: $primary-color;
   padding: 20px 0;
   color: #fff;
-  font-weight: 700;
   text-align: center;
   font-size: 1.2rem;
 }
@@ -130,6 +129,7 @@ $color-star: #f39c12;
     text-align: center;
     padding: 15px 40px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: #444;
 
     .logo {
       width: 140px;
@@ -137,6 +137,7 @@ $color-star: #f39c12;
 
     //----hover header
     .header-hover {
+      font-weight: 600;
       position: relative;
       cursor: pointer;
 
@@ -642,6 +643,8 @@ $color-star: #f39c12;
           flex-direction: column;
           justify-content: center;
           align-content: center;
+          text-align: center;
+          color: #fff;
 
           .icon-play {
             color: #fff;
@@ -662,6 +665,10 @@ $color-star: #f39c12;
                 -10px
               ); /* Move up by 10px at the middle of the animation */
             }
+          }
+
+          p {
+            font-weight: bold;
           }
         }
       }
@@ -919,7 +926,6 @@ $color-star: #f39c12;
   &__content {
     @extend .container-paddingX;
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 20px;
     padding-top: 20px;
@@ -959,6 +965,23 @@ $color-star: #f39c12;
         font-size: 0.9rem;
       }
     }
+  }
+}
+
+.mycourse__empty-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto 0 auto;
+
+  .mycourse__empty-img {
+    width: 300px;
+  }
+
+  .mycourse__empty-btn {
+    margin-top: 30px;
+    @extend .btn-common;
   }
 }
 
@@ -1006,6 +1029,192 @@ $color-star: #f39c12;
   @media (max-width: 576px) {
     flex-basis: 100%; /* Full-width card on small devices */
     max-width: 100%;
+  }
+}
+
+.mycart-container {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  .mycart-container-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .mycart-left-item {
+      @extend .transition-common;
+      cursor: pointer;
+      padding-right: 20px;
+
+      .mycart-item {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+        padding: 20px 0;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
+        .mycart-img {
+          width: 150px;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+
+          img {
+            border-radius: 10px;
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+
+            @media (max-width: 768px) {
+              height: 140px;
+            }
+          }
+        }
+
+        .mycart-content {
+          flex: 2;
+          padding-left: 20px;
+
+          @media (max-width: 768px) {
+            padding: 10px 0;
+          }
+
+          h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+          }
+
+          p {
+            color: #6c757d;
+            margin-bottom: 10px;
+          }
+
+          .badge {
+            background-color: #ffc107;
+            color: black;
+            padding: 5px 10px;
+            font-weight: bold;
+          }
+
+          .rating {
+            margin: 4px 0;
+
+            span {
+              margin-right: 5px;
+            }
+
+            .stars {
+              color: #f5b30d;
+            }
+          }
+        }
+
+        .mycart-action {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          @media (max-width: 768px) {
+            align-items: center;
+          }
+
+          .price {
+            .current-price {
+              font-size: 20px;
+              font-weight: bold;
+            }
+
+            .current-price.discounted {
+              font-size: 1rem;
+              text-decoration: line-through;
+              color: #666;
+            }
+          }
+
+          .actions {
+            margin-top: 10px;
+
+            button {
+              @extend .btn-common;
+              background: red;
+
+              &:hover {
+                background: rgb(129, 23, 23);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mycart-container-right {
+    padding-left: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    h4 {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      margin-bottom: 20px;
+      @extend .btn-common;
+    }
+
+    .coupon-section {
+      p {
+        font-weight: bold;
+      }
+
+      .applied-coupon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .coupon-item {
+          display: flex;
+          justify-content: space-between;
+
+          .remove-coupon {
+            color: red;
+            cursor: pointer;
+          }
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+
+      .apply-coupon {
+        width: 100%;
+        margin: 20px 0;
+        @extend .btn-common;
+      }
+    }
   }
 }
 
@@ -1141,6 +1350,7 @@ $color-star: #f39c12;
   .search-page-header {
     background: #fff;
     display: flex;
+    align-items: center;
     margin: 20px 0;
 
     @media (max-width: 768px) {
@@ -1170,22 +1380,42 @@ $color-star: #f39c12;
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 15px;
+      cursor: pointer;
+      @extend .transition-common;
 
-      .result-image {
-        width: 300px;
-        height: 150px;
-        border-radius: 10px;
-        margin-right: 20px;
-        object-fit: cover;
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .result-image {
+          width: 270px;
+          height: 120px;
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
       }
 
-      .result-price {
-        margin-top: 10px;
-        font-size: 1.2rem;
-        text-align: center;
+      .result-left {
+        .result-image {
+          width: 300px;
+          height: 150px;
+          border-radius: 10px;
+          object-fit: cover;
+        }
+
+        .result-price {
+          margin-top: 10px;
+          font-size: 1.2rem;
+          font-weight: bold;
+          text-align: center;
+        }
       }
 
       .result-info {
+        width: 80%;
+        margin-left: 20px;
+
         h3 {
           font-size: 1.2rem;
           color: #333;
@@ -1207,19 +1437,6 @@ $color-star: #f39c12;
           .stars {
             color: $color-star;
           }
-        }
-      }
-
-      @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .result-image {
-          width: 270px;
-          height: 120px;
-          margin-right: 0;
-          margin-bottom: 20px;
         }
       }
     }
@@ -1262,6 +1479,152 @@ $color-star: #f39c12;
     max-width: 100%;
     .progress-text {
       text-align: left;
+    }
+  }
+}
+
+//--------payment page---------
+.payment-page {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  @extend .container-paddingX;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .payment-container {
+    width: 70%;
+    margin-right: 16px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+
+    .payment-methods {
+      margin-bottom: 20px;
+
+      h4 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+
+      .method-options {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          background-color: #f1f1f1;
+          padding: 0 10px;
+          border-radius: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+
+          .credit-choose {
+            input {
+              margin-right: 10px;
+            }
+          }
+
+          .credit-icons {
+            margin-left: 10px;
+            display: flex;
+            img {
+              width: 40px;
+              height: auto;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    .order-summary {
+      h4 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+      }
+
+      .order-items {
+        .order-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+
+          img {
+            border-radius: 10px;
+            width: 100px;
+            height: 70px;
+            margin-right: 10px;
+            object-fit: cover;
+          }
+
+          .course-title {
+            flex: 1;
+            margin-right: 10px;
+          }
+
+          .course-price {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  .summary-container {
+    width: 30%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .summary-details {
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .discounted-price {
+        font-weight: bold;
+      }
+
+      .discount-percentage {
+        color: green;
+      }
+    }
+
+    .complete-payment-btn {
+      width: 100%;
+      margin-top: 20px;
+      @extend .btn-common;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
     }
   }
 }

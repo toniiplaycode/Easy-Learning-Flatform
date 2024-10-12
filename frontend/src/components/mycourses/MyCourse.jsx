@@ -3,25 +3,32 @@ import ProgressBar from "../common/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchEnrollmentEachUser } from "../../reducers/apiEnrollment";
+import MyCoursePage from "./components/MyCoursePage";
+import MyCartPage from "./components/MyCartPage";
+import { fetchCartEachUser } from "../../reducers/apiCart";
 
 const MyCourse = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState(1); // Default active tab
 
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName); // Set the active tab based on click
-  };
+  const getUrl = window.location.hash;
 
-  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+  const [activeTab, setActiveTab] = useState(getUrl);
 
   useEffect(() => {
-    dispatch(fetchEnrollmentEachUser(inforUser.id));
-  }, [inforUser.id]);
+    setActiveTab(getUrl);
+  }, [getUrl]);
 
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
   );
+  let cartEachUser = useSelector((state) => state.apiCart.cartEachUser);
+
+  useEffect(() => {
+    dispatch(fetchEnrollmentEachUser());
+    dispatch(fetchCartEachUser());
+  }, [inforUser, cartEachUser]);
 
   return (
     <div className="mycourse min-vh-100">
@@ -31,25 +38,23 @@ const MyCourse = () => {
         <ul className="mycourse__tabs-list">
           <li
             className={`mycourse__tab ${
-              activeTab === 1 ? "mycourse__tab--active" : ""
+              activeTab === "#courses" ? "mycourse__tab--active" : ""
             }`}
-            onClick={() => handleTabClick(1)}
+            onClick={() => {
+              setActiveTab("#courses");
+              navigate("#courses");
+            }}
           >
             Khóa học của tôi
           </li>
           <li
             className={`mycourse__tab ${
-              activeTab === 2 ? "mycourse__tab--active" : ""
+              activeTab === "#cart" ? "mycourse__tab--active" : ""
             }`}
-            onClick={() => handleTabClick(2)}
-          >
-            Mong muốn
-          </li>
-          <li
-            className={`mycourse__tab ${
-              activeTab === 3 ? "mycourse__tab--active" : ""
-            }`}
-            onClick={() => handleTabClick(3)}
+            onClick={() => {
+              setActiveTab("#cart");
+              navigate("#cart");
+            }}
           >
             Giỏ hàng
           </li>
@@ -57,25 +62,11 @@ const MyCourse = () => {
       </nav>
 
       <section className="mycourse__content">
-        {enrollmentEachUser?.map((enroll) => (
-          <div
-            className="mycourse__card"
-            onClick={() => navigate(`/course-home?id=${enroll.Course.id}`)}
-          >
-            <img src={enroll.Course.img} className="mycourse__card-img" />
-            <div className="mycourse__card-info">
-              <h3 className="mycourse__card-title">{enroll.Course.title}</h3>
-              <p className="mycourse__card-author">{enroll.Course.User.name}</p>
-              <div className="mycourse__progress-bar">
-                <div
-                  className="mycourse__progress"
-                  style={{ width: "14%" }}
-                ></div>
-              </div>
-              <ProgressBar completedLessons={2} totalLessons={4} />
-            </div>
-          </div>
-        ))}
+        {activeTab == "#courses" ? (
+          <MyCoursePage enrollmentEachUser={enrollmentEachUser} />
+        ) : (
+          <MyCartPage cartEachUser={cartEachUser} />
+        )}
       </section>
     </div>
   );

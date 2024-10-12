@@ -8,7 +8,7 @@ import Review from "./Review.js";
 import Enrollment from "./Enrollment.js";
 import Payment from "./Payment.js";
 import Certificate from "./Certificate.js";
-import Wishlist from "./Wishlist.js";
+import Cart from "./Cart.js";
 import Coupon from "./Coupon.js";
 
 // Thiết lập các mối quan hệ giữa các model
@@ -60,13 +60,13 @@ Certificate.belongsTo(User, { foreignKey: "user_id" });
 Course.hasMany(Certificate, { foreignKey: "course_id" });
 Certificate.belongsTo(Course, { foreignKey: "course_id" });
 
-// User - Wishlist (1 - N)
-User.hasMany(Wishlist, { foreignKey: "user_id" });
-Wishlist.belongsTo(User, { foreignKey: "user_id" });
+// User - Cart (1 - N)
+User.hasMany(Cart, { foreignKey: "user_id" });
+Cart.belongsTo(User, { foreignKey: "user_id" });
 
-// Course - Wishlist (1 - N)
-Course.hasMany(Wishlist, { foreignKey: "course_id" });
-Wishlist.belongsTo(Course, { foreignKey: "course_id" });
+// Course - Cart (1 - N)
+Course.hasMany(Cart, { foreignKey: "course_id" });
+Cart.belongsTo(Course, { foreignKey: "course_id" });
 
 // Course - Coupon (1 - N)
 Course.hasMany(Coupon, { foreignKey: "course_id" });
@@ -94,7 +94,7 @@ export {
   Enrollment,
   Payment,
   Certificate,
-  Wishlist,
+  Cart,
   Coupon,
   sequelize,
 };
