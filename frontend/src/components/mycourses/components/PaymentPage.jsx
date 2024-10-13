@@ -2,24 +2,45 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addEnrollmentEachUser } from "../../../reducers/apiEnrollment";
+import { addPaymentEachUser } from "../../../reducers/apiPayment";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { cartEachUser, originalPrice, totalPrice, discount } =
+  const { addCouponList, cartEachUser, originalPrice, totalPrice, discount } =
     location.state || {};
 
-  const [paymentMethod, setPaymentMethod] = useState("credit");
+  const [paymentMethod, setPaymentMethod] = useState("credit_card");
   const [listCourseId, setListCourseId] = useState(() => {
     return cartEachUser.map((item) => {
       return item.course_id;
     });
   });
+  const [listAmount, setListAmount] = useState(() => {
+    return cartEachUser.map((item) => {
+      const matchingCoupon = addCouponList.find(
+        (coupon) => coupon.course_id === item.Course.id
+      );
+
+      if (matchingCoupon) {
+        const priceDiscounted =
+          item.Course.price -
+          item.Course.price * (matchingCoupon.discount_percentage / 100);
+        return priceDiscounted;
+      } else {
+        return item.Course.price;
+      }
+    });
+  });
+
+  // "credit_card", "paypal", "bank_transfer"
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
   };
+
+  let data;
 
   return (
     <div className="min-vh-100">
@@ -33,8 +54,8 @@ const PaymentPage = () => {
                   <input
                     type="radio"
                     name="paymentMethod"
-                    value="credit"
-                    checked={paymentMethod === "credit"}
+                    value="credit_card"
+                    checked={paymentMethod === "credit_card"}
                     onChange={handlePaymentMethodChange}
                   />
                   <span>Thẻ tín dụng</span>
@@ -104,6 +125,15 @@ const PaymentPage = () => {
             className="complete-payment-btn"
             onClick={() => {
               dispatch(addEnrollmentEachUser(listCourseId));
+              dispatch(
+                addPaymentEachUser(
+                  (data = {
+                    course_id: listCourseId,
+                    amount: listAmount,
+                    payment_method: paymentMethod,
+                  })
+                )
+              );
               navigate("/my-courses#courses");
             }}
           >

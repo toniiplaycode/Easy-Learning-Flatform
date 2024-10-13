@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, ModalBody } from "reactstrap";
 import { toggleTrailer } from "../../reducers/modalTrailer";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  const idCourseUrl = params.get("id");
+
   const toggle = () => dispatch(toggleTrailer());
 
   const showTrailer = useSelector((state) => state.modalTrailer.showTrailer);
   const videoUrl = useSelector((state) => state.modalTrailer.videoUrl);
+  let enrollmentEachUser = useSelector(
+    (state) => state.apiEnrollment.enrollmentEachUser
+  );
 
   return (
     <Modal
@@ -48,8 +55,20 @@ function App() {
           color="primary"
           style={{ marginTop: "10px", float: "right" }}
           onClick={() => {
-            toggle();
-            navigate(`/course-page?id=1`);
+            const isEnrolled = enrollmentEachUser?.some(
+              (item) => item.course_id === Number(idCourseUrl)
+            );
+            if (!isEnrolled) {
+              toast.error(
+                "Bạn chưa mua khóa học này ! Hãy thêm vào giỏ hàng và thanh toán",
+                {
+                  autoClose: 4000,
+                }
+              );
+            } else {
+              toggle();
+              navigate(`/course-page?id=${idCourseUrl}`);
+            }
           }}
         >
           Tham gia khóa học

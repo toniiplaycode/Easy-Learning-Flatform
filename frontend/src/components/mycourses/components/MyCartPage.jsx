@@ -85,6 +85,7 @@ const MyCartPage = ({ cartEachUser }) => {
             onClick={() =>
               navigate("/payment", {
                 state: {
+                  addCouponList: addCouponList,
                   cartEachUser, // Pass cart data
                   originalPrice,
                   totalPrice,

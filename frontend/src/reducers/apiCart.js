@@ -47,7 +47,6 @@ export const addCart = createAsyncThunk(
   "apiCart/addCart",
   async (course_id, thunkAPI) => {
     try {
-      console.log(course_id);
       const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
       const inforUser = thunkAPI.getState().apiLoginLogout.inforUser; // lấy inforUser bên apiLoginLogout
       const obj = {
@@ -69,9 +68,9 @@ export const addCart = createAsyncThunk(
         const errorMessage = error.response.data.error;
 
         if (errorMessage === "Course already in Cart") {
-          toast.error("Khóa học đã tồn tại trong giỏ hàng!");
+          toast.warning("Khóa học đã tồn tại trong giỏ hàng!");
         } else if (errorMessage === "You enrollment in course") {
-          toast.error("Bạn đã tham gia khóa học này!");
+          toast.warning("Bạn đã tham gia khóa học này!");
         }
       }
     }

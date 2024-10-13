@@ -26,7 +26,6 @@ const MyCourse = () => {
   let cartEachUser = useSelector((state) => state.apiCart.cartEachUser);
 
   useEffect(() => {
-    dispatch(fetchEnrollmentEachUser());
     dispatch(fetchCartEachUser());
   }, [inforUser, cartEachUser]);
 

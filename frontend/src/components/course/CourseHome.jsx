@@ -16,6 +16,9 @@ import {
 import ModalTrailer from "./ModalTrailer";
 import { saveUrl, toggleTrailer } from "../../reducers/modalTrailer";
 import { addCart } from "../../reducers/apiCart";
+import { toast } from "react-toastify";
+import { FiShoppingCart } from "react-icons/fi";
+import { IoEnterOutline } from "react-icons/io5";
 
 const CourseHome = () => {
   const dispatch = useDispatch();
@@ -23,13 +26,16 @@ const CourseHome = () => {
   const [expandedSections, setExpandedSections] = useState({});
 
   const params = new URLSearchParams(window.location.search);
-  const idCourse = params.get("id");
+  const idCourseUrl = params.get("id");
 
   useEffect(() => {
-    dispatch(fetchDetailCourse(idCourse));
-  }, [idCourse]);
+    dispatch(fetchDetailCourse(idCourseUrl));
+  }, [idCourseUrl]);
 
   const detailCourse = useSelector((state) => state.apiCourse.detailCourse);
+  let enrollmentEachUser = useSelector(
+    (state) => state.apiEnrollment.enrollmentEachUser
+  );
 
   // sort lecture
   const [sortedDetailCourse, setSortedDetailCourse] = useState(null);
@@ -171,20 +177,41 @@ const CourseHome = () => {
                 <button
                   className="enroll-button not-bg"
                   onClick={() => {
-                    dispatch(addCart(detailCourse.id));
-                    navigate(`/my-courses#cart`);
+                    const isEnrolled = enrollmentEachUser?.some(
+                      (item) => item.course_id === Number(idCourseUrl)
+                    );
+                    if (isEnrolled) {
+                      toast.warning("Bạn đã tham gia khóa học này !");
+                    } else {
+                      dispatch(addCart(detailCourse.id));
+                      navigate(`/my-courses#cart`);
+                    }
                   }}
                 >
                   Thêm vào giỏ hàng
+                  <FiShoppingCart />
                 </button>
               </div>
               <button
                 className="enroll-button"
                 onClick={() => {
-                  navigate(`/course-page?id=${sortedDetailCourse?.id}`);
+                  const isEnrolled = enrollmentEachUser?.some(
+                    (item) => item.course_id === Number(idCourseUrl)
+                  );
+                  if (!isEnrolled) {
+                    toast.error(
+                      "Bạn chưa mua khóa học này ! Hãy thêm vào giỏ hàng và thanh toán",
+                      {
+                        autoClose: 4000,
+                      }
+                    );
+                  } else {
+                    navigate(`/course-page?id=${sortedDetailCourse?.id}`);
+                  }
                 }}
               >
                 Tham gia
+                <IoEnterOutline />
               </button>
             </div>
           </div>

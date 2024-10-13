@@ -11,10 +11,6 @@ const UserProfile = () => {
 
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
-  useEffect(() => {
-    dispatch(fetchEnrollmentEachUser());
-  }, [inforUser]);
-
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
   );

@@ -1,5 +1,7 @@
 const ProgressBar = ({ completedLessons, totalLessons }) => {
-  const percentage = Math.round((completedLessons / totalLessons) * 100);
+  const percentage = totalLessons
+    ? Math.round((completedLessons / totalLessons) * 100)
+    : 0;
 
   return (
     <div className="progress-bar-container">

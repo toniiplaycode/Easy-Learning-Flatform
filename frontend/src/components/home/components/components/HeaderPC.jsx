@@ -45,8 +45,7 @@ const HeaderPC = () => {
               className="header-hover"
               onClick={() => navigate(`/my-courses#courses`)}
             >
-              Khóa học của tôi
-              <HoverCourse right={true} />
+              Khóa học của tôi <HoverCourse right={true} />
             </div>
             <div className="header-hover">
               <FiShoppingCart

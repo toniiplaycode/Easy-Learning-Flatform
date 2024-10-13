@@ -1,4 +1,11 @@
-import { Cart, Course, Enrollment, Section, User } from "../models/models.js";
+import {
+  Cart,
+  Course,
+  Enrollment,
+  Lecture,
+  Section,
+  User,
+} from "../models/models.js";
 
 export const addEnrollment = async (req, res) => {
   const { user_id, course_id } = req.body;
@@ -75,6 +82,13 @@ export const getEnrollmentEachUser = async (req, res) => {
             },
             {
               model: Section,
+              attributes: ["title"],
+              include: [
+                {
+                  model: Lecture,
+                  attributes: ["title"],
+                },
+              ],
             },
           ],
         },

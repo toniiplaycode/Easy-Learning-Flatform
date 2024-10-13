@@ -4,37 +4,63 @@ export const addPayment = async (req, res) => {
   const { course_id, user_id, amount, payment_method, status } = req.body;
 
   try {
-    // Kiểm tra người dùng đã thanh toán khóa học đó chưa
-    const existingPayment = await Payment.findOne({
-      where: { course_id, user_id },
-    });
-
-    if (existingPayment) {
-      return res.status(400).json({ error: "User was payment" });
+    // Check if course_id and amount are arrays and they have the same length
+    if (
+      !Array.isArray(course_id) ||
+      !Array.isArray(amount) ||
+      course_id.length !== amount.length
+    ) {
+      return res.status(400).json({
+        error: "course_id and amount must be arrays of the same length",
+      });
     }
 
-    // Kiểm tra xem khóa học có tồn tại không
-    const course = await Course.findByPk(course_id);
-    if (!course) {
-      return res.status(404).json({ error: "Course not found" });
+    const payments = [];
+
+    // Loop through each course and amount
+    for (let i = 0; i < course_id.length; i++) {
+      const courseId = course_id[i];
+      const courseAmount = amount[i];
+
+      // Check if the user has already made a payment for this course
+      const existingPayment = await Payment.findOne({
+        where: { course_id: courseId, user_id },
+      });
+
+      if (existingPayment) {
+        return res.status(400).json({
+          error: `User has already paid for course with id ${courseId}`,
+        });
+      }
+
+      // Check if the course exists
+      const course = await Course.findByPk(courseId);
+      if (!course) {
+        return res
+          .status(404)
+          .json({ error: `Course with id ${courseId} not found` });
+      }
+
+      // Check if the user exists
+      const user = await User.findByPk(user_id);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Create a new payment record for each course
+      const payment = await Payment.create({
+        course_id: courseId,
+        user_id,
+        amount: courseAmount,
+        payment_method,
+        status, // status can be 'pending', 'completed', 'failed', etc.
+      });
+
+      payments.push(payment); // Collect the created payments
     }
 
-    // Kiểm tra xem người dùng có tồn tại không
-    const user = await User.findByPk(user_id);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // Tạo giao dịch thanh toán mới
-    const payment = await Payment.create({
-      course_id,
-      user_id,
-      amount,
-      payment_method,
-      status, // status có thể là 'pending', 'completed', 'failed', v.v.
-    });
-
-    res.status(201).json({ message: "OK", payment });
+    // Return all created payments
+    res.status(201).json({ message: "OK", payments });
   } catch (error) {
     console.error("Error creating payment:", error);
     res.status(500).json({ message: "Internal Server Error" });

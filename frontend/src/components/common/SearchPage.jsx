@@ -67,11 +67,11 @@ const SearchPage = () => {
               Sắp xếp theo
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#">Xếp hạng cao nhất</Dropdown.Item>
-              <Dropdown.Item href="#">Phổ biến nhất</Dropdown.Item>
-              <Dropdown.Item href="#">Mới nhất</Dropdown.Item>
-              <Dropdown.Item href="#">Giá thấp nhất</Dropdown.Item>
-              <Dropdown.Item href="#">Giá cao nhất</Dropdown.Item>
+              <Dropdown.Item href="#rating">Xếp hạng cao nhất</Dropdown.Item>
+              <Dropdown.Item href="#popular">Phổ biến nhất</Dropdown.Item>
+              <Dropdown.Item href="#lastest">Mới nhất</Dropdown.Item>
+              <Dropdown.Item href="#lowest-price">Giá thấp nhất</Dropdown.Item>
+              <Dropdown.Item href="#hightest-price">Giá cao nhất</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>

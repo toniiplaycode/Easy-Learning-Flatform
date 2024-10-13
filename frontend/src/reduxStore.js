@@ -3,11 +3,15 @@ import apiLoginLogout from "./reducers/apiLoginLogout";
 import apiSignup from "./reducers/apiSignup";
 import apiCourse, { fetchCourse } from "./reducers/apiCourse";
 import apiCategory, { fetchCategory } from "./reducers/apiCategory";
-import apiEnrollment from "./reducers/apiEnrollment";
+import apiEnrollment, {
+  fetchEnrollmentEachUser,
+} from "./reducers/apiEnrollment";
 import modalTrailer from "./reducers/modalTrailer";
 import apiCart from "./reducers/apiCart";
 import search from "./reducers/search";
 import apiCoupon, { fetchCoupon } from "./reducers/apiCoupon";
+import apiPayment from "./reducers/apiPayment";
+import { useEffect } from "react";
 
 const reduxStore = configureStore({
   reducer: {
@@ -20,11 +24,13 @@ const reduxStore = configureStore({
     apiCart: apiCart,
     search: search,
     apiCoupon: apiCoupon,
+    apiPayment: apiPayment,
   },
 });
 
-reduxStore.dispatch(fetchCourse()); // tự động fetch khi ứng dụng chạy
-reduxStore.dispatch(fetchCategory()); // tự động fetch khi ứng dụng chạy
-reduxStore.dispatch(fetchCoupon()); // tự động fetch khi ứng dụng chạy
+// tự động fetch khi ứng dụng chạy
+reduxStore.dispatch(fetchCourse());
+reduxStore.dispatch(fetchCategory());
+reduxStore.dispatch(fetchCoupon());
 
 export default reduxStore;
