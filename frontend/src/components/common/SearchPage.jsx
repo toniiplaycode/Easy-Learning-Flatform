@@ -14,6 +14,7 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [categoryName, setCategoryName] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOption, setSortOption] = useState(""); // State for sorting option
   const itemsPerPage = 5; // Define how many results per page
   const totalPages = Math.ceil(searchResults.length / itemsPerPage); // Calculate total pages based on search results
 
@@ -21,6 +22,23 @@ const SearchPage = () => {
   const getCategoryFromUrl = () => {
     const params = new URLSearchParams(location.search);
     return params.get("category_id");
+  };
+
+  // Calculate the average rating for a course
+  const calculateAverageRating = (reviews) => {
+    if (!reviews || reviews.length === 0) return null;
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return (totalRating / reviews.length).toFixed(1); // Fixed to 1 decimal
+  };
+
+  // Calculate the total lecture duration if it's available
+  const calculateTotalDuration = (lectures) => {
+    if (!lectures || lectures.length === 0) return null;
+    const totalDuration = lectures.reduce(
+      (sum, lecture) => sum + lecture.duration,
+      0
+    );
+    return totalDuration; // Assuming duration is in minutes
   };
 
   // Filter the courses based on the search term and category_id from the URL
@@ -43,13 +61,34 @@ const SearchPage = () => {
       return matchesSearch && matchesCategory;
     });
 
-    setSearchResults(filteredResults);
+    // Sort the results based on the selected sorting option
+    let sortedResults = [...filteredResults];
+    if (sortOption === "Xếp hạng cao nhất") {
+      sortedResults.sort((a, b) => b.averageRating - a.averageRating); // Assuming you have an averageRating field
+    } else if (sortOption === "Phổ biến nhất") {
+      sortedResults.sort((a, b) => b.popularity - a.popularity); // Assuming you have a popularity field
+    } else if (sortOption === "Mới nhất") {
+      sortedResults.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+    } else if (sortOption === "Giá thấp nhất") {
+      sortedResults.sort((a, b) => a.price - b.price);
+    } else if (sortOption === "Giá cao nhất") {
+      sortedResults.sort((a, b) => b.price - a.price);
+    }
+
+    setSearchResults(sortedResults);
     setCurrentPage(1); // Reset to first page after filtering
-  }, [searchValue, courses, location.search]);
+  }, [searchValue, courses, location.search, sortOption]); // Add sortOption as a dependency
 
   // Handle changing the page
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  // Handle sorting option change
+  const handleSortChange = (option) => {
+    setSortOption(option);
   };
 
   // Slice the search results based on the current page
@@ -64,14 +103,26 @@ const SearchPage = () => {
         <div>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle variant="light" id="dropdown-basic">
-              Sắp xếp theo
+              {sortOption ? sortOption : "Sắp xếp theo"}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#rating">Xếp hạng cao nhất</Dropdown.Item>
-              <Dropdown.Item href="#popular">Phổ biến nhất</Dropdown.Item>
-              <Dropdown.Item href="#lastest">Mới nhất</Dropdown.Item>
-              <Dropdown.Item href="#lowest-price">Giá thấp nhất</Dropdown.Item>
-              <Dropdown.Item href="#hightest-price">Giá cao nhất</Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleSortChange("Xếp hạng cao nhất")}
+              >
+                Xếp hạng cao nhất
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSortChange("Phổ biến nhất")}>
+                Phổ biến nhất
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSortChange("Mới nhất")}>
+                Mới nhất
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSortChange("Giá thấp nhất")}>
+                Giá thấp nhất
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleSortChange("Giá cao nhất")}>
+                Giá cao nhất
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -80,39 +131,45 @@ const SearchPage = () => {
 
       <div className="search-results">
         {paginatedResults.length > 0 ? (
-          paginatedResults.map((result) => (
-            <div
-              className="search-result-item"
-              key={result.id}
-              onClick={() => {
-                navigate(`/course-home?id=${result.id}`);
-              }}
-            >
-              <div className="result-left">
-                <img
-                  src={result.img}
-                  alt={result.title}
-                  className="result-image"
-                />
-                <p className="result-price">
-                  {result.price > 0
-                    ? `₫ ${result.price.toLocaleString()}`
-                    : "Miễn phí"}
-                </p>
-              </div>
-              <div className="result-info">
-                <h3>{result.title}</h3>
-                <p>{result.description}</p>
-                <p className="result-author">{result.User.name}</p>
-                <div className="result-rating">
-                  <span>{4.8}</span>
-                  <span className="stars">★</span>
-                  <span className="reviews">(154)</span>
+          paginatedResults.map((result) => {
+            const averageRating = calculateAverageRating(result.Reviews);
+            const totalDuration = calculateTotalDuration(result.Lectures); // Assuming result.Lectures exists
+
+            return (
+              <div
+                className="search-result-item"
+                key={result.id}
+                onClick={() => {
+                  navigate(`/course-home?id=${result.id}`);
+                }}
+              >
+                <div className="result-left">
+                  <img
+                    src={result.img}
+                    alt={result.title}
+                    className="result-image"
+                  />
+                  <p className="result-price">
+                    {result.price > 0
+                      ? `₫ ${result.price.toLocaleString()}`
+                      : "Miễn phí"}
+                  </p>
                 </div>
-                <p>4 chương - 12 bài học - 03 giờ 26 phút</p>
+                <div className="result-info">
+                  <h3>{result.title}</h3>
+                  <p>{result.description}</p>
+                  <p className="result-author">{result.User.name}</p>
+                  <div className="result-rating">
+                    <span>{averageRating ? averageRating : "0"}</span>
+                    <span className="stars">★</span>
+                    <span className="reviews">
+                      ({result.Reviews?.length} đánh giá)
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <h3>Không tìm thấy khóa học bạn tìm !</h3>
         )}

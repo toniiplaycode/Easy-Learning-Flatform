@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import SignupForm from "./components/auth/SignupForm";
 import Footer from "./components/home/components/Footer";
 import Header from "./components/home/components/Header";
@@ -16,11 +16,14 @@ import PaymentPage from "./components/mycourses/components/PaymentPage";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEnrollmentEachUser } from "./reducers/apiEnrollment";
+import InstructorPage from "./components/instructor/InstructorPage";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation(); // Access the current location (URL)
 
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
   useEffect(() => {
     if (Object.keys(inforUser).length > 0) {
       dispatch(fetchEnrollmentEachUser());
@@ -42,7 +45,8 @@ function App() {
         theme="light"
       />
 
-      <Header />
+      {location.pathname !== "/instructor" && <Header />}
+
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
@@ -54,8 +58,10 @@ function App() {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/instructor/*" element={<InstructorPage />} />
       </Routes>
-      <Footer />
+
+      {location.pathname !== "/instructor" && <Footer />}
     </>
   );
 }

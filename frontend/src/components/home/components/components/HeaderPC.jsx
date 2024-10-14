@@ -40,7 +40,12 @@ const HeaderPC = () => {
         </div>
         {Object.keys(inforUser).length > 0 ? (
           <>
-            <div className="header-hover">Giảng viên</div>
+            <div
+              className="header-hover"
+              onClick={() => navigate(`/instructor`)}
+            >
+              Giảng viên
+            </div>
             <div
               className="header-hover"
               onClick={() => navigate(`/my-courses#courses`)}

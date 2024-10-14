@@ -5,8 +5,10 @@ import { url } from "../utils/common";
 const initialState = {
   courses: [],
   detailCourse: {},
+  courseInstructor: [],
   statusFetch: "idle",
   statusFetchDetail: "idle",
+  statusFetchCourseInstructor: "idle",
 };
 
 export const fetchCourse = createAsyncThunk(
@@ -23,6 +25,20 @@ export const fetchDetailCourse = createAsyncThunk(
     const response = await axios.get(`${url}/api/course/detailCourse`, {
       params: {
         id: id,
+      },
+    });
+    return response.data;
+  }
+);
+
+export const fetchCourseInstructor = createAsyncThunk(
+  "apiCourse/fetchCourseInstructor",
+  async (_, thunkAPI) => {
+    const inforUser = thunkAPI.getState().apiLoginLogout.inforUser; //lấy inforUser bên apiLoginLogout
+
+    const response = await axios.get(`${url}/api/course/getCourseInstructor`, {
+      params: {
+        instructor_id: inforUser.id,
       },
     });
     return response.data;
@@ -55,6 +71,17 @@ const apiCourse = createSlice({
       })
       .addCase(fetchDetailCourse.rejected, (state, action) => {
         state.statusFetchDetail = "failed";
+      })
+
+      .addCase(fetchCourseInstructor.pending, (state) => {
+        state.statusFetchCourseInstructor = "loading";
+      })
+      .addCase(fetchCourseInstructor.fulfilled, (state, action) => {
+        state.statusFetchCourseInstructor = "succeeded";
+        state.courseInstructor = action.payload.course;
+      })
+      .addCase(fetchCourseInstructor.rejected, (state, action) => {
+        state.statusFetchCourseInstructor = "failed";
       });
   },
 });
