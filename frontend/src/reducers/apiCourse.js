@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "../utils/common";
+import { toast } from "react-toastify";
 
 const initialState = {
   courses: [],
@@ -9,6 +10,7 @@ const initialState = {
   statusFetch: "idle",
   statusFetchDetail: "idle",
   statusFetchCourseInstructor: "idle",
+  statusAddCourse: "idle",
 };
 
 export const fetchCourse = createAsyncThunk(
@@ -42,6 +44,72 @@ export const fetchCourseInstructor = createAsyncThunk(
       },
     });
     return response.data;
+  }
+);
+
+export const addCourse = createAsyncThunk(
+  "apiCourse/addCourse",
+  async (obj, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
+
+      const response = await axios.post(`${url}/api/course/addCourse`, obj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      thunkAPI.dispatch(fetchCourseInstructor());
+      thunkAPI.dispatch(fetchCourse());
+      if (response.data.message == "OK")
+        toast.success("Bạn đã thêm khóa học thành công !");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const updateCourse = createAsyncThunk(
+  "apiCourse/updateCourse",
+  async (obj, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
+
+      const response = await axios.put(`${url}/api/course/updateCourse`, obj, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      thunkAPI.dispatch(fetchCourseInstructor());
+      thunkAPI.dispatch(fetchCourse());
+      if (response.data.message == "OK")
+        toast.success("Bạn đã cập nhật khóa học !");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteCourse = createAsyncThunk(
+  "apiCourse/deleteCourse",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const config = {
+      params: {
+        id: id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.delete(`${url}/api/course/deleteCourse`, config);
+
+    thunkAPI.dispatch(fetchCourseInstructor());
+    thunkAPI.dispatch(fetchCourse());
+    return res.data;
   }
 );
 
@@ -82,6 +150,16 @@ const apiCourse = createSlice({
       })
       .addCase(fetchCourseInstructor.rejected, (state, action) => {
         state.statusFetchCourseInstructor = "failed";
+      })
+
+      .addCase(addCourse.pending, (state) => {
+        state.statusAddCourse = "loading";
+      })
+      .addCase(addCourse.fulfilled, (state, action) => {
+        state.statusAddCourse = "succeeded";
+      })
+      .addCase(addCourse.rejected, (state, action) => {
+        state.statusAddCourse = "failed";
       });
   },
 });

@@ -29,13 +29,13 @@ const UserProfile = () => {
     <div className="profile-page min-vh-100">
       <div className="profile-header">
         <img
-          src="imgs/bannerProfile.png"
+          src="/imgs/bannerProfile.png"
           alt="Profile Background"
           className="profile-header-img d-none d-md-block"
         />
 
         <img
-          src="imgs/bannerProfileMobile.png"
+          src="/imgs/bannerProfileMobile.png"
           alt="Profile Background"
           className="profile-header-img d-block d-md-none"
         />

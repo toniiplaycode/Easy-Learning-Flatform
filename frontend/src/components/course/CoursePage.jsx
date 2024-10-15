@@ -46,13 +46,18 @@ const CoursePage = () => {
   const [sortedDetailCourse, setSortedDetailCourse] = useState(null);
   useEffect(() => {
     if (detailCourse && detailCourse.Sections) {
-      // Sort the lectures inside each section
+      // Sort the position, lectures inside each section
       const sortedCourse = {
         ...detailCourse,
-        Sections: detailCourse.Sections.map((section) => ({
-          ...section,
-          Lectures: section.Lectures?.slice().sort((a, b) => a.id - b.id) || [], // Sort lectures by id or return an empty array
-        })),
+        Sections: detailCourse.Sections.slice()
+          .sort((a, b) => a.position - b.position)
+          .map((section) => ({
+            ...section,
+            Lectures:
+              section.Lectures?.slice().sort(
+                (a, b) => a.position - b.position
+              ) || [], // Sort lectures by position within each section
+          })),
       };
 
       setSortedDetailCourse(sortedCourse);

@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="header-sticky sticky-top">
       <div className="container_header-top">
-        Học các kỹ năng đáp ứng nhu cầu tương lai theo lịch trình của bạn
+        Khám phá tri thức với nhiều khóa học chất lượng
       </div>
       <HeaderPC />
       <HeaderMobile />

@@ -7,7 +7,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import reduxStore from "./reduxStore";
 

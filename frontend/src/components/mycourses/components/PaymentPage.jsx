@@ -61,8 +61,8 @@ const PaymentPage = () => {
                   <span>Thẻ tín dụng</span>
                 </div>
                 <div className="credit-icons">
-                  <img src="imgs/visa.png" />
-                  <img src="imgs/masterCard.png" />
+                  <img src="/imgs/visa.png" />
+                  <img src="/imgs/masterCard.png" />
                 </div>
               </label>
               <label>
@@ -77,7 +77,7 @@ const PaymentPage = () => {
                   <span>PayPal</span>
                 </div>
                 <div className="credit-icons">
-                  <img src="imgs/paypal.png" />
+                  <img src="/imgs/paypal.png" />
                 </div>
               </label>
             </div>

@@ -44,7 +44,7 @@ const HeaderPC = () => {
               className="header-hover"
               onClick={() => navigate(`/instructor`)}
             >
-              Giảng viên
+              Chuyển sang giảng viên
             </div>
             <div
               className="header-hover"
@@ -62,7 +62,7 @@ const HeaderPC = () => {
             <div className="header_your-profile">
               <div className="header-hover">
                 <img
-                  src="imgs/profile.png"
+                  src="/imgs/profile.png"
                   onClick={() => navigate("/profile")}
                 />
                 <HoverProfile right={true} />

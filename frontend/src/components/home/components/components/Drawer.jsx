@@ -49,7 +49,7 @@ const Drawer = () => {
                   <>
                     <div className="drawer-profile">
                       <img
-                        src="imgs/profile.png"
+                        src="/imgs/profile.png"
                         onClick={() => {
                           handleClose();
                           navigate("/profile");

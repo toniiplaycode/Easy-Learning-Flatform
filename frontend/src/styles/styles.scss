@@ -72,6 +72,21 @@ $color-star: #f39c12;
   }
 }
 
+.box-shadow-common {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.input-common {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  &:focus {
+    border-color: $primary-color;
+  }
+}
+
 //======SCROLLBAR=====//
 *::-webkit-scrollbar {
   width: 10px;
@@ -99,6 +114,7 @@ $color-star: #f39c12;
   padding: 20px 0;
   color: #fff;
   text-align: center;
+  font-weight: bold;
   font-size: 1.2rem;
 }
 
@@ -626,7 +642,7 @@ $color-star: #f39c12;
         margin-bottom: 20px;
         img {
           border-radius: 20px;
-          width: 100%;
+          width: 400px;
           height: 250px;
           object-fit: cover;
         }
@@ -1754,8 +1770,8 @@ $color-star: #f39c12;
     margin-left: 10px;
     border-radius: 50%;
     object-fit: cover;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     margin-right: 20px;
   }
 }
@@ -1908,5 +1924,278 @@ $color-star: #f39c12;
         width: 200px;
       }
     }
+  }
+}
+
+//--------add update course instructor---------
+.create-course-btn-back {
+  margin: 8px 10px;
+  padding-bottom: -50px;
+  @extend .btn-common;
+
+  svg {
+    font-size: 1.4rem;
+  }
+}
+
+.manage-course-container {
+  display: flex;
+  margin: 0 10px;
+
+  .sidebar-manage-course {
+    width: 120px;
+    min-height: 100vh;
+    background-color: #f8f9fa; // Light background color
+    padding: 10px;
+    border-radius: 10px;
+    @extend .box-shadow-common;
+    margin-right: 10px; // Space between sidebar and form
+
+    div {
+      margin: 10px 0; // Space between each menu item
+      padding: 10px 5px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 5px;
+      color: #333; // Text color
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background-color: $primary-color; // Change background on hover
+        color: #fff; // Change text color on hover
+      }
+
+      &.active {
+        background-color: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+
+  .create-update-course-container
+    .section-course-container
+    .lecture-course-container {
+    width: 93% !important;
+  }
+}
+
+.create-update-course-container {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  @extend .box-shadow-common;
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .create-update-course-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  .error {
+    color: red;
+  }
+
+  label {
+    display: block;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .image-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    img {
+      width: 300px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+  }
+}
+
+.submit-btn {
+  @extend .btn-common;
+}
+
+//--------section course instructor---------
+.section-course-container {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  @extend .box-shadow-common;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  h5 {
+    margin: 20px 0;
+  }
+
+  .section-course-item {
+    display: flex;
+    background: #fff;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    @extend .box-shadow-common;
+
+    @media (max-width: 768px) {
+      text-align: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-course-item-left {
+      width: 50%;
+      &:first-child span {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+
+    .section-course-item-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      @extend .btn-common;
+
+      &:last-child {
+        background: red;
+
+        &:hover {
+          background-color: #a22e2e;
+        }
+      }
+    }
+  }
+}
+
+//--------delete confirm course instructor---------
+.p-confirm-dialog {
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  padding: 20px;
+
+  .p-dialog-header {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    background-color: #f5f5f5;
+    border-bottom: none;
+    padding: 10px 20px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .p-dialog-content {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+    padding: 20px;
+    gap: 10px;
+
+    .pi {
+      font-size: 24px;
+      color: #2a75f3;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .p-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+  }
+}
+
+/* Style for the Buttons */
+.p-button-danger {
+  background-color: #d32f2f !important;
+  border-color: #d32f2f !important;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  margin-left: 30px;
+
+  &:hover {
+    background-color: #a22e2e !important;
+    border-color: #a22e2e !important;
+  }
+}
+
+.p-button-secondary {
+  background-color: #f1f5fc !important;
+  border-color: #f1f5fc !important;
+  color: #2a75f3;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 0px 2px transparent;
+
+  &:hover {
+    background-color: #e3f2fd !important;
+    border-color: #e3f2fd !important;
+  }
+
+  &:focus {
+    box-shadow: 0px 0px 0px 2px #2a75f3 !important;
   }
 }

@@ -21,7 +21,7 @@ export const addCourse = async (req, res) => {
   } = req.body;
 
   // Kiểm tra xem các trường cần thiết có tồn tại không
-  if (!title || !instructor_id || !price || !category_id) {
+  if (!title || !instructor_id || !category_id) {
     return res.status(400).json({
       error: "Title, instructor_id, category_id, and price are required",
     });

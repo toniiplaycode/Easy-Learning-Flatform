@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import { Course, Section } from "../models/models.js";
 
 export const addSection = async (req, res) => {
@@ -31,7 +32,7 @@ export const addSection = async (req, res) => {
   }
 };
 
-export const detailSectionCourse = async (req, res) => {
+export const getSectionEachCourse = async (req, res) => {
   const { course_id } = req.query;
 
   try {
@@ -55,21 +56,72 @@ export const detailSectionCourse = async (req, res) => {
 };
 
 export const updateSection = async (req, res) => {
-  const { id, title } = req.body;
+  const { id, title, position } = req.body;
 
   try {
     // Tìm section theo id
-    const section = await Section.findByPk(id);
+    const sectionToUpdate = await Section.findByPk(id);
 
-    if (!section) {
+    if (!sectionToUpdate) {
       return res.status(404).json({ error: "Section not found" });
     }
 
-    section.title = title || section.title;
+    const courseId = sectionToUpdate.course_id;
 
-    await section.save();
+    // Fetch all sections for the course
+    const allSections = await Section.findAll({
+      where: { course_id: courseId },
+      order: [["position", "ASC"]],
+    });
 
-    res.status(200).json({ message: "OK", section }); // Trả về section đã cập nhật
+    // Update title if provided
+    sectionToUpdate.title = title || sectionToUpdate.title;
+
+    // Handle position change
+    if (position && position !== sectionToUpdate.position) {
+      // Remove the section to update from the list
+      const otherSections = allSections.filter(
+        (section) => section.id !== sectionToUpdate.id
+      );
+
+      // Update positions of other sections
+      if (position < sectionToUpdate.position) {
+        // If moving the section up, shift down others
+        otherSections.forEach((section) => {
+          if (
+            section.position >= position &&
+            section.position < sectionToUpdate.position
+          ) {
+            section.position += 1;
+            section.save();
+          }
+        });
+      } else if (position > sectionToUpdate.position) {
+        // If moving the section down, shift up others
+        otherSections.forEach((section) => {
+          if (
+            section.position <= position &&
+            section.position > sectionToUpdate.position
+          ) {
+            section.position -= 1;
+            section.save();
+          }
+        });
+      }
+
+      // Finally, set the new position for the updated section
+      sectionToUpdate.position = position;
+    }
+
+    await sectionToUpdate.save();
+
+    // Fetch the updated list of sections after the update
+    const updatedSections = await Section.findAll({
+      where: { course_id: courseId },
+      order: [["position", "ASC"]],
+    });
+
+    res.status(200).json({ message: "OK", sections: updatedSections });
   } catch (error) {
     console.error("Error updating section:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -80,15 +132,31 @@ export const deleteSection = async (req, res) => {
   const { id } = req.query;
 
   try {
-    // Tìm section theo id
+    // Find the section to be deleted by id
     const section = await Section.findByPk(id);
 
     if (!section) {
       return res.status(404).json({ error: "Section not found" });
     }
 
-    // Xóa section
+    // Store the position of the section to be deleted
+    const deletedSectionPosition = section.position;
+
+    // Delete the section
     await section.destroy();
+
+    // Find and update all sections with a higher position than the deleted one
+    await Section.update(
+      { position: Sequelize.literal("position - 1") },
+      {
+        where: {
+          course_id: section.course_id,
+          position: {
+            [Sequelize.Op.gt]: deletedSectionPosition, // Only update sections with a higher position
+          },
+        },
+      }
+    );
 
     res.status(200).json({ message: "OK" });
   } catch (error) {

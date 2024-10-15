@@ -30,6 +30,8 @@ function App() {
     }
   }, [inforUser]);
 
+  const isInstructorRoute = location.pathname.startsWith("/instructor");
+
   return (
     <>
       <ToastContainer
@@ -45,7 +47,7 @@ function App() {
         theme="light"
       />
 
-      {location.pathname !== "/instructor" && <Header />}
+      {!isInstructorRoute && <Header />}
 
       <Routes>
         <Route path="*" element={<NotFound />} />
@@ -61,7 +63,7 @@ function App() {
         <Route path="/instructor/*" element={<InstructorPage />} />
       </Routes>
 
-      {location.pathname !== "/instructor" && <Footer />}
+      {!isInstructorRoute && <Footer />}
     </>
   );
 }

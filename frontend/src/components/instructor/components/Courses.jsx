@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCourseInstructor } from "../../../reducers/apiCourse";
+import { useNavigate } from "react-router-dom";
+import DeleteConfirmation from "./DeleteConfirm";
 
 const Courses = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const courseInstructor = useSelector(
     (state) => state.apiCourse.courseInstructor
   );
@@ -29,7 +32,12 @@ const Courses = () => {
             <FontAwesomeIcon icon={faCaretDown} />
           </button>
         </div>
-        <button className="new-course-button">Tạo khóa học mới</button>
+        <button
+          className="new-course-button"
+          onClick={() => navigate("create-course")}
+        >
+          Tạo khóa học mới
+        </button>
       </div>
 
       <div className="course-list">
@@ -40,19 +48,26 @@ const Courses = () => {
                 <img src={course.img} alt="Course Thumbnail" />
                 <div className="course-details">
                   <h3>{course.title}</h3>
-                  <p>Công khai</p>
                 </div>
               </div>
               <div className="course-action">
-                <button>Sửa</button>
-                <button>Xóa</button>
+                <button
+                  onClick={() => {
+                    navigate(`/instructor/manage-course`, {
+                      state: { course },
+                    });
+                  }}
+                >
+                  Quản lý
+                </button>
+                <DeleteConfirmation course_id={course.id} />
               </div>
             </div>
           ))
         ) : (
           <div className="course-list-empty">
             <h3>Chưa có khóa học nào ! </h3>
-            <img src="imgs/emptybox.png" />
+            <img src="/imgs/emptybox.png" />
           </div>
         )}
       </div>

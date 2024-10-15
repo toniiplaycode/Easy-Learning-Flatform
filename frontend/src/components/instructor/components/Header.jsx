@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className="instructor-header">
       <p onClick={() => navigate("/")}>Chuyển sang học viên</p>
-      <img src="imgs/profile.png" />
+      <img src="/imgs/profile.png" />
     </div>
   );
 };

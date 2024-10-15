@@ -11,7 +11,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/java-script.png"
+                src="/imgs/iconInfinite/java-script.png"
                 alt="JavaScript"
               />
             </div>
@@ -19,13 +19,13 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/c.png" alt="C" />
+              <img className="" src="/imgs/iconInfinite/c.png" alt="C" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Java.png" alt="Java" />
+              <img className="" src="/imgs/iconInfinite/Java.png" alt="Java" />
             </div>
           </div>
 
@@ -33,7 +33,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/python.png"
+                src="/imgs/iconInfinite/python.png"
                 alt="Python"
               />
             </div>
@@ -41,7 +41,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/swift.png" alt="Swift" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/swift.png"
+                alt="Swift"
+              />
             </div>
           </div>
 
@@ -49,7 +53,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/typescript.png"
+                src="/imgs/iconInfinite/typescript.png"
                 alt="TypeScript"
               />
             </div>
@@ -63,7 +67,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/database.png"
+                src="/imgs/iconInfinite/database.png"
                 alt="Database"
               />
             </div>
@@ -71,7 +75,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/mysql.png" alt="MySQL" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/mysql.png"
+                alt="MySQL"
+              />
             </div>
           </div>
 
@@ -79,7 +87,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/sql-server.png"
+                src="/imgs/iconInfinite/sql-server.png"
                 alt="SQL Server"
               />
             </div>
@@ -93,7 +101,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/django.png"
+                src="/imgs/iconInfinite/django.png"
                 alt="Django"
               />
             </div>
@@ -103,7 +111,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/NET core.png"
+                src="/imgs/iconInfinite/NET core.png"
                 alt=".NET Core"
               />
             </div>
@@ -115,19 +123,19 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Go.png" alt="Go" />
+              <img className="" src="/imgs/iconInfinite/Go.png" alt="Go" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/nlp.png" alt="NLP" />
+              <img className="" src="/imgs/iconInfinite/nlp.png" alt="NLP" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/CSS3.png" alt="CSS3" />
+              <img className="" src="/imgs/iconInfinite/CSS3.png" alt="CSS3" />
             </div>
           </div>
 
@@ -135,7 +143,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/css-file.png"
+                src="/imgs/iconInfinite/css-file.png"
                 alt="CSS File"
               />
             </div>
@@ -143,7 +151,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/html.png" alt="HTML" />
+              <img className="" src="/imgs/iconInfinite/html.png" alt="HTML" />
             </div>
           </div>
 
@@ -151,7 +159,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/MATLAB.png"
+                src="/imgs/iconInfinite/MATLAB.png"
                 alt="MATLAB"
               />
             </div>
@@ -165,7 +173,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/Adobe Photoshop.png"
+                src="/imgs/iconTool/Adobe Photoshop.png"
                 alt="Adobe Photoshop"
               />
             </div>
@@ -173,13 +181,17 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Blender.png" alt="Blender" />
+              <img
+                className=""
+                src="/imgs/iconTool/Blender.png"
+                alt="Blender"
+              />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Canva.png" alt="Canva" />
+              <img className="" src="/imgs/iconTool/Canva.png" alt="Canva" />
             </div>
           </div>
 
@@ -187,7 +199,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/davinci-resolve.png"
+                src="/imgs/iconTool/davinci-resolve.png"
                 alt="DaVinci Resolve"
               />
             </div>
@@ -195,7 +207,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/idea.png" alt="IDEA" />
+              <img className="" src="/imgs/iconTool/idea.png" alt="IDEA" />
             </div>
           </div>
         </div>
@@ -263,7 +275,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/java-script.png"
+                src="/imgs/iconInfinite/java-script.png"
                 alt="JavaScript"
               />
             </div>
@@ -271,13 +283,13 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/c.png" alt="C" />
+              <img className="" src="/imgs/iconInfinite/c.png" alt="C" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Java.png" alt="Java" />
+              <img className="" src="/imgs/iconInfinite/Java.png" alt="Java" />
             </div>
           </div>
 
@@ -285,7 +297,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/python.png"
+                src="/imgs/iconInfinite/python.png"
                 alt="Python"
               />
             </div>
@@ -293,7 +305,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/swift.png" alt="Swift" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/swift.png"
+                alt="Swift"
+              />
             </div>
           </div>
 
@@ -301,7 +317,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/typescript.png"
+                src="/imgs/iconInfinite/typescript.png"
                 alt="TypeScript"
               />
             </div>
@@ -315,7 +331,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/database.png"
+                src="/imgs/iconInfinite/database.png"
                 alt="Database"
               />
             </div>
@@ -323,7 +339,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/mysql.png" alt="MySQL" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/mysql.png"
+                alt="MySQL"
+              />
             </div>
           </div>
 
@@ -331,7 +351,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/sql-server.png"
+                src="/imgs/iconInfinite/sql-server.png"
                 alt="SQL Server"
               />
             </div>
@@ -345,7 +365,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/django.png"
+                src="/imgs/iconInfinite/django.png"
                 alt="Django"
               />
             </div>
@@ -355,7 +375,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/NET core.png"
+                src="/imgs/iconInfinite/NET core.png"
                 alt=".NET Core"
               />
             </div>
@@ -367,19 +387,19 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Go.png" alt="Go" />
+              <img className="" src="/imgs/iconInfinite/Go.png" alt="Go" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/nlp.png" alt="NLP" />
+              <img className="" src="/imgs/iconInfinite/nlp.png" alt="NLP" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/CSS3.png" alt="CSS3" />
+              <img className="" src="/imgs/iconInfinite/CSS3.png" alt="CSS3" />
             </div>
           </div>
 
@@ -387,7 +407,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/css-file.png"
+                src="/imgs/iconInfinite/css-file.png"
                 alt="CSS File"
               />
             </div>
@@ -395,7 +415,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/html.png" alt="HTML" />
+              <img className="" src="/imgs/iconInfinite/html.png" alt="HTML" />
             </div>
           </div>
 
@@ -403,7 +423,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/MATLAB.png"
+                src="/imgs/iconInfinite/MATLAB.png"
                 alt="MATLAB"
               />
             </div>
@@ -417,7 +437,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/Adobe Photoshop.png"
+                src="/imgs/iconTool/Adobe Photoshop.png"
                 alt="Adobe Photoshop"
               />
             </div>
@@ -425,13 +445,17 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Blender.png" alt="Blender" />
+              <img
+                className=""
+                src="/imgs/iconTool/Blender.png"
+                alt="Blender"
+              />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Canva.png" alt="Canva" />
+              <img className="" src="/imgs/iconTool/Canva.png" alt="Canva" />
             </div>
           </div>
 
@@ -439,7 +463,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/davinci-resolve.png"
+                src="/imgs/iconTool/davinci-resolve.png"
                 alt="DaVinci Resolve"
               />
             </div>
@@ -447,7 +471,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/idea.png" alt="IDEA" />
+              <img className="" src="/imgs/iconTool/idea.png" alt="IDEA" />
             </div>
           </div>
         </div>
@@ -515,7 +539,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/java-script.png"
+                src="/imgs/iconInfinite/java-script.png"
                 alt="JavaScript"
               />
             </div>
@@ -523,13 +547,13 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/c.png" alt="C" />
+              <img className="" src="/imgs/iconInfinite/c.png" alt="C" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Java.png" alt="Java" />
+              <img className="" src="/imgs/iconInfinite/Java.png" alt="Java" />
             </div>
           </div>
 
@@ -537,7 +561,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/python.png"
+                src="/imgs/iconInfinite/python.png"
                 alt="Python"
               />
             </div>
@@ -545,7 +569,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/swift.png" alt="Swift" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/swift.png"
+                alt="Swift"
+              />
             </div>
           </div>
 
@@ -553,7 +581,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/typescript.png"
+                src="/imgs/iconInfinite/typescript.png"
                 alt="TypeScript"
               />
             </div>
@@ -567,7 +595,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/database.png"
+                src="/imgs/iconInfinite/database.png"
                 alt="Database"
               />
             </div>
@@ -575,7 +603,11 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/mysql.png" alt="MySQL" />
+              <img
+                className=""
+                src="/imgs/iconInfinite/mysql.png"
+                alt="MySQL"
+              />
             </div>
           </div>
 
@@ -583,7 +615,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/sql-server.png"
+                src="/imgs/iconInfinite/sql-server.png"
                 alt="SQL Server"
               />
             </div>
@@ -597,7 +629,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/django.png"
+                src="/imgs/iconInfinite/django.png"
                 alt="Django"
               />
             </div>
@@ -607,7 +639,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/NET core.png"
+                src="/imgs/iconInfinite/NET core.png"
                 alt=".NET Core"
               />
             </div>
@@ -619,19 +651,19 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/Go.png" alt="Go" />
+              <img className="" src="/imgs/iconInfinite/Go.png" alt="Go" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/nlp.png" alt="NLP" />
+              <img className="" src="/imgs/iconInfinite/nlp.png" alt="NLP" />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/CSS3.png" alt="CSS3" />
+              <img className="" src="/imgs/iconInfinite/CSS3.png" alt="CSS3" />
             </div>
           </div>
 
@@ -639,7 +671,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/css-file.png"
+                src="/imgs/iconInfinite/css-file.png"
                 alt="CSS File"
               />
             </div>
@@ -647,7 +679,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconInfinite/html.png" alt="HTML" />
+              <img className="" src="/imgs/iconInfinite/html.png" alt="HTML" />
             </div>
           </div>
 
@@ -655,7 +687,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconInfinite/MATLAB.png"
+                src="/imgs/iconInfinite/MATLAB.png"
                 alt="MATLAB"
               />
             </div>
@@ -669,7 +701,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/Adobe Photoshop.png"
+                src="/imgs/iconTool/Adobe Photoshop.png"
                 alt="Adobe Photoshop"
               />
             </div>
@@ -677,13 +709,17 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Blender.png" alt="Blender" />
+              <img
+                className=""
+                src="/imgs/iconTool/Blender.png"
+                alt="Blender"
+              />
             </div>
           </div>
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/Canva.png" alt="Canva" />
+              <img className="" src="/imgs/iconTool/Canva.png" alt="Canva" />
             </div>
           </div>
 
@@ -691,7 +727,7 @@ const InfiniteScroll = () => {
             <div className="w-full">
               <img
                 className=""
-                src="imgs/iconTool/davinci-resolve.png"
+                src="/imgs/iconTool/davinci-resolve.png"
                 alt="DaVinci Resolve"
               />
             </div>
@@ -699,7 +735,7 @@ const InfiniteScroll = () => {
 
           <div className="panel shadow-black-light w-168-h-66 flex a-i-c mb-4rem ml-0">
             <div className="w-full">
-              <img className="" src="imgs/iconTool/idea.png" alt="IDEA" />
+              <img className="" src="/imgs/iconTool/idea.png" alt="IDEA" />
             </div>
           </div>
         </div>

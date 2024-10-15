@@ -10,7 +10,7 @@ const SlideShow = () => {
         >
           <img
             className="d-block"
-            src="imgs/banner1.png"
+            src="/imgs/banner1.png"
             alt="First slide"
             style={{ maxHeight: "100%", maxWidth: "100%" }}
           />
@@ -23,7 +23,7 @@ const SlideShow = () => {
         >
           <img
             className="d-block"
-            src="imgs/logo.png"
+            src="/imgs/logo.png"
             alt="Second slide"
             style={{ maxHeight: "100%", maxWidth: "100%", marginTop: "-100px" }}
           />

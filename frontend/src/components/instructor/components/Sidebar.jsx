@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardTeacher,
+  faUsers,
+  faCertificate,
+  faTicketSimple,
+  faChartSimple,
   faComments,
-  faChartBar,
-  faTools,
-  faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
   const getUrl = location.pathname;
@@ -22,28 +24,44 @@ const Sidebar = () => {
     >
       <div className="sidebar">
         <div className="logo">
-          <img src="imgs/favicon.png" alt="Logo" />
+          <img src="/imgs/favicon.png" alt="Logo" />
         </div>
         <ul className="sidebar-menu">
-          <li className={`${getUrl === "/instructor" && "active"} `}>
+          <li
+            className={`${
+              (getUrl === "/instructor" ||
+                getUrl === "/instructor/create-course" ||
+                getUrl === "/instructor/manage-course" ||
+                getUrl === "/instructor/manage-course/section-course" ||
+                getUrl === "/instructor/manage-course/lecture-course") &&
+              "active"
+            } `}
+            onClick={() => {
+              navigate("/instructor");
+            }}
+          >
             <FontAwesomeIcon icon={faChalkboardTeacher} />
             <span>Khóa học</span>
           </li>
           <li>
+            <FontAwesomeIcon icon={faUsers} />
+            <span>Học viên</span>
+          </li>
+          <li>
             <FontAwesomeIcon icon={faComments} />
-            <span>Giao tiếp</span>
+            <span>Đánh giá</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faChartBar} />
-            <span>Hiệu suất</span>
+            <FontAwesomeIcon icon={faTicketSimple} />
+            <span>Mã giảm giá</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faTools} />
-            <span>Công cụ</span>
+            <FontAwesomeIcon icon={faCertificate} />
+            <span>Chứng chỉ</span>
           </li>
           <li>
-            <FontAwesomeIcon icon={faQuestionCircle} />
-            <span>Tài nguyên</span>
+            <FontAwesomeIcon icon={faChartSimple} />
+            <span>Doanh thu</span>
           </li>
         </ul>
       </div>

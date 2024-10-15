@@ -75,7 +75,7 @@ const Footer = () => {
         <div className="row">
           {/* Language and Logo Section */}
           <div className="footer-logo col-6">
-            <img src="imgs/logo.png" />
+            <img src="/imgs/logo.png" />
           </div>
           <div className="footer-copyright col-6">
             &copy; 2024 Easy Learning, Inc.
