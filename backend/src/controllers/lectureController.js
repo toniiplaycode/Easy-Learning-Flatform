@@ -1,7 +1,8 @@
 import { Lecture, Section } from "../models/models.js";
 
 export const addLecture = async (req, res) => {
-  const { section_id, title, video_url, duration, position } = req.body;
+  const { section_id, title, description, video_url, duration, position } =
+    req.body;
 
   try {
     // Kiểm tra xem phần này có tồn tại không
@@ -11,16 +12,18 @@ export const addLecture = async (req, res) => {
       return res.status(404).json({ error: "Section not found" });
     }
 
-    if (!title || !video_url || !duration || !position) {
-      return res
-        .status(404)
-        .json({ error: "title, video_url, duration and position is requered" });
+    if (!title || !description || !video_url || !duration || !position) {
+      return res.status(404).json({
+        error:
+          "title, video_url, description, duration and position is requered",
+      });
     }
 
     // Tạo một bài giảng mới
     const newLecture = await Lecture.create({
       section_id,
       title,
+      description,
       video_url,
       duration,
       position,

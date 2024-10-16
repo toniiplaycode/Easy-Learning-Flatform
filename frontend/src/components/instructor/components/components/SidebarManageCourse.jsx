@@ -38,7 +38,11 @@ const SidebarManageCourse = ({ detailCourse }) => {
           location.pathname == "/instructor/manage-course/lecture-course" &&
           "active"
         }`}
-        onClick={() => navigate("/instructor/manage-course/lecture-course")}
+        onClick={() =>
+          navigate("/instructor/manage-course/lecture-course", {
+            state: { course },
+          })
+        }
       >
         Bài giảng
       </div>

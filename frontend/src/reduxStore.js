@@ -10,6 +10,7 @@ import search from "./reducers/search";
 import apiCoupon, { fetchCoupon } from "./reducers/apiCoupon";
 import apiPayment from "./reducers/apiPayment";
 import apiSection from "./reducers/apiSection";
+import apiLecture from "./reducers/apiLecture";
 
 const reduxStore = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const reduxStore = configureStore({
     apiCoupon: apiCoupon,
     apiPayment: apiPayment,
     apiSection: apiSection,
+    apiLecture: apiLecture,
   },
 });
 

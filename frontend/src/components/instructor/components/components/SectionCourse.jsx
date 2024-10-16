@@ -73,6 +73,9 @@ const SectionCourse = () => {
     <div className="section-course-container">
       <h2>Quản lý chương khóa học</h2>
       <h5>Các chương hiện tại</h5>
+      <div className="section-course-img">
+        <img src={detailCourse?.img} />
+      </div>
       <div className="section-course-current">
         {sectionEachCourse
           ?.slice() // Create a shallow copy to avoid mutation

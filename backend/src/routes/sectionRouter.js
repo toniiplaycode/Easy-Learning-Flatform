@@ -7,6 +7,7 @@ import {
 import {
   addSection,
   deleteSection,
+  getSectionAllLectureEachCourse,
   getSectionEachCourse,
   updateSection,
 } from "../controllers/sectionController.js";
@@ -21,6 +22,8 @@ router.post(
 );
 
 router.get("/getSectionEachCourse", getSectionEachCourse);
+
+router.get("/getSectionAllLectureEachCourse", getSectionAllLectureEachCourse);
 
 router.put(
   "/updateSection",

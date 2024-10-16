@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourse, updateCourse } from "../../../../reducers/apiCourse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 const CreateUpdateCourse = ({ detailCourse }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ const CreateUpdateCourse = ({ detailCourse }) => {
 
   //------------create course--------------
   const [errors, setErrors] = useState({});
-  const [selectedImageUrl, setSelectedImageUrl] = useState(null); // For image preview
+  const [selectedImageUrl, setSelectedImageUrl] =
+    useState("Chưa chọn hình nào");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -50,7 +52,9 @@ const CreateUpdateCourse = ({ detailCourse }) => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedImageUrl(URL.createObjectURL(file)); // Set preview URL
+      setSelectedImageUrl(
+        file ? URL.createObjectURL(file) : "Chưa chọn hình nào"
+      ); // Set preview URL
 
       await postCloudinary(file);
 
@@ -256,8 +260,10 @@ const CreateUpdateCourse = ({ detailCourse }) => {
             </select>
             {errors.language && <p className="error">{errors.language}</p>}
           </div>
-          <div className="form-group">
-            <label htmlFor="img">Chọn hình khóa học</label>
+          <div className="form-group custom-file-input">
+            <label htmlFor="img" className="custom-file-label">
+              Chọn hình khóa học
+            </label>
             <input
               type="file"
               id="img"
@@ -265,18 +271,23 @@ const CreateUpdateCourse = ({ detailCourse }) => {
               accept="image/*"
               onChange={handleImageChange}
             />
-            {selectedImageUrl && (
-              <div className="image-preview">
-                {loading && (
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                )}
-                <img src={selectedImageUrl} alt="Course Preview" />
-              </div>
-            )}
-            {errors.img && <p className="error">{errors.img}</p>}
+
+            <span className="file-name">{selectedImageUrl}</span>
           </div>
+
+          {selectedImageUrl && selectedImageUrl.slice("")[0] != "C" && (
+            <div className="image-preview">
+              {loading && (
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              )}
+              {selectedImageUrl.slice("")[0] != "C" && (
+                <img src={selectedImageUrl} alt="Course Preview" />
+              )}
+            </div>
+          )}
+          {errors.img && <p style={{ color: "red" }}>{errors.img}</p>}
 
           <button className="submit-btn" onClick={handleSubmit}>
             {detailCourse ? "Cập nhật khóa học" : "Tạo khóa học"}

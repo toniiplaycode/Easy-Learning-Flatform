@@ -4,6 +4,7 @@ import CreateUpdateCourse from "./components/CreateUpdateCourse";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import SectionCourse from "./components/SectionCourse";
 import SidebarManageCourse from "./components/SidebarManageCourse";
+import LectureCourse from "./components/LectureCourse";
 
 const ManageCourse = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const ManageCourse = () => {
             element={<CreateUpdateCourse detailCourse={detailCourse} />}
           />
           <Route path="/section-course" element={<SectionCourse />} />
+          <Route path="/lecture-course" element={<LectureCourse />} />
         </Routes>
       </div>
     </>

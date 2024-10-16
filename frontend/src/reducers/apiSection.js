@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 
 const initialState = {
   sectionEachCourse: [],
+  sectionAllLectureEachCourse: [],
   statusFetchSectionEachCourse: "idle",
+  statusFetchSectionAllLectureEachCourse: "idle",
 };
 
 export const fetchSectionEachCourse = createAsyncThunk(
@@ -13,6 +15,21 @@ export const fetchSectionEachCourse = createAsyncThunk(
   async (id, thunkAPI) => {
     const response = await axios.get(
       `${url}/api/section/getSectionEachCourse`,
+      {
+        params: {
+          course_id: id,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+export const fetchSectionAllLectureEachCourse = createAsyncThunk(
+  "apiSection/fetchSectionAllLectureEachCourse",
+  async (id, thunkAPI) => {
+    const response = await axios.get(
+      `${url}/api/section/getSectionAllLectureEachCourse`,
       {
         params: {
           course_id: id,
@@ -103,6 +120,17 @@ const apiSection = createSlice({
       })
       .addCase(fetchSectionEachCourse.rejected, (state, action) => {
         state.statusFetchSectionEachCourse = "failed";
+      })
+
+      .addCase(fetchSectionAllLectureEachCourse.pending, (state) => {
+        state.statusFetchSectionAllLectureEachCourse = "loading";
+      })
+      .addCase(fetchSectionAllLectureEachCourse.fulfilled, (state, action) => {
+        state.statusFetchSectionAllLectureEachCourse = "succeeded";
+        state.sectionAllLectureEachCourse = action.payload.sections;
+      })
+      .addCase(fetchSectionAllLectureEachCourse.rejected, (state, action) => {
+        state.statusFetchSectionAllLectureEachCourse = "failed";
       });
   },
 });

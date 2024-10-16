@@ -87,6 +87,38 @@ $color-star: #f39c12;
   }
 }
 
+.custom-file-input {
+  display: flex;
+  align-items: center;
+
+  input[type="file"] {
+    display: none; // Hide the default file input
+  }
+
+  .custom-file-label {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  .file-name {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+}
+
 //======SCROLLBAR=====//
 *::-webkit-scrollbar {
   width: 10px;
@@ -2032,24 +2064,24 @@ $color-star: #f39c12;
   textarea {
     resize: none;
   }
+}
 
-  .image-preview {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
+.image-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px 0;
 
-    div {
-      margin-bottom: 20px;
-    }
+  div {
+    margin-bottom: 20px;
+  }
 
-    img {
-      width: 300px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 20px;
-    }
+  img {
+    width: 300px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
   }
 }
 
@@ -2058,13 +2090,28 @@ $color-star: #f39c12;
 }
 
 //--------section course instructor---------
-.section-course-container {
+.section-course-container,
+.lecture-course-container {
   width: calc(100% - 30px);
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
   @extend .box-shadow-common;
+
+  .section-course-img,
+  .lecture-course-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+
+    img {
+      border-radius: 20px;
+      width: 300px;
+      height: 180px;
+      object-fit: cover;
+    }
+  }
 
   h2 {
     text-align: center;
@@ -2077,7 +2124,8 @@ $color-star: #f39c12;
     margin: 20px 0;
   }
 
-  .section-course-item {
+  .section-course-item,
+  .lecture-course-item {
     display: flex;
     background: #fff;
     align-items: center;
@@ -2116,6 +2164,46 @@ $color-star: #f39c12;
           background-color: #a22e2e;
         }
       }
+    }
+  }
+}
+
+.lecture-course-item {
+  flex-direction: column;
+  align-items: flex-start !important;
+
+  h6 {
+    font-weight: bold;
+  }
+
+  .lecture-current-item {
+    width: 100%;
+    margin: 5px 0;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .lecture-current-item-left {
+      margin-top: 14px;
+      flex: 1;
+      p {
+        border-top: 1px solid #c6c5c5;
+      }
+    }
+
+    .lecture-current-item-right {
+      button {
+        margin-left: 10px;
+        padding: 5px 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
     }
   }
 }

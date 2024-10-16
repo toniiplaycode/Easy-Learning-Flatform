@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import { Course, Section } from "../models/models.js";
+import { Course, Lecture, Section } from "../models/models.js";
 
 export const addSection = async (req, res) => {
   const { course_id, position, title } = req.body; // Lấy title và course_id từ request body
@@ -46,6 +46,34 @@ export const getSectionEachCourse = async (req, res) => {
     // Lấy danh sách các phần của khóa học
     const sections = await Section.findAll({
       where: { course_id: course_id },
+    });
+
+    res.status(200).json({ message: "OK", sections });
+  } catch (error) {
+    console.error("Error fetching sections:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getSectionAllLectureEachCourse = async (req, res) => {
+  const { course_id } = req.query;
+
+  try {
+    // Kiểm tra xem khóa học có tồn tại không
+    const course = await Course.findByPk(course_id);
+
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    // Lấy danh sách các phần của khóa học
+    const sections = await Section.findAll({
+      where: { course_id: course_id },
+      include: [
+        {
+          model: Lecture,
+        },
+      ],
     });
 
     res.status(200).json({ message: "OK", sections });
