@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import { Lecture, Section } from "../models/models.js";
 
 export const addLecture = async (req, res) => {
@@ -13,7 +14,7 @@ export const addLecture = async (req, res) => {
     }
 
     if (!title || !description || !video_url || !duration || !position) {
-      return res.status(404).json({
+      return res.status(400).json({
         error:
           "title, video_url, description, duration and position is requered",
       });
@@ -86,16 +87,48 @@ export const updateLecture = async (req, res) => {
       return res.status(404).json({ error: "Lecture not found" });
     }
 
-    // Cập nhật bài giảng
+    // Check if the new position is different from the current position
+    if (lecture.position !== position) {
+      // Update positions of other lectures in the section
+      if (lecture.position > position) {
+        // If the new position is smaller, shift all the lectures between the old and new position upwards
+        await Lecture.update(
+          { position: Sequelize.literal("position + 1") },
+          {
+            where: {
+              section_id: lecture.section_id,
+              position: {
+                [Sequelize.Op.between]: [position, lecture.position - 1],
+              },
+            },
+          }
+        );
+      } else if (lecture.position < position) {
+        // If the new position is larger, shift all the lectures between the old and new position downwards
+        await Lecture.update(
+          { position: Sequelize.literal("position - 1") },
+          {
+            where: {
+              section_id: lecture.section_id,
+              position: {
+                [Sequelize.Op.between]: [lecture.position + 1, position],
+              },
+            },
+          }
+        );
+      }
+    }
+
+    // Update the lecture itself
     lecture.section_id = section_id || lecture.section_id;
     lecture.title = title || lecture.title;
     lecture.video_url = video_url || lecture.video_url;
     lecture.duration = duration || lecture.duration;
     lecture.position = position || lecture.position;
 
-    await lecture.save(); // Lưu các thay đổi
+    await lecture.save(); // Save changes
 
-    res.status(200).json({ message: "OK", lecture }); // Trả về bài giảng đã cập nhật
+    res.status(200).json({ message: "OK", lecture }); // Return updated lecture
   } catch (error) {
     console.error("Error updating lecture:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -109,7 +142,7 @@ export const deleteLecture = async (req, res) => {
     const lecture = await Lecture.findByPk(id);
 
     if (!lecture) {
-      return res.status(404).json({ error: "Lecture not found" });
+      return res.status(400).json({ error: "Lecture not found" });
     }
 
     await lecture.destroy(); // Xóa bài giảng

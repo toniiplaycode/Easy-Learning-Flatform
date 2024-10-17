@@ -8,6 +8,7 @@ import { deleteCourse } from "../../../reducers/apiCourse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { deleteSection } from "../../../reducers/apiSection";
+import { deleteLecture } from "../../../reducers/apiLecture";
 
 const DeleteConfirm = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ const DeleteConfirm = (props) => {
       dispatch(deleteCourse(props.course_id));
     } else if ("detail_section" in props) {
       dispatch(deleteSection(props.detail_section));
+    } else if ("detail_lecture" in props) {
+      dispatch(deleteLecture(props.detail_lecture));
     }
 
     setVisible(false);

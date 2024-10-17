@@ -119,7 +119,12 @@ const SectionCourse = () => {
               </div>
               <div className="section-course-item-right">
                 {isUpdateTitle == section?.id ? (
-                  <button onClick={() => putSection()}>Cập nhật tiêu đề</button>
+                  <button
+                    onClick={() => putSection()}
+                    style={{ background: "#4caf50" }}
+                  >
+                    Cập nhật tiêu đề
+                  </button>
                 ) : (
                   <button onClick={() => handlePutTitle(section)}>
                     Đổi tiêu đề
@@ -127,7 +132,12 @@ const SectionCourse = () => {
                 )}
 
                 {isUpdatePosition == section.id ? (
-                  <button onClick={() => putSection()}>Cập nhật chương</button>
+                  <button
+                    onClick={() => putSection()}
+                    style={{ background: "#4caf50" }}
+                  >
+                    Cập nhật chương
+                  </button>
                 ) : (
                   <button
                     onClick={() => {

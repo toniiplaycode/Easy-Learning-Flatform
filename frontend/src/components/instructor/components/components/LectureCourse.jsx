@@ -4,6 +4,9 @@ import { fetchSectionAllLectureEachCourse } from "../../../../reducers/apiSectio
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
+import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
+import DeleteConfirmation from "../DeleteConfirm";
+import { toast } from "react-toastify";
 
 const LectureCourse = () => {
   const dispatch = useDispatch();
@@ -24,8 +27,11 @@ const LectureCourse = () => {
   const [description, setDescription] = useState("");
   const [fileName, setFileName] = useState("Chưa chọn video nào");
   const [video_url, setVideoUrl] = useState("");
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(1); // set bằng 1 đỡ, nữa sài được API youtube sửa lại
   const [totalLecture, setTotalLecture] = useState();
+
+  const [isUpdatePosition, setIsUpdatePosition] = useState(null);
+  const [lectureDataUpdate, setLectureDataUpdate] = useState({});
 
   // State for validation
   const [validate, setValidate] = useState({
@@ -71,6 +77,7 @@ const LectureCourse = () => {
     }
 
     const newLectureData = {
+      course_id: detailCourse.id,
       section_id,
       title,
       description,
@@ -79,7 +86,13 @@ const LectureCourse = () => {
       duration,
     };
 
-    console.log("New Lecture Data:", newLectureData);
+    dispatch(addLecture(newLectureData));
+
+    setSectionId("");
+    setTitle("");
+    setDescription("");
+    setVideoUrl("");
+    setDuration(0);
   };
 
   // Handle change for each input to reset its validation
@@ -103,6 +116,27 @@ const LectureCourse = () => {
     setValidate((prev) => ({ ...prev, video_url: true }));
   };
 
+  const handlePutPosition = (lecture) => {
+    setIsUpdatePosition(lecture.id);
+    setLectureDataUpdate({
+      ...lectureDataUpdate,
+      course_id: detailCourse.id,
+      id: lecture.id,
+      position: lecture.position,
+    });
+  };
+
+  const putLecture = () => {
+    if (!lectureDataUpdate.position) {
+      toast.error("Vị trí không để trống !");
+      return;
+    }
+
+    dispatch(updateLecture(lectureDataUpdate));
+    setLectureDataUpdate({});
+    setIsUpdatePosition(null);
+  };
+
   return (
     <div className="lecture-course-container">
       <h2>Quản lý bài giảng khóa học</h2>
@@ -116,32 +150,78 @@ const LectureCourse = () => {
             <h6>
               Chương {section.position}. {section.title}
             </h6>
-            {section?.Lectures?.map((lecture) => (
-              <div className="lecture-current-item" key={lecture.id}>
-                <span className="lecture-current-item-left">
-                  <span>
-                    {lecture.video_url.length > 0 ? (
-                      <FontAwesomeIcon
-                        icon={faVideo}
-                        style={{ color: "blue" }}
-                      />
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faVideoSlash}
-                        style={{ color: "red" }}
-                      />
-                    )}
-                  </span>{" "}
-                  Bài {lecture.position}. {lecture.title}
-                  <p>{lecture.description}</p>
-                </span>
-                <span className="lecture-current-item-right">
-                  <button>Quản lý</button>
-                  <button>Đổi vị trí</button>
-                  <button>Xóa</button>
-                </span>
-              </div>
-            ))}
+            {section?.Lectures?.slice() // Create a shallow copy to avoid mutation
+              .sort((a, b) => a.position - b.position) // Sort by position
+              .map((lecture) => {
+                const detail_lecture = {
+                  id: lecture.id,
+                  course_id: detailCourse.id,
+                };
+                return (
+                  <div className="lecture-current-item" key={lecture.id}>
+                    <span className="lecture-current-item-left">
+                      <span>
+                        {lecture.video_url.length > 0 ? (
+                          <FontAwesomeIcon
+                            icon={faVideo}
+                            style={{ color: "blue" }}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faVideoSlash}
+                            style={{ color: "red" }}
+                          />
+                        )}
+                      </span>{" "}
+                      Bài{" "}
+                      {isUpdatePosition == lecture.id ? (
+                        <input
+                          type="number"
+                          className="input-common"
+                          style={{
+                            width: "50px",
+                            padding: "5px",
+                            marginBottom: "4px",
+                          }}
+                          value={lectureDataUpdate.position}
+                          onChange={(e) =>
+                            setLectureDataUpdate({
+                              ...lectureDataUpdate,
+                              position: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        lecture.position
+                      )}
+                      . {lecture.title}
+                      <p>{lecture.description}</p>
+                    </span>
+                    <span className="lecture-current-item-right">
+                      <button>Quản lý</button>
+
+                      {isUpdatePosition == lecture.id ? (
+                        <button
+                          style={{ background: "#4caf50" }}
+                          onClick={() => putLecture()}
+                        >
+                          Cập nhật vị trí trong chương
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            handlePutPosition(lecture);
+                          }}
+                        >
+                          Đổi vị trí trong chương
+                        </button>
+                      )}
+
+                      <DeleteConfirmation detail_lecture={detail_lecture} />
+                    </span>
+                  </div>
+                );
+              })}
           </div>
         ))}
       </div>
@@ -185,7 +265,7 @@ const LectureCourse = () => {
 
       <div className="form-group">
         <label htmlFor="description">Mô tả</label>
-        <input
+        <textarea
           type="text"
           name="description"
           value={description}

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "../utils/common";
 import { toast } from "react-toastify";
+import { fetchSectionAllLectureEachCourse } from "./apiSection";
 
 const initialState = {
   lectures: [],
@@ -13,16 +14,64 @@ export const addLecture = createAsyncThunk(
   async (obj, thunkAPI) => {
     try {
       const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
-      const inforUser = thunkAPI.getState().apiLoginLogout.inforUser; // lấy inforUser bên apiLoginLogout
 
-      const response = await axios.post(`${url}/api/lecture/addLecture`, obj, {
+      // Lấy hết các trường nhưng bỏ qua `course_id`
+      const { course_id, ...rest } = obj;
+
+      const response = await axios.post(`${url}/api/lecture/addLecture`, rest, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       toast.success("Đã thêm bài giảng!");
-      //   thunkAPI.dispatch(fetchCartEachUser());
+      thunkAPI.dispatch(fetchSectionAllLectureEachCourse(obj.course_id));
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteLecture = createAsyncThunk(
+  "apiLecture/deleteLecture",
+  async (obj, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const config = {
+      params: {
+        id: obj.id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.delete(`${url}/api/lecture/deleteLecture`, config);
+    thunkAPI.dispatch(fetchSectionAllLectureEachCourse(obj.course_id));
+    return res.data;
+  }
+);
+
+export const updateLecture = createAsyncThunk(
+  "apiLecture/updateLecture",
+  async (obj, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
+
+      // Lấy hết các trường nhưng bỏ qua `course_id`
+      const { course_id, ...rest } = obj;
+
+      const response = await axios.put(
+        `${url}/api/lecture/updateLecture`,
+        rest,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Đã sửa bài giảng!");
+      thunkAPI.dispatch(fetchSectionAllLectureEachCourse(obj.course_id));
       return response.data;
     } catch (error) {
       console.log(error);
