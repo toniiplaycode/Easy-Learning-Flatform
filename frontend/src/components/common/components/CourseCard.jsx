@@ -30,7 +30,7 @@ const CourseCard = ({
           <span className="reviews">({reviews})</span>
         </div>
         <div className="course-price">
-          <strong>₫ {price}</strong>
+          <strong>{price != 0 ? <>₫ {price}</> : <>Miễn phí</>}</strong>
         </div>
       </div>
     </div>

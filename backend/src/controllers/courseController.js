@@ -105,6 +105,12 @@ export const detailCourse = async (req, res) => {
           model: Review,
           where: { course_id: Sequelize.col("Course.id") },
           required: false,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "name", "email", "bio", "avatar"],
+            },
+          ],
         },
         {
           model: Section,

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { putUpdateUser } from "../../reducers/apiUpdateUser";
-import { fetchEnrollmentEachUser } from "../../reducers/apiEnrollment";
+import parse from "html-react-parser";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -145,7 +145,12 @@ const UserProfile = () => {
                     />
                     <div className="course-info">
                       <h3>{enroll.Course.title}</h3>
-                      <p>{enroll.Course.description}</p>
+                      <p>
+                        {typeof enroll.Course.description === "string"
+                          ? parse(enroll.Course.description)
+                          : enroll.Course.description ||
+                            "No description available"}
+                      </p>
                     </div>
                   </div>
                 ))

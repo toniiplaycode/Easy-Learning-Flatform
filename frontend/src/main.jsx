@@ -10,13 +10,20 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import reduxStore from "./reduxStore";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  // Define any custom theme overrides if needed
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={reduxStore}>
       <BrowserRouter>
         <ChakraProvider>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </ChakraProvider>
       </BrowserRouter>
     </Provider>

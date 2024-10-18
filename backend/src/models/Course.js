@@ -40,6 +40,10 @@ const Course = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    created_at: {
+      type: Date,
+      allowNull: true,
+    },
   },
   {
     timestamps: false,

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "../utils/common";
+import { toast } from "react-toastify";
 
 const initialState = {
   categories: [],
@@ -12,6 +13,31 @@ export const fetchCategory = createAsyncThunk(
   async () => {
     const response = await axios.get(`${url}/api/category/getAllCategory`);
     return response.data;
+  }
+);
+
+export const addCategory = createAsyncThunk(
+  "apiCategory/addCategory",
+  async (obj, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
+
+      const response = await axios.post(
+        `${url}/api/category/addCategory`,
+        obj,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Thêm thể loại thành công !");
+      thunkAPI.dispatch(fetchCategory());
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 

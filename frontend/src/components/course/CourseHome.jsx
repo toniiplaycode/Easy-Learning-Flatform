@@ -19,23 +19,38 @@ import { addCart } from "../../reducers/apiCart";
 import { toast } from "react-toastify";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoEnterOutline } from "react-icons/io5";
+import parse from "html-react-parser";
+import CourseHomeReview from "./CourseHomeReview";
 
 const CourseHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [expandedSections, setExpandedSections] = useState({});
+  const [isEnrolled, setIsEnrolled] = useState();
 
   const params = new URLSearchParams(window.location.search);
   const idCourseUrl = params.get("id");
 
   useEffect(() => {
     dispatch(fetchDetailCourse(idCourseUrl));
+    const checkEnrolled = enrollmentEachUser?.some(
+      (item) => item.course_id === Number(idCourseUrl)
+    );
   }, [idCourseUrl]);
 
   const detailCourse = useSelector((state) => state.apiCourse.detailCourse);
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
   );
+
+  useEffect(() => {
+    if (idCourseUrl && enrollmentEachUser) {
+      const checkEnrolled = enrollmentEachUser?.some(
+        (item) => item.course_id === Number(idCourseUrl)
+      );
+      setIsEnrolled(checkEnrolled);
+    }
+  }, [idCourseUrl, enrollmentEachUser]);
 
   // sort lecture
   const [sortedDetailCourse, setSortedDetailCourse] = useState(null);
@@ -118,11 +133,9 @@ const CourseHome = () => {
           <h1>{sortedDetailCourse?.title}</h1>
           <ul>
             <li>
-              <TiTickOutline
-                size={22}
-                style={{ display: "inline-block", color: "#5022c3" }}
-              />
-              {sortedDetailCourse?.description}
+              {typeof sortedDetailCourse?.description === "string"
+                ? parse(sortedDetailCourse.description)
+                : sortedDetailCourse?.description || "No description available"}
             </li>
           </ul>
           <div className="course-details">
@@ -145,7 +158,7 @@ const CourseHome = () => {
             </p>
             <p>
               <span>
-                Khóa học được tạo {formatDate(sortedDetailCourse?.createdAt)}{" "}
+                Khóa học được tạo {formatDate(sortedDetailCourse?.created_at)}{" "}
               </span>
               <span>
                 <FontAwesomeIcon icon={faEarthAmericas} />{" "}
@@ -173,7 +186,9 @@ const CourseHome = () => {
           </div>
           <div className="course-info">
             <h3>
-              {sortedDetailCourse?.price == 0
+              {isEnrolled
+                ? "Bạn đã tham gia khóa học này"
+                : sortedDetailCourse?.price == 0
                 ? "Miễn phí"
                 : "₫ " + sortedDetailCourse?.price.toLocaleString()}
             </h3>
@@ -182,9 +197,6 @@ const CourseHome = () => {
                 <button
                   className="enroll-button not-bg"
                   onClick={() => {
-                    const isEnrolled = enrollmentEachUser?.some(
-                      (item) => item.course_id === Number(idCourseUrl)
-                    );
                     if (isEnrolled) {
                       toast.warning("Bạn đã tham gia khóa học này !");
                     } else {
@@ -200,9 +212,6 @@ const CourseHome = () => {
               <button
                 className="enroll-button"
                 onClick={() => {
-                  const isEnrolled = enrollmentEachUser?.some(
-                    (item) => item.course_id === Number(idCourseUrl)
-                  );
                   if (!isEnrolled) {
                     toast.error(
                       "Bạn chưa mua khóa học này ! Hãy thêm vào giỏ hàng và thanh toán",
@@ -222,7 +231,6 @@ const CourseHome = () => {
           </div>
         </div>
       </div>
-
       {/* Section: Nội dung khóa học */}
       <div className="course-content">
         <h1>Nội dung khóa học</h1>
@@ -234,21 +242,29 @@ const CourseHome = () => {
         {sortedDetailCourse?.Sections?.map((section) => (
           <div className="section" onClick={() => toggleSection(section.id)}>
             <h3>
-              {section.title}
+              Chương {section.position}. {section.title}
               <span>{expandedSections[section.id] ? "-" : "+"}</span>
             </h3>
             {expandedSections[section.id] && (
               <ul>
                 {section?.Lectures?.map((lecture) => (
                   <li>
-                    <FontAwesomeIcon icon={faCirclePlay} color="#007bff" />{" "}
-                    {lecture?.title}
+                    <FontAwesomeIcon icon={faCirclePlay} color="#007bff" /> Bài{" "}
+                    {lecture.position}. {lecture?.title}
                   </li>
                 ))}
               </ul>
             )}
           </div>
         ))}
+      </div>
+
+      <div className="course-content">
+        <h1 style={{ marginTop: "40px" }}>Các đánh giá của học viên</h1>
+        <CourseHomeReview
+          reviews={detailCourse?.Reviews}
+          isEnrolled={isEnrolled}
+        />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Pagination from "./Pagination";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import parse from "html-react-parser";
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -157,7 +158,11 @@ const SearchPage = () => {
                 </div>
                 <div className="result-info">
                   <h3>{result.title}</h3>
-                  <p>{result.description}</p>
+                  <p>
+                    {typeof result.description === "string"
+                      ? parse(result.description)
+                      : result.description || "No description available"}
+                  </p>
                   <p className="result-author">{result.User.name}</p>
                   <div className="result-rating">
                     <span>{averageRating ? averageRating : "0"}</span>

@@ -23,6 +23,19 @@ const SlideShow = () => {
         >
           <img
             className="d-block"
+            src="/imgs/banner2.png"
+            alt="First slide"
+            style={{ maxHeight: "100%", maxWidth: "100%" }}
+          />
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "500px" }}
+        >
+          <img
+            className="d-block"
             src="/imgs/logo.png"
             alt="Second slide"
             style={{ maxHeight: "100%", maxWidth: "100%", marginTop: "-100px" }}

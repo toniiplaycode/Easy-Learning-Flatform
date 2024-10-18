@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSectionAllLectureEachCourse } from "../../../../reducers/apiSection";
 import { useLocation } from "react-router-dom";
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 const LectureCourse = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const targetElementRef = useRef(null);
   const detailCourse = location.state?.course;
 
   const sectionAllLectureEachCourse = useSelector(
@@ -31,6 +32,7 @@ const LectureCourse = () => {
   const [totalLecture, setTotalLecture] = useState();
 
   const [isUpdatePosition, setIsUpdatePosition] = useState(null);
+  const [isUpdateLecture, setIsUpdateLecture] = useState(null);
   const [lectureDataUpdate, setLectureDataUpdate] = useState({});
 
   // State for validation
@@ -41,9 +43,19 @@ const LectureCourse = () => {
     video_url: true,
   });
 
-  // total lecture
-  useEffect(() => {
-    if (sectionAllLectureEachCourse && sectionAllLectureEachCourse.length > 0) {
+  // calculate the lasted position lecture of the selected section
+  const handleLastestPositionLectureEachSection = (section_id) => {
+    const section = sectionAllLectureEachCourse?.find(
+      (section) => section.id === section_id
+    );
+
+    if (section && section.Lectures.length > 0) {
+      // Get the last lecture's position
+      const lastLecturePosition =
+        section.Lectures[section.Lectures.length - 1].position;
+      setTotalLecture(lastLecturePosition);
+    } else {
+      // Get the total lectures
       const totalLecturesCount = sectionAllLectureEachCourse.reduce(
         (total, section) => {
           return total + section.Lectures.length;
@@ -52,7 +64,7 @@ const LectureCourse = () => {
       );
       setTotalLecture(totalLecturesCount);
     }
-  }, [sectionAllLectureEachCourse]);
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -97,6 +109,7 @@ const LectureCourse = () => {
 
   // Handle change for each input to reset its validation
   const handleSectionChange = (e) => {
+    handleLastestPositionLectureEachSection(Number(e.target.value));
     setSectionId(Number(e.target.value));
     setValidate((prev) => ({ ...prev, section_id: true }));
   };
@@ -127,14 +140,60 @@ const LectureCourse = () => {
   };
 
   const putLecture = () => {
-    if (!lectureDataUpdate.position) {
+    const updatedLectureData = {
+      id: lectureDataUpdate.id, // retain lecture id
+      course_id: detailCourse.id, // retain course id
+      section_id: section_id, // use the latest section_id from state
+      title: title, // use the latest title from state
+      description: description, // use the latest description from state
+      video_url: video_url, // use the latest video_url from state
+      position: lectureDataUpdate.position || 1, // retain or update position
+      duration: duration, // use the latest duration from state
+    };
+
+    if (!updatedLectureData.position) {
       toast.error("Vị trí không để trống !");
       return;
     }
 
-    dispatch(updateLecture(lectureDataUpdate));
-    setLectureDataUpdate({});
+    dispatch(updateLecture(updatedLectureData));
+
+    // Reset the form fields after updating
+    setSectionId("");
+    setTitle("");
+    setDescription("");
+    setVideoUrl("");
+    setDuration(1);
     setIsUpdatePosition(null);
+    setIsUpdateLecture(null);
+  };
+
+  const handlePutLecture = (lecture_id) => {
+    let foundLecture = null;
+    setIsUpdateLecture(lecture_id);
+    targetElementRef.current.scrollIntoView({ behavior: "smooth" });
+
+    sectionAllLectureEachCourse.forEach((section) => {
+      section.Lectures.forEach((lecture) => {
+        if (lecture.id === lecture_id) {
+          foundLecture = lecture;
+        }
+      });
+    });
+
+    if (foundLecture) {
+      setLectureDataUpdate({
+        course_id: detailCourse.id,
+        ...foundLecture,
+      });
+
+      setSectionId(foundLecture.section_id);
+      setTitle(foundLecture.title);
+      setDescription(foundLecture.description);
+      setVideoUrl(foundLecture.video_url);
+      setDuration(foundLecture.duration);
+      setIsUpdatePosition(null); // This will hide the position update if needed
+    }
   };
 
   return (
@@ -198,7 +257,15 @@ const LectureCourse = () => {
                       <p>{lecture.description}</p>
                     </span>
                     <span className="lecture-current-item-right">
-                      <button>Quản lý</button>
+                      <button
+                        onClick={() => {
+                          handlePutLecture(lecture.id);
+                        }}
+                      >
+                        {isUpdateLecture == lecture.id
+                          ? "Cập nhật"
+                          : " Quản lý"}
+                      </button>
 
                       {isUpdatePosition == lecture.id ? (
                         <button
@@ -226,7 +293,7 @@ const LectureCourse = () => {
         ))}
       </div>
 
-      <h5>Thêm bài giảng mới</h5>
+      <h5 ref={targetElementRef}>Thêm bài giảng mới</h5>
 
       <div className="form-group">
         <label htmlFor="section_id">Thuộc chương</label>
@@ -306,8 +373,11 @@ const LectureCourse = () => {
         )}
       </div>
 
-      <button className="submit-btn" onClick={handleSubmit}>
-        Thêm bài giảng
+      <button
+        className="submit-btn"
+        onClick={isUpdateLecture ? putLecture : handleSubmit}
+      >
+        {isUpdateLecture ? "Cập nhật bài giảng" : "Thêm bài giảng"}
       </button>
     </div>
   );

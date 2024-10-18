@@ -1,12 +1,12 @@
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import { Lecture, Section } from "../models/models.js";
 
 export const addLecture = async (req, res) => {
-  const { section_id, title, description, video_url, duration, position } =
+  let { section_id, title, description, video_url, duration, position } =
     req.body;
 
   try {
-    // Kiểm tra xem phần này có tồn tại không
+    // Find the section to ensure it exists
     const section = await Section.findByPk(section_id);
 
     if (!section) {
@@ -16,11 +16,39 @@ export const addLecture = async (req, res) => {
     if (!title || !description || !video_url || !duration || !position) {
       return res.status(400).json({
         error:
-          "title, video_url, description, duration and position is requered",
+          "title, video_url, description, duration, and position are required",
       });
     }
 
-    // Tạo một bài giảng mới
+    // Get the course_id from the section, so we can handle all sections in the course
+    const course_id = section.course_id;
+
+    // Find all lectures in the course, ordered by position
+    const allLecturesInCourse = await Lecture.findAll({
+      include: [
+        {
+          model: Section,
+          where: { course_id }, // Match all sections in the same course
+        },
+      ],
+      order: [["position", "ASC"]], // Order by position to update correctly
+    });
+
+    // Now we need to adjust positions of lectures starting from the desired position
+
+    const lecturesToUpdate = allLecturesInCourse.filter(
+      (lecture) => lecture.position >= position
+    );
+
+    // Increment the position of each affected lecture
+    await Promise.all(
+      lecturesToUpdate.map(async (lecture) => {
+        lecture.position += 1;
+        await lecture.save();
+      })
+    );
+
+    // Finally, create the new lecture at the desired position
     const newLecture = await Lecture.create({
       section_id,
       title,
@@ -78,7 +106,8 @@ export const detailLecture = async (req, res) => {
 };
 
 export const updateLecture = async (req, res) => {
-  const { id, section_id, title, video_url, duration, position } = req.body;
+  const { id, section_id, title, description, video_url, duration, position } =
+    req.body;
 
   try {
     const lecture = await Lecture.findByPk(id);
@@ -122,6 +151,7 @@ export const updateLecture = async (req, res) => {
     // Update the lecture itself
     lecture.section_id = section_id || lecture.section_id;
     lecture.title = title || lecture.title;
+    lecture.description = description || lecture.description;
     lecture.video_url = video_url || lecture.video_url;
     lecture.duration = duration || lecture.duration;
     lecture.position = position || lecture.position;
@@ -139,13 +169,51 @@ export const deleteLecture = async (req, res) => {
   const { id } = req.query;
 
   try {
+    // Find the lecture to delete
     const lecture = await Lecture.findByPk(id);
 
     if (!lecture) {
       return res.status(400).json({ error: "Lecture not found" });
     }
 
-    await lecture.destroy(); // Xóa bài giảng
+    // Find the section associated with the lecture
+    const section = await Section.findByPk(lecture.section_id);
+
+    if (!section) {
+      return res.status(400).json({ error: "Section not found" });
+    }
+
+    // Find all sections that belong to the same course
+    const allSectionsInCourse = await Section.findAll({
+      where: {
+        course_id: section.course_id, // Find sections with the same course_id
+      },
+    });
+
+    // Extract section IDs
+    const sectionIds = allSectionsInCourse.map((sec) => sec.id);
+
+    // Delete the lecture
+    await lecture.destroy();
+
+    // Now, update the positions of other lectures across sections in the same course
+    const remainingLectures = await Lecture.findAll({
+      where: {
+        section_id: {
+          [Op.in]: sectionIds, // Find lectures in sections of the same course
+        },
+        position: {
+          [Op.gt]: lecture.position, // Find lectures with a position greater than the deleted one
+        },
+      },
+      order: [["position", "ASC"]], // Ensure they are sorted by position
+    });
+
+    // Update positions of remaining lectures by decrementing their position by 1
+    for (let i = 0; i < remainingLectures.length; i++) {
+      remainingLectures[i].position -= 1;
+      await remainingLectures[i].save(); // Save the updated position
+    }
 
     res.status(200).send({ message: "OK" });
   } catch (error) {
@@ -153,3 +221,22 @@ export const deleteLecture = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+// export const deleteLecture = async (req, res) => {
+//   const { id } = req.query;
+
+//   try {
+//     const lecture = await Lecture.findByPk(id);
+
+//     if (!lecture) {
+//       return res.status(400).json({ error: "Lecture not found" });
+//     }
+
+//     await lecture.destroy(); // Xóa bài giảng
+
+//     res.status(200).send({ message: "OK" });
+//   } catch (error) {
+//     console.error("Error deleting lecture:", error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };

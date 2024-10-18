@@ -1,7 +1,7 @@
 import { Category } from "../models/models.js";
 
 export const addCategory = async (req, res) => {
-  const { name, description } = req.body; // Lấy name và description từ request body
+  const { name } = req.body; // Lấy name từ request body
 
   const existingCategory = await Category.findOne({ where: { name } });
 
@@ -18,7 +18,6 @@ export const addCategory = async (req, res) => {
     // Tạo một danh mục mới
     const newCategory = await Category.create({
       name,
-      description,
     });
 
     // Trả về danh mục mới được tạo

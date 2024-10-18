@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, DATE } from "sequelize";
 import sequelize from "../config/connectDB.js";
 
 const Review = sequelize.define(
@@ -27,6 +27,10 @@ const Review = sequelize.define(
     },
     comment: {
       type: DataTypes.TEXT,
+    },
+    created_at: {
+      type: DATE,
+      allowNull: true,
     },
   },
   {

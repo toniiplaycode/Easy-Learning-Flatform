@@ -133,7 +133,9 @@ const CoursePage = () => {
                   onClick={() => toggleSection(section.id)}
                 >
                   <div className="section-title">
-                    <span>{section.title}</span>
+                    <span>
+                      Chương {section.position}. {section.title}
+                    </span>
                     {expandedSection == section.id ? (
                       <FontAwesomeIcon icon={faAngleDown} />
                     ) : (
@@ -159,7 +161,7 @@ const CoursePage = () => {
                             e.stopPropagation();
                           }}
                         >
-                          {lecture.title}{" "}
+                          Bài {lecture.position}. {lecture.title}{" "}
                           <p className="lecture-child">
                             {formatTime(lecture.duration)}
                           </p>

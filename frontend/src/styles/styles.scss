@@ -792,6 +792,60 @@ $color-star: #f39c12;
         }
       }
     }
+
+    .coure-home-review-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      border-bottom: 1px solid #ddd;
+
+      .review-item-infor {
+        display: flex;
+
+        .review-item-infor-left {
+          img {
+            margin-top: 4px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .review-item-infor-right {
+          margin-left: 10px;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .review-item-edit {
+        cursor: pointer;
+        font-weight: bold;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      .review-item-content {
+        padding: 10px 0;
+      }
+    }
+
+    .not-review {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: red;
+    }
+
+    .coure-home-review-add {
+      margin-top: 40px;
+      p {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
   }
 }
 
@@ -2031,6 +2085,20 @@ $color-star: #f39c12;
     display: flex;
     flex-direction: column;
   }
+
+  .new-category {
+    button {
+      margin-top: -6px;
+      @extend .btn-common;
+      background-color: #4caf50;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+
+    margin-bottom: 20px;
+  }
 }
 
 .form-group {
@@ -2197,8 +2265,18 @@ $color-star: #f39c12;
 
     .lecture-current-item-right {
       button {
-        margin-left: 10px;
+        margin: 10px 0;
         padding: 5px 10px;
+        margin-left: 5px;
+      }
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+
+        button {
+          margin-top: 10px;
+        }
       }
     }
 

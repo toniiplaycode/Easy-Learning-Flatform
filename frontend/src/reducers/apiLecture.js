@@ -40,6 +40,7 @@ export const deleteLecture = createAsyncThunk(
     const config = {
       params: {
         id: obj.id,
+        course_id: obj.course_id,
       },
       headers: {
         Authorization: `Bearer ${token}`,

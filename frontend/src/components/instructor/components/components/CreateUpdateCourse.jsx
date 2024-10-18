@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addCourse, updateCourse } from "../../../../reducers/apiCourse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { addCategory } from "../../../../reducers/apiCategory";
 
 const CreateUpdateCourse = ({ detailCourse }) => {
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const CreateUpdateCourse = ({ detailCourse }) => {
   const getUrl = location.pathname;
   const categories = useSelector((state) => state.apiCategory.categories);
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
+  //------------create category-------------
+  const [addNewCategory, setAddNewCategory] = useState("");
 
   //------------update course--------------
   const [courseData, setCourseData] = useState({
@@ -200,7 +205,11 @@ const CreateUpdateCourse = ({ detailCourse }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="category_id">Thể loại</label>
+            <label htmlFor="category_id">
+              {getUrl === "/instructor/create-course"
+                ? "Thể loại hiện có"
+                : "Thể loại"}
+            </label>
             <select
               id="category_id"
               name="category_id"
@@ -218,6 +227,34 @@ const CreateUpdateCourse = ({ detailCourse }) => {
               <p className="error">{errors.category_id}</p>
             )}
           </div>
+
+          {getUrl === "/instructor/create-course" && (
+            <div className="new-category">
+              <div className="form-group">
+                <label htmlFor="category_add">Thêm thể loại bạn muốn</label>
+                <input
+                  id="category_add"
+                  name="category_add"
+                  value={addNewCategory}
+                  onChange={(e) => setAddNewCategory(e.target.value)}
+                  placeholder="Nhập thể loại mới mà bạn muốn"
+                />
+              </div>
+              <button
+                onClick={() => {
+                  if (addNewCategory.trim().length == 0) {
+                    toast.error("Thể loại bạn muốn không được trống");
+                    return;
+                  }
+
+                  dispatch(addCategory({ name: addNewCategory }));
+                  setAddNewCategory("");
+                }}
+              >
+                Thêm thể loại
+              </button>
+            </div>
+          )}
 
           <div className="form-group">
             <label htmlFor="price">Giá (₫)</label>
@@ -289,7 +326,11 @@ const CreateUpdateCourse = ({ detailCourse }) => {
           )}
           {errors.img && <p style={{ color: "red" }}>{errors.img}</p>}
 
-          <button className="submit-btn" onClick={handleSubmit}>
+          <button
+            disabled={loading}
+            className="submit-btn"
+            onClick={handleSubmit}
+          >
             {detailCourse ? "Cập nhật khóa học" : "Tạo khóa học"}
           </button>
         </div>
