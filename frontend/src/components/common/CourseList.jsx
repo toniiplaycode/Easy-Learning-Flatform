@@ -1,8 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import CourseCard from "./components/CourseCard";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { IoFastFood } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const PreviousArrow = (props) => {
   const { className, style, onClick } = props;
@@ -47,7 +46,9 @@ const NextArrow = (props) => {
   );
 };
 
-const CourseList = ({ courses, category }) => {
+const CourseList = ({ category }) => {
+  const courses = useSelector((state) => state.apiCourse.courses);
+
   var settings = {
     dots: true,
     infinite: false,
@@ -100,7 +101,7 @@ const CourseList = ({ courses, category }) => {
               author={item.User.name}
               rating={
                 item.Reviews.length > 0
-                  ? (avgRating / item.Reviews.length).toFixed(2)
+                  ? (avgRating / item.Reviews.length).toFixed(1)
                   : 0
               }
               reviews={item.Reviews.length}
@@ -117,7 +118,7 @@ const CourseList = ({ courses, category }) => {
               author={item.User.name}
               rating={
                 item.Reviews.length > 0
-                  ? (avgRating / item.Reviews.length).toFixed(2)
+                  ? (avgRating / item.Reviews.length).toFixed(1)
                   : 0
               }
               reviews={item.Reviews.length}

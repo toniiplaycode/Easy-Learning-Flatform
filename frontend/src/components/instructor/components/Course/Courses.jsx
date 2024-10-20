@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import DeleteConfirmation from "./DeleteConfirm";
+import DeleteConfirmation from "../DeleteConfirm";
 
 const Courses = () => {
   const dispatch = useDispatch();

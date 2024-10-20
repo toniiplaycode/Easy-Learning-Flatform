@@ -204,93 +204,99 @@ const LectureCourse = () => {
         <img src={detailCourse?.img} alt="Course Thumbnail" />
       </div>
       <div className="lecture-course-current">
-        {sectionAllLectureEachCourse?.map((section) => (
-          <div className="lecture-course-item" key={section.id}>
-            <h6>
-              Chương {section.position}. {section.title}
-            </h6>
-            {section?.Lectures?.slice() // Create a shallow copy to avoid mutation
-              .sort((a, b) => a.position - b.position) // Sort by position
-              .map((lecture) => {
-                const detail_lecture = {
-                  id: lecture.id,
-                  course_id: detailCourse.id,
-                };
-                return (
-                  <div className="lecture-current-item" key={lecture.id}>
-                    <span className="lecture-current-item-left">
-                      <span>
-                        {lecture.video_url.length > 0 ? (
-                          <FontAwesomeIcon
-                            icon={faVideo}
-                            style={{ color: "blue" }}
+        {sectionAllLectureEachCourse?.length > 0 ? (
+          sectionAllLectureEachCourse?.map((section) => (
+            <div className="lecture-course-item" key={section.id}>
+              <h6>
+                Chương {section.position}. {section.title}
+              </h6>
+              {section?.Lectures?.slice() // Create a shallow copy to avoid mutation
+                .sort((a, b) => a.position - b.position) // Sort by position
+                .map((lecture) => {
+                  const detail_lecture = {
+                    id: lecture.id,
+                    course_id: detailCourse.id,
+                  };
+                  return (
+                    <div className="lecture-current-item" key={lecture.id}>
+                      <span className="lecture-current-item-left">
+                        <span>
+                          {lecture.video_url.length > 0 ? (
+                            <FontAwesomeIcon
+                              icon={faVideo}
+                              style={{ color: "blue" }}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faVideoSlash}
+                              style={{ color: "red" }}
+                            />
+                          )}
+                        </span>{" "}
+                        Bài{" "}
+                        {isUpdatePosition == lecture.id ? (
+                          <input
+                            type="number"
+                            className="input-common"
+                            style={{
+                              width: "50px",
+                              padding: "5px",
+                              marginBottom: "4px",
+                            }}
+                            value={lectureDataUpdate.position}
+                            onChange={(e) =>
+                              setLectureDataUpdate({
+                                ...lectureDataUpdate,
+                                position: e.target.value,
+                              })
+                            }
                           />
                         ) : (
-                          <FontAwesomeIcon
-                            icon={faVideoSlash}
-                            style={{ color: "red" }}
-                          />
+                          lecture.position
                         )}
-                      </span>{" "}
-                      Bài{" "}
-                      {isUpdatePosition == lecture.id ? (
-                        <input
-                          type="number"
-                          className="input-common"
-                          style={{
-                            width: "50px",
-                            padding: "5px",
-                            marginBottom: "4px",
-                          }}
-                          value={lectureDataUpdate.position}
-                          onChange={(e) =>
-                            setLectureDataUpdate({
-                              ...lectureDataUpdate,
-                              position: e.target.value,
-                            })
-                          }
-                        />
-                      ) : (
-                        lecture.position
-                      )}
-                      . {lecture.title}
-                      <p>{lecture.description}</p>
-                    </span>
-                    <span className="lecture-current-item-right">
-                      <button
-                        onClick={() => {
-                          handlePutLecture(lecture.id);
-                        }}
-                      >
-                        {isUpdateLecture == lecture.id
-                          ? "Cập nhật"
-                          : " Quản lý"}
-                      </button>
-
-                      {isUpdatePosition == lecture.id ? (
-                        <button
-                          style={{ background: "#4caf50" }}
-                          onClick={() => putLecture()}
-                        >
-                          Cập nhật vị trí trong chương
-                        </button>
-                      ) : (
+                        . {lecture.title}
+                        <p>{lecture.description}</p>
+                      </span>
+                      <span className="lecture-current-item-right">
                         <button
                           onClick={() => {
-                            handlePutPosition(lecture);
+                            handlePutLecture(lecture.id);
                           }}
                         >
-                          Đổi vị trí trong chương
+                          {isUpdateLecture == lecture.id
+                            ? "Cập nhật"
+                            : " Quản lý"}
                         </button>
-                      )}
 
-                      <DeleteConfirmation detail_lecture={detail_lecture} />
-                    </span>
-                  </div>
-                );
-              })}
+                        {isUpdatePosition == lecture.id ? (
+                          <button
+                            style={{ background: "#4caf50" }}
+                            onClick={() => putLecture()}
+                          >
+                            Cập nhật vị trí trong chương
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => {
+                              handlePutPosition(lecture);
+                            }}
+                          >
+                            Đổi vị trí trong chương
+                          </button>
+                        )}
+
+                        <DeleteConfirmation detail_lecture={detail_lecture} />
+                      </span>
+                    </div>
+                  );
+                })}
+            </div>
+          ))
+        ) : (
+          <div className="lecture-course-current-empty">
+            Chưa có bài giảng nào
           </div>
-        ))}
+        )}
       </div>
 
       <h5 ref={targetElementRef}>Thêm bài giảng mới</h5>

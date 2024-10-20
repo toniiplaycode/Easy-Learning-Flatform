@@ -6,7 +6,6 @@ import {
   faCertificate,
   faTicketSimple,
   faChartSimple,
-  faComments,
 } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -43,13 +42,16 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faChalkboardTeacher} />
             <span>Khóa học</span>
           </li>
-          <li>
+          <li
+            className={`${
+              getUrl === "/instructor/manage-student" && "active"
+            } `}
+            onClick={() => {
+              navigate("/instructor/manage-student");
+            }}
+          >
             <FontAwesomeIcon icon={faUsers} />
-            <span>Học viên</span>
-          </li>
-          <li>
-            <FontAwesomeIcon icon={faComments} />
-            <span>Đánh giá</span>
+            <span>Học viên và đánh giá</span>
           </li>
           <li>
             <FontAwesomeIcon icon={faTicketSimple} />

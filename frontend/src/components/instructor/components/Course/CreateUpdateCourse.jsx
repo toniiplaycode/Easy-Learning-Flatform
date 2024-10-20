@@ -161,7 +161,7 @@ const CreateUpdateCourse = ({ detailCourse }) => {
     <>
       {getUrl === "/instructor/create-course" && (
         <button
-          className="create-course-btn-back"
+          className="manage-btn-back"
           onClick={() => navigate("/instructor")}
         >
           <FontAwesomeIcon icon={faCircleLeft} />

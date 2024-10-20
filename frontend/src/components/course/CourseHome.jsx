@@ -89,7 +89,7 @@ const CourseHome = () => {
     sortedDetailCourse.Reviews.forEach((review) => {
       avgRating += review.rating;
     });
-    avgRating = (avgRating / totalReviews).toFixed(2);
+    avgRating = (avgRating / totalReviews).toFixed(1);
   }
 
   //tính số bài giảng
@@ -151,7 +151,7 @@ const CourseHome = () => {
                   />
                 </p>
               </div>
-              <p>({totalReviews} Học viên)</p>
+              <p>({totalReviews} đánh giá)</p>
             </div>
             <p>
               Được tạo bởi <a href="#">{sortedDetailCourse?.User?.name}</a>

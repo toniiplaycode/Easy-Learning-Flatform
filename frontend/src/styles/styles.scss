@@ -820,11 +820,17 @@ $color-star: #f39c12;
       }
 
       .review-item-edit {
-        cursor: pointer;
-        font-weight: bold;
+        span {
+          cursor: pointer;
+          font-weight: bold;
 
-        &:hover {
-          color: $primary-color;
+          &:last-child {
+            margin-left: 10px;
+          }
+
+          &:hover {
+            color: $primary-color;
+          }
         }
       }
 
@@ -2014,7 +2020,7 @@ $color-star: #f39c12;
 }
 
 //--------add update course instructor---------
-.create-course-btn-back {
+.manage-btn-back {
   margin: 8px 10px;
   padding-bottom: -50px;
   @extend .btn-common;
@@ -2024,7 +2030,7 @@ $color-star: #f39c12;
   }
 }
 
-.manage-course-container {
+.manage-container {
   display: flex;
   margin: 0 10px;
 
@@ -2191,6 +2197,15 @@ $color-star: #f39c12;
 
   h5 {
     margin: 20px 0;
+  }
+
+  .section-course-current-empty,
+  .lecture-course-current-empty {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: red;
+    margin: 50px 0;
   }
 
   .section-course-item,
@@ -2364,5 +2379,97 @@ $color-star: #f39c12;
 
   &:focus {
     box-shadow: 0px 0px 0px 2px #2a75f3 !important;
+  }
+}
+
+//-------student page---------
+.student-page-instructor {
+  padding: 10px;
+  width: 100%;
+
+  .course-list {
+    .course-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .course-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        img {
+          border-radius: 10px;
+          width: 130px;
+          height: 80px;
+          object-fit: cover;
+        }
+
+        .course-details {
+          display: flex;
+          flex-direction: column;
+
+          h3 {
+            font-size: 20px;
+          }
+
+          p {
+            color: gray;
+          }
+
+          @media (max-width: 768px) {
+            margin-top: 10px;
+          }
+
+          svg {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .course-action {
+        width: 20%;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+
+        @media (max-width: 768px) {
+          justify-content: center;
+          width: 100%;
+        }
+
+        button {
+          @extend .btn-common;
+          width: 80px;
+          padding: 5px;
+        }
+      }
+    }
+
+    .course-list-empty {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      margin: 100px 0;
+
+      img {
+        width: 200px;
+      }
+    }
   }
 }

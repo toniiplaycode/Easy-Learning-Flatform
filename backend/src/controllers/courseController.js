@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import {
   Category,
   Course,
+  Enrollment,
   Lecture,
   Review,
   Section,
@@ -75,7 +76,23 @@ export const getCourseInstructor = async (req, res) => {
   const { instructor_id } = req.query;
 
   try {
-    const course = await Course.findAll({ where: { instructor_id } });
+    const course = await Course.findAll({
+      where: { instructor_id },
+      include: [
+        {
+          model: Enrollment,
+          include: [
+            {
+              model: User,
+              attributes: ["id", "name", "email", "avatar"],
+            },
+          ],
+        },
+        {
+          model: Review,
+        },
+      ],
+    });
 
     if (!course) {
       return res.status(404).json({ message: "Course not found" });

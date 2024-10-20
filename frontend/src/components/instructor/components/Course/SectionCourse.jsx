@@ -77,86 +77,92 @@ const SectionCourse = () => {
         <img src={detailCourse?.img} />
       </div>
       <div className="section-course-current">
-        {sectionEachCourse
-          ?.slice() // Create a shallow copy to avoid mutation
-          .sort((a, b) => a.position - b.position) // Sort by position
-          .map((section) => (
-            <div className="section-course-item" key={section.id}>
-              <div className="section-course-item-left">
-                {isUpdatePosition == section.id ? (
-                  <>
-                    Chương
+        {sectionEachCourse?.length > 0 ? (
+          sectionEachCourse
+            ?.slice() // Create a shallow copy to avoid mutation
+            .sort((a, b) => a.position - b.position) // Sort by position
+            .map((section) => (
+              <div className="section-course-item" key={section.id}>
+                <div className="section-course-item-left">
+                  {isUpdatePosition == section.id ? (
+                    <>
+                      Chương
+                      <input
+                        className="input-common"
+                        style={{ width: "50px", margin: "0 5px" }}
+                        value={sectionDataUpdate.position}
+                        onChange={(e) => {
+                          setSectionDataUpdate({
+                            ...sectionDataUpdate,
+                            position: e.target.value,
+                          });
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <span>Chương {section.position}.</span>
+                  )}
+                  {isUpdateTitle === section.id ? (
                     <input
                       className="input-common"
-                      style={{ width: "50px", margin: "0 5px" }}
-                      value={sectionDataUpdate.position}
+                      style={{ width: "70%" }}
+                      value={sectionDataUpdate.title}
                       onChange={(e) => {
                         setSectionDataUpdate({
                           ...sectionDataUpdate,
-                          position: e.target.value,
+                          title: e.target.value,
                         });
                       }}
                     />
-                  </>
-                ) : (
-                  <span>Chương {section.position}.</span>
-                )}
-                {isUpdateTitle === section.id ? (
-                  <input
-                    className="input-common"
-                    style={{ width: "70%" }}
-                    value={sectionDataUpdate.title}
-                    onChange={(e) => {
-                      setSectionDataUpdate({
-                        ...sectionDataUpdate,
-                        title: e.target.value,
-                      });
+                  ) : (
+                    <span>{section.title}</span>
+                  )}
+                </div>
+                <div className="section-course-item-right">
+                  {isUpdateTitle == section?.id ? (
+                    <button
+                      onClick={() => putSection()}
+                      style={{ background: "#4caf50" }}
+                    >
+                      Cập nhật tiêu đề
+                    </button>
+                  ) : (
+                    <button onClick={() => handlePutTitle(section)}>
+                      Đổi tiêu đề
+                    </button>
+                  )}
+
+                  {isUpdatePosition == section.id ? (
+                    <button
+                      onClick={() => putSection()}
+                      style={{ background: "#4caf50" }}
+                    >
+                      Cập nhật chương
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        handlePutPosition(section);
+                      }}
+                    >
+                      Đổi vị trí chương
+                    </button>
+                  )}
+
+                  <DeleteConfirmation
+                    detail_section={{
+                      course_id: detailCourse.id,
+                      id: section.id,
                     }}
                   />
-                ) : (
-                  <span>{section.title}</span>
-                )}
+                </div>
               </div>
-              <div className="section-course-item-right">
-                {isUpdateTitle == section?.id ? (
-                  <button
-                    onClick={() => putSection()}
-                    style={{ background: "#4caf50" }}
-                  >
-                    Cập nhật tiêu đề
-                  </button>
-                ) : (
-                  <button onClick={() => handlePutTitle(section)}>
-                    Đổi tiêu đề
-                  </button>
-                )}
-
-                {isUpdatePosition == section.id ? (
-                  <button
-                    onClick={() => putSection()}
-                    style={{ background: "#4caf50" }}
-                  >
-                    Cập nhật chương
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      handlePutPosition(section);
-                    }}
-                  >
-                    Đổi vị trí chương
-                  </button>
-                )}
-
-                <DeleteConfirmation
-                  detail_section={{
-                    course_id: detailCourse.id,
-                    id: section.id,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+            ))
+        ) : (
+          <div className="section-course-current-empty">
+            Chưa có chương nào !
+          </div>
+        )}
       </div>
       <h5>Thêm chương khóa học</h5>
       <div className="form-group">

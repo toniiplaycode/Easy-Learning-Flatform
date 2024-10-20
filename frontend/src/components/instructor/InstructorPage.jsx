@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import Sidebar from "./components/Sidebar";
-import Courses from "./components/Courses";
+import Courses from "./components/Course/Courses";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseInstructor } from "../../reducers/apiCourse";
 import Footer from "../home/components/Footer";
-import ManageCourse from "./components/ManageCourse";
-import CreateUpdateCourse from "./components/components/CreateUpdateCourse";
+import ManageCourse from "./components/Course/ManageCourse";
+import CreateUpdateCourse from "./components/Course/CreateUpdateCourse";
+import ManageStudent from "./components/Student/ManageStudent";
 
 const InstructorPage = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const InstructorPage = () => {
             <Route path="/" element={<Courses />} />
             <Route path="/create-course" element={<CreateUpdateCourse />} />
             <Route path="/manage-course/*" element={<ManageCourse />} />
+            <Route path="/manage-student/*" element={<ManageStudent />} />
           </Routes>
         </div>
       </div>

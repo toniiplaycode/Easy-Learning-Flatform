@@ -1,10 +1,10 @@
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CreateUpdateCourse from "./components/CreateUpdateCourse";
+import CreateUpdateCourse from "./CreateUpdateCourse";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import SectionCourse from "./components/SectionCourse";
-import SidebarManageCourse from "./components/SidebarManageCourse";
-import LectureCourse from "./components/LectureCourse";
+import SectionCourse from "./SectionCourse";
+import SidebarManageCourse from "./SidebarManageCourse";
+import LectureCourse from "./LectureCourse";
 
 const ManageCourse = () => {
   const navigate = useNavigate();
@@ -14,13 +14,13 @@ const ManageCourse = () => {
   return (
     <>
       <button
-        className="create-course-btn-back"
+        className="manage-btn-back"
         onClick={() => navigate("/instructor")}
       >
         <FontAwesomeIcon icon={faCircleLeft} />
       </button>
 
-      <div className="manage-course-container">
+      <div className="manage-container">
         <SidebarManageCourse detailCourse={detailCourse} />
         <Routes>
           <Route

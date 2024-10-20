@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "../utils/common";
 import { toast } from "react-toastify";
-import { fetchDetailCourse } from "./apiCourse";
+import { fetchCourse, fetchDetailCourse } from "./apiCourse";
 
 const initialState = {
   cartEachUser: [],
@@ -22,6 +22,36 @@ export const addReview = createAsyncThunk(
       });
 
       toast.success("Bạn đã đánh giá khóa học !");
+      thunkAPI.dispatch(fetchDetailCourse(obj.course_id));
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteReview = createAsyncThunk(
+  "apiReview/deleteReview",
+  async (obj, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().apiLoginLogout.token; // lấy token bên apiLoginLogout
+
+      const config = {
+        params: {
+          id: obj.id,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const response = await axios.delete(
+        `${url}/api/review/deleteReview`,
+        config
+      );
+
+      toast.success("Bạn đánh giá đánh giá !");
+      thunkAPI.dispatch(fetchCourse());
       thunkAPI.dispatch(fetchDetailCourse(obj.course_id));
       return response.data;
     } catch (error) {
