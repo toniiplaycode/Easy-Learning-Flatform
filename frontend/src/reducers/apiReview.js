@@ -5,9 +5,26 @@ import { toast } from "react-toastify";
 import { fetchCourse, fetchDetailCourse } from "./apiCourse";
 
 const initialState = {
-  cartEachUser: [],
-  statusAddReview: "idle",
+  reviewCourse: [],
+  statusGetReviewCourse: "idle",
 };
+
+export const getReviewCourse = createAsyncThunk(
+  "apiReview/getReviewCourse",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(`${url}/api/review/getReviewCourse`, {
+        params: {
+          course_id: id,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const addReview = createAsyncThunk(
   "apiReview/addReview",
@@ -87,15 +104,15 @@ const apiReview = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addReview.pending, (state) => {
-        state.statusAddReview = "loading";
+      .addCase(getReviewCourse.pending, (state) => {
+        state.statusGetReviewCourse = "loading";
       })
-      .addCase(addReview.fulfilled, (state, action) => {
-        state.statusAddReview = "succeeded";
-        state.cartEachUser = action.payload.carts;
+      .addCase(getReviewCourse.fulfilled, (state, action) => {
+        state.statusGetReviewCourse = "succeeded";
+        state.reviewCourse = action.payload.reviews;
       })
-      .addCase(addReview.rejected, (state, action) => {
-        state.statusAddReview = "failed";
+      .addCase(getReviewCourse.rejected, (state, action) => {
+        state.statusGetReviewCourse = "failed";
       });
   },
 });

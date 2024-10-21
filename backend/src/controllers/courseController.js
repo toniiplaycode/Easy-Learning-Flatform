@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import {
   Category,
+  Coupon,
   Course,
   Enrollment,
   Lecture,
@@ -61,6 +62,26 @@ export const getAllCourse = async (req, res) => {
         {
           model: Review,
           where: { course_id: Sequelize.col("Course.id") },
+          required: false,
+        },
+      ],
+    });
+    res.status(200).json(courses);
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getAllCourseWithCoupon = async (req, res) => {
+  const { instructor_id } = req.query;
+
+  try {
+    const courses = await Course.findAll({
+      where: { instructor_id: instructor_id },
+      include: [
+        {
+          model: Coupon,
           required: false,
         },
       ],

@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, DATE } from "sequelize";
 import sequelize from "../config/connectDB.js";
 
 const Enrollment = sequelize.define(
@@ -20,6 +20,10 @@ const Enrollment = sequelize.define(
     progress: {
       type: DataTypes.DECIMAL(5, 2),
       defaultValue: 0.0,
+    },
+    created_at: {
+      type: DATE,
+      allowNull: true,
     },
   },
   {

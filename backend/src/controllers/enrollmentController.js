@@ -3,6 +3,7 @@ import {
   Course,
   Enrollment,
   Lecture,
+  Review,
   Section,
   User,
 } from "../models/models.js";
@@ -111,7 +112,16 @@ export const getEnrollmentAllUser = async (req, res) => {
       include: [
         {
           model: User, // Liên kết với bảng User
-          attributes: ["id", "name", "email", "avatar"], // Lấy các trường cần thiết từ User
+          attributes: ["id", "name", "email", "avatar"],
+          include: [
+            {
+              model: Review,
+              where: {
+                course_id,
+              },
+              required: false,
+            },
+          ],
         },
       ],
     });

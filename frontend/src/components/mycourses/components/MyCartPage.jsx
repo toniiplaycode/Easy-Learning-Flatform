@@ -22,12 +22,18 @@ const MyCartPage = ({ cartEachUser }) => {
       (coupon) => coupon.code === matchedCoupon?.code
     );
 
-    if (matchedCoupon && !couponExists) {
+    const courseExists = cartEachUser.some(
+      (cartItem) => cartItem.course_id === matchedCoupon?.course_id
+    );
+
+    if (matchedCoupon && !couponExists && courseExists) {
       setAddCouponList([...addCouponList, matchedCoupon]);
       setAddCouponItem("");
       toast.success("Mã giảm giá đã được thêm!");
     } else if (couponExists) {
       toast.warning("Mã giảm giá đã được sử dụng!");
+    } else if (!courseExists) {
+      toast.warning("Mã giảm giá không áp dụng cho khóa học này!");
     } else {
       toast.warning("Mã giảm giá không hợp lệ!");
     }

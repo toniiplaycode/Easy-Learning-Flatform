@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   enrollmentEachUser: [],
+  enrollmentAllUser: [],
   statusFetchEnrollmentEachUser: "idle",
   statusPostEnrollment: "idle",
 };
@@ -22,6 +23,21 @@ export const fetchEnrollmentEachUser = createAsyncThunk(
         },
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+export const fetchEnrollmentAllUser = createAsyncThunk(
+  "apiEnrollment/fetchEnrollmentAllUser",
+  async (course_id, thunkAPI) => {
+    const response = await axios.get(
+      `${url}/api/enrollment/getEnrollmentAllUser`,
+      {
+        params: {
+          course_id: course_id,
         },
       }
     );
@@ -66,6 +82,17 @@ const apiEnrollment = createSlice({
         state.enrollmentEachUser = action.payload.enrollments;
       })
       .addCase(fetchEnrollmentEachUser.rejected, (state, action) => {
+        state.statusFetchEnrollmentEachUser = "failed";
+      })
+
+      .addCase(fetchEnrollmentAllUser.pending, (state) => {
+        state.statusFetchEnrollmentEachUser = "loading";
+      })
+      .addCase(fetchEnrollmentAllUser.fulfilled, (state, action) => {
+        state.statusFetchEnrollmentEachUser = "succeeded";
+        state.enrollmentAllUser = action.payload.enrollments;
+      })
+      .addCase(fetchEnrollmentAllUser.rejected, (state, action) => {
         state.statusFetchEnrollmentEachUser = "failed";
       })
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import DeleteConfirmation from "../DeleteConfirm";
+import DeleteConfirm from "../DeleteConfirm";
 import {
   addSection,
   fetchSectionEachCourse,
@@ -149,7 +149,7 @@ const SectionCourse = () => {
                     </button>
                   )}
 
-                  <DeleteConfirmation
+                  <DeleteConfirm
                     detail_section={{
                       course_id: detailCourse.id,
                       id: section.id,

@@ -10,6 +10,8 @@ import Footer from "../home/components/Footer";
 import ManageCourse from "./components/Course/ManageCourse";
 import CreateUpdateCourse from "./components/Course/CreateUpdateCourse";
 import ManageStudent from "./components/Student/ManageStudent";
+import ManageCertificate from "./components/Certificate/ManageCertificate";
+import ManageCoupon from "./components/Coupon/ManageCoupon";
 
 const InstructorPage = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,11 @@ const InstructorPage = () => {
             <Route path="/create-course" element={<CreateUpdateCourse />} />
             <Route path="/manage-course/*" element={<ManageCourse />} />
             <Route path="/manage-student/*" element={<ManageStudent />} />
+            <Route path="/manage-coupon/*" element={<ManageCoupon />} />
+            <Route
+              path="/manage-certificate/*"
+              element={<ManageCertificate />}
+            />
           </Routes>
         </div>
       </div>

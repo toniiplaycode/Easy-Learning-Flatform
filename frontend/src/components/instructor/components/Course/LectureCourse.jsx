@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
-import DeleteConfirmation from "../DeleteConfirm";
+import DeleteConfirm from "../DeleteConfirm";
 import { toast } from "react-toastify";
 
 const LectureCourse = () => {
@@ -285,7 +285,7 @@ const LectureCourse = () => {
                           </button>
                         )}
 
-                        <DeleteConfirmation detail_lecture={detail_lecture} />
+                        <DeleteConfirm detail_lecture={detail_lecture} />
                       </span>
                     </div>
                   );

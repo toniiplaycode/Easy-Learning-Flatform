@@ -44,7 +44,7 @@ const DeleteConfirm = (props) => {
         header="Bạn chắc xóa nội dung này ?"
         message="Các dữ liệu liên quan đến nội dung cũng sẽ bị xóa theo !"
         icon="pi pi-exclamation-triangle"
-        acceptClassName="p-button-danger" // Customize button class
+        acceptClassName="p-button-danger"
         rejectLabel="No"
         acceptLabel="Yes"
         accept={accept}

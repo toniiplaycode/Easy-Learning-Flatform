@@ -2473,3 +2473,195 @@ $color-star: #f39c12;
     }
   }
 }
+
+//-------student detail page--------
+.mange-list-page-container {
+  width: 100%;
+  margin-left: 10px;
+
+  .mange-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .header {
+      display: flex;
+      background-color: #f7f7f7;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .header-item {
+      flex: 1;
+      text-align: left;
+    }
+
+    .mange-item {
+      display: flex;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+
+      &:hover {
+        background-color: #f9f9f9;
+      }
+
+      .item {
+        flex: 1;
+        text-align: left;
+
+        button {
+          margin-left: 10px;
+          padding: 0 10px;
+          @extend .btn-common;
+
+          &:last-child {
+            background-color: red;
+
+            &:hover {
+              background-color: #d32f2f;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  h5 {
+    margin: 40px 0 20px 0;
+  }
+
+  // Media query for mobile viewports with max width of 768px
+  @media (max-width: 768px) {
+    .mange-list {
+      margin-left: 0;
+
+      .header {
+        flex-direction: column;
+        padding: 5px;
+
+        .header-item {
+          text-align: center;
+          padding: 5px;
+        }
+      }
+
+      .mange-item {
+        flex-direction: column;
+        padding: 10px;
+
+        .item {
+          text-align: center;
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+
+//-------certificate page--------
+.certificate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+.certificate-content {
+  border: 5px solid #f0b429;
+  border-radius: 10px;
+  padding: 40px;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  @extend .box-shadow-common;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: $primary-color;
+    width: 100px;
+    height: 100px;
+  }
+
+  &::before {
+    top: -10px;
+    left: -10px;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+
+  &::after {
+    bottom: -10px;
+    right: -10px;
+    clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  }
+
+  .certificate-header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    p {
+      font-size: 18px;
+      font-weight: 600;
+      color: #000;
+    }
+  }
+
+  .certificate-body {
+    text-align: center;
+
+    .present-text {
+      font-size: 16px;
+      color: #f0b429;
+      margin-bottom: 10px;
+    }
+
+    .recipient-name {
+      font-family: "Brush Script MT", cursive;
+      font-size: 30px;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    .certificate-description {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
+  }
+
+  .certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 50px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    .signatures {
+      text-align: center;
+
+      p {
+        font-size: 14px;
+        font-weight: 600;
+        padding-top: 10px;
+      }
+    }
+
+    img {
+      width: 150px;
+    }
+  }
+}

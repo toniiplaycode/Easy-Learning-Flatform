@@ -7,6 +7,7 @@ const initialState = {
   courses: [],
   detailCourse: {},
   courseInstructor: [],
+  courseCoupon: [],
   statusFetch: "idle",
   statusFetchDetail: "idle",
   statusFetchCourseInstructor: "idle",
@@ -113,6 +114,21 @@ export const deleteCourse = createAsyncThunk(
   }
 );
 
+export const fetchAllCourseWithCoupon = createAsyncThunk(
+  "apiCourse/fetchAllCourseWithCoupon",
+  async (id) => {
+    const response = await axios.get(
+      `${url}/api/course/getAllCourseWithCoupon`,
+      {
+        params: {
+          instructor_id: id,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 const apiCourse = createSlice({
   name: "apiCourse",
   initialState,
@@ -159,6 +175,17 @@ const apiCourse = createSlice({
         state.statusAddCourse = "succeeded";
       })
       .addCase(addCourse.rejected, (state, action) => {
+        state.statusAddCourse = "failed";
+      })
+
+      .addCase(fetchAllCourseWithCoupon.pending, (state) => {
+        state.statusAddCourse = "loading";
+      })
+      .addCase(fetchAllCourseWithCoupon.fulfilled, (state, action) => {
+        state.statusAddCourse = "succeeded";
+        state.courseCoupon = action.payload;
+      })
+      .addCase(fetchAllCourseWithCoupon.rejected, (state, action) => {
         state.statusAddCourse = "failed";
       });
   },

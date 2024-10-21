@@ -44,7 +44,9 @@ const Sidebar = () => {
           </li>
           <li
             className={`${
-              getUrl === "/instructor/manage-student" && "active"
+              (getUrl === "/instructor/manage-student" ||
+                getUrl === "/instructor/manage-student/detail-student") &&
+              "active"
             } `}
             onClick={() => {
               navigate("/instructor/manage-student");
@@ -53,11 +55,27 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faUsers} />
             <span>Học viên và đánh giá</span>
           </li>
-          <li>
+          <li
+            className={`${
+              (getUrl === "/instructor/manage-coupon" ||
+                getUrl === "/instructor/manage-coupon/detail-coupon") &&
+              "active"
+            } `}
+            onClick={() => {
+              navigate("/instructor/manage-coupon");
+            }}
+          >
             <FontAwesomeIcon icon={faTicketSimple} />
             <span>Mã giảm giá</span>
           </li>
-          <li>
+          <li
+            className={`${
+              getUrl === "/instructor/manage-certificate" && "active"
+            } `}
+            onClick={() => {
+              navigate("/instructor/manage-certificate");
+            }}
+          >
             <FontAwesomeIcon icon={faCertificate} />
             <span>Chứng chỉ</span>
           </li>
