@@ -12,6 +12,7 @@ import CreateUpdateCourse from "./components/Course/CreateUpdateCourse";
 import ManageStudent from "./components/Student/ManageStudent";
 import ManageCertificate from "./components/Certificate/ManageCertificate";
 import ManageCoupon from "./components/Coupon/ManageCoupon";
+import ManagePayment from "./components/Payment/ManagePayment";
 
 const InstructorPage = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const InstructorPage = () => {
               path="/manage-certificate/*"
               element={<ManageCertificate />}
             />
+            <Route path="/manage-payment/*" element={<ManagePayment />} />
           </Routes>
         </div>
       </div>

@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 const initialState = {
   enrollmentEachUser: [],
   enrollmentAllUser: [],
+  enrollmentAllCourse: [],
   statusFetchEnrollmentEachUser: "idle",
   statusPostEnrollment: "idle",
+  statusFetchEnrollmentAllCourse: "idle",
 };
 
 export const fetchEnrollmentEachUser = createAsyncThunk(
@@ -68,6 +70,21 @@ export const addEnrollmentEachUser = createAsyncThunk(
   }
 );
 
+export const fetchEnrollmentAllCourse = createAsyncThunk(
+  "apiEnrollment/fetchEnrollmentAllCourse",
+  async (instructor_id, thunkAPI) => {
+    const response = await axios.get(
+      `${url}/api/enrollment/getEnrollmentAllCourse`,
+      {
+        params: {
+          instructor_id,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 const apiEnrollment = createSlice({
   name: "apiEnrollment",
   initialState,
@@ -105,6 +122,17 @@ const apiEnrollment = createSlice({
       })
       .addCase(addEnrollmentEachUser.rejected, (state, action) => {
         state.statusPostEnrollment = "failed";
+      })
+
+      .addCase(fetchEnrollmentAllCourse.pending, (state) => {
+        state.statusFetchEnrollmentAllCourse = "loading";
+      })
+      .addCase(fetchEnrollmentAllCourse.fulfilled, (state, action) => {
+        state.statusFetchEnrollmentAllCourse = "succeeded";
+        state.enrollmentAllCourse = action.payload.enrollments;
+      })
+      .addCase(fetchEnrollmentAllCourse.rejected, (state, action) => {
+        state.statusFetchEnrollmentAllCourse = "failed";
       });
   },
 });

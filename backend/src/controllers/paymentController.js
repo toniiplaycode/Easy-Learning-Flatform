@@ -134,3 +134,29 @@ export const getAllPaymentEachCourse = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getAllPaymentAllCourse = async (req, res) => {
+  const { instructor_id } = req.query;
+
+  try {
+    const payments = await Payment.findAll({
+      include: [
+        {
+          model: User, // Liên kết với bảng User
+          attributes: ["id", "name", "email", "avatar"],
+        },
+        {
+          model: Course,
+          where: {
+            instructor_id,
+          },
+        },
+      ],
+    });
+
+    res.status(200).json({ message: "OK", payments });
+  } catch (error) {
+    console.error("Error fetching course payments:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

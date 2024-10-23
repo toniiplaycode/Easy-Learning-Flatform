@@ -79,7 +79,14 @@ const Sidebar = () => {
             <FontAwesomeIcon icon={faCertificate} />
             <span>Chứng chỉ</span>
           </li>
-          <li>
+          <li
+            className={`${
+              getUrl === "/instructor/manage-payment" && "active"
+            } `}
+            onClick={() => {
+              navigate("/instructor/manage-payment");
+            }}
+          >
             <FontAwesomeIcon icon={faChartSimple} />
             <span>Doanh thu</span>
           </li>

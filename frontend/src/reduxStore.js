@@ -12,6 +12,7 @@ import apiPayment from "./reducers/apiPayment";
 import apiSection from "./reducers/apiSection";
 import apiLecture from "./reducers/apiLecture";
 import apiReview from "./reducers/apiReview";
+import apiCertificate from "./reducers/apiCertificate";
 
 const reduxStore = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const reduxStore = configureStore({
     apiSection: apiSection,
     apiLecture: apiLecture,
     apiReview: apiReview,
+    apiCertificate: apiCertificate,
   },
 });
 

@@ -3,7 +3,9 @@ import axios from "axios";
 import { url } from "../utils/common";
 
 const initialState = {
+  paymentAllCourse: [],
   statusPostPayment: "idle",
+  statusFetchPaymentAllCourse: "idle",
 };
 
 export const addPaymentEachUser = createAsyncThunk(
@@ -27,6 +29,27 @@ export const addPaymentEachUser = createAsyncThunk(
   }
 );
 
+export const fetchAllPaymentAllCourse = createAsyncThunk(
+  "apiPayment/fetchAllPaymentAllCourse",
+  async (_, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const inforUser = thunkAPI.getState().apiLoginLogout.inforUser; //lấy inforUser bên apiLoginLogout
+
+    const response = await axios.get(
+      `${url}/api/payment/getAllPaymentAllCourse`,
+      {
+        params: {
+          instructor_id: inforUser.id,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 const apiPayment = createSlice({
   name: "apiPayment",
   initialState,
@@ -41,6 +64,17 @@ const apiPayment = createSlice({
       })
       .addCase(addPaymentEachUser.rejected, (state, action) => {
         state.statusPostPayment = "failed";
+      })
+
+      .addCase(fetchAllPaymentAllCourse.pending, (state) => {
+        state.statusFetchPaymentAllCourse = "loading";
+      })
+      .addCase(fetchAllPaymentAllCourse.fulfilled, (state, action) => {
+        state.statusFetchPaymentAllCourse = "succeeded";
+        state.paymentAllCourse = action.payload.payments;
+      })
+      .addCase(fetchAllPaymentAllCourse.rejected, (state, action) => {
+        state.statusFetchPaymentAllCourse = "failed";
       });
   },
 });

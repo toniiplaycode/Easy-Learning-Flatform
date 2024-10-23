@@ -7,6 +7,7 @@ import {
 import {
   addPayment,
   detailPayment,
+  getAllPaymentAllCourse,
   getAllPaymentEachCourse,
   getAllPaymentEachUser,
 } from "../controllers/paymentController.js";
@@ -20,6 +21,13 @@ router.get(
   "/getAllPaymentEachCourse",
   authenticateToken,
   getAllPaymentEachCourse
+);
+
+router.get(
+  "/getAllPaymentAllCourse",
+  authenticateToken,
+  authorizeRoles("instructor"),
+  getAllPaymentAllCourse
 );
 
 export default router;

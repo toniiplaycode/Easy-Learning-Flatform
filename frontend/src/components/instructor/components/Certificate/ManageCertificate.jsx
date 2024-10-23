@@ -1,25 +1,73 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteCertificate,
+  fetchCertificateAllCourse,
+} from "../../../../reducers/apiCertificate";
+import { formatDate } from "../../../../utils/common";
+import Certificate from "./Certificate";
+import DeleteConfirm from "../DeleteConfirm";
+
 const ManageCertificate = () => {
+  const targetElementRef = useRef(null);
+  const dispatch = useDispatch();
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+  const certificateAllCourse = useSelector(
+    (state) => state.apiCertificate.certificateAllCourse
+  );
+
+  const [idCertificateView, setIdCertificateView] = useState(null);
+
+  useEffect(() => {
+    const instructor_id = inforUser.id;
+    dispatch(fetchCertificateAllCourse(instructor_id));
+  }, [inforUser]);
+
   return (
-    <div className="certificate-container">
-      <div className="certificate-content">
-        <div className="certificate-header">
-          <h1>CERTIFICATE</h1>
-          <p>OF APPRECIATION</p>
+    <div className="mange-list-page-container">
+      <h3 ref={targetElementRef}>Cấp chứng chỉ cho học viên</h3>
+      <Certificate idCertificateView={idCertificateView} />
+
+      <h5>Các chứng chỉ đã cấp</h5>
+      <div className="mange-list">
+        <div className="header">
+          <div className="header-item">Gmail</div>
+          <div className="header-item">Học viên</div>
+          <div className="header-item">Khóa học</div>
+          <div className="header-item">Ngày cấp</div>
+          <div className="header-item"></div>
         </div>
-        <div className="certificate-body">
-          <p className="present-text">THIS CERTIFICATE IS PRESENTED TO</p>
-          <h2 className="recipient-name">Rufus Stewart</h2>
-          <p>Has successfully completed the course</p>
-          <p className="certificate-description">Khóa học lập trình cơ bản</p>
-        </div>
-        <div className="certificate-footer">
-          <div>
-            <img src="/imgs/logo.png" />
-          </div>
-          <div className="signatures">
-            <p>Can Tho, 20/10/2024</p>
-          </div>
-        </div>
+
+        {certificateAllCourse?.length > 0 ? (
+          certificateAllCourse?.map((certificate) => (
+            <div className="mange-item" key={certificate.id}>
+              <div className="item">{certificate.User.email}</div>
+              <div className="item">{certificate.User.name}</div>
+              <div className="item">{certificate.Course.title}</div>
+              <div className="item">{formatDate(certificate.created_at)}</div>
+              <div className="item">
+                <button
+                  onClick={() => {
+                    targetElementRef.current.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                    setIdCertificateView(certificate.id);
+                  }}
+                >
+                  Xem
+                </button>
+                <DeleteConfirm
+                  delete_certificate={{
+                    id: certificate.id,
+                    instructor_id: inforUser.id,
+                  }}
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>Chưa có học viên nào đạt được chứng chỉ !</div>
+        )}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { deleteSection } from "../../../reducers/apiSection";
 import { deleteLecture } from "../../../reducers/apiLecture";
+import { deleteCertificate } from "../../../reducers/apiCertificate";
 
 const DeleteConfirm = (props) => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const DeleteConfirm = (props) => {
       dispatch(deleteSection(props.detail_section));
     } else if ("detail_lecture" in props) {
       dispatch(deleteLecture(props.detail_lecture));
+    } else if ("delete_certificate" in props) {
+      dispatch(deleteCertificate(props.delete_certificate));
     }
 
     setVisible(false);
@@ -45,8 +48,8 @@ const DeleteConfirm = (props) => {
         message="Các dữ liệu liên quan đến nội dung cũng sẽ bị xóa theo !"
         icon="pi pi-exclamation-triangle"
         acceptClassName="p-button-danger"
-        rejectLabel="No"
-        acceptLabel="Yes"
+        rejectLabel="Hủy"
+        acceptLabel="Xóa"
         accept={accept}
         reject={reject}
       />

@@ -133,6 +133,33 @@ export const getEnrollmentAllUser = async (req, res) => {
   }
 };
 
+export const getEnrollmentAllCourse = async (req, res) => {
+  const { instructor_id } = req.query;
+
+  try {
+    const enrollments = await Enrollment.findAll({
+      include: [
+        {
+          model: User, // Liên kết với bảng User
+          attributes: ["id", "name", "email", "avatar"],
+        },
+        {
+          model: Course,
+          where: {
+            instructor_id,
+          },
+          required: true,
+        },
+      ],
+    });
+
+    res.status(200).json({ message: "OK", enrollments });
+  } catch (error) {
+    console.error("Error fetching course enrollments:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const detailEnrollment = async (req, res) => {
   const { id } = req.query;
 

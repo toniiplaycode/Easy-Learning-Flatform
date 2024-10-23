@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, DATE } from "sequelize";
 import sequelize from "../config/connectDB.js";
 
 const Payment = sequelize.define(
@@ -28,6 +28,10 @@ const Payment = sequelize.define(
     status: {
       type: DataTypes.ENUM("pending", "completed", "failed"),
       allowNull: false,
+    },
+    created_at: {
+      type: DATE,
+      allowNull: true,
     },
   },
   {

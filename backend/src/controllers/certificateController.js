@@ -3,11 +3,6 @@ import { Certificate, Course, Enrollment, User } from "../models/models.js";
 export const addCertificate = async (req, res) => {
   let { user_id, course_id, certificate_url } = req.body;
 
-  if (!certificate_url) {
-    certificate_url =
-      "https://mwcc.edu/wp-content/uploads/2020/09/Google-IT-Professional-Certificate-Logo.png";
-  }
-
   try {
     // Kiểm tra xem khóa học có tồn tại không
     const course = await Course.findByPk(course_id);
@@ -16,15 +11,15 @@ export const addCertificate = async (req, res) => {
     }
 
     // Kiểm tra xem người dùng đã ghi danh vào khóa học hay chưa
-    const enrollment = await Enrollment.findOne({
-      where: { course_id, user_id, progress: 100 }, // Kiểm tra điều kiện completed
-    });
+    // const enrollment = await Enrollment.findOne({
+    //   where: { course_id, user_id, progress: 100 }, // Kiểm tra điều kiện completed
+    // });
 
-    if (!enrollment) {
-      return res
-        .status(400)
-        .json({ error: "User has not completed this course or not enrolled" });
-    }
+    // if (!enrollment) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "User has not completed this course or not enrolled" });
+    // }
 
     // Kiểm tra xem chứng chỉ đã cấp chưa
     const existingCertificate = await Certificate.findOne({
@@ -91,6 +86,33 @@ export const getCertificateEachCourse = async (req, res) => {
   }
 };
 
+export const getCertificateAllCourse = async (req, res) => {
+  const { instructor_id } = req.query;
+
+  try {
+    const certificates = await Certificate.findAll({
+      include: [
+        {
+          model: User, // Liên kết với bảng User
+          attributes: ["id", "name", "email", "avatar"],
+        },
+        {
+          model: Course, // Liên kết với bảng Course
+          where: {
+            instructor_id: instructor_id,
+          },
+          required: true,
+        },
+      ],
+    });
+
+    res.status(200).json({ message: "OK", certificates });
+  } catch (error) {
+    console.error("Error fetching course certificates:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const detailCertificate = async (req, res) => {
   const { id } = req.query;
 
@@ -112,6 +134,25 @@ export const detailCertificate = async (req, res) => {
     }
 
     res.status(200).json({ message: "OK", certificate });
+  } catch (error) {
+    console.error("Error fetching certificate details:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const deleteCertificate = async (req, res) => {
+  const { id } = req.query;
+
+  try {
+    const certificate = await Certificate.findByPk(id);
+
+    if (!certificate) {
+      return res.status(404).json({ message: "Certificate not found" });
+    }
+
+    certificate.destroy();
+
+    res.status(200).json({ message: "OK" });
   } catch (error) {
     console.error("Error fetching certificate details:", error);
     res.status(500).json({ message: "Internal Server Error" });

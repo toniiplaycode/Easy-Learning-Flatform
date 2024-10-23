@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, DATE } from "sequelize";
 import sequelize from "../config/connectDB.js";
 
 const Certificate = sequelize.define(
@@ -19,6 +19,10 @@ const Certificate = sequelize.define(
     },
     certificate_url: {
       type: DataTypes.STRING,
+    },
+    created_at: {
+      type: DATE,
+      allowNull: true,
     },
   },
   {
