@@ -3,7 +3,6 @@ import SignupForm from "./components/auth/SignupForm";
 import Footer from "./components/home/components/Footer";
 import Header from "./components/home/components/Header";
 import Home from "./components/home/Home";
-import LoginForm from "./components/LoginForm";
 import NotFound from "./components/NotFound";
 import CourseHome from "./components/course/CourseHome";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +16,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEnrollmentEachUser } from "./reducers/apiEnrollment";
 import InstructorPage from "./components/instructor/InstructorPage";
+import LoginForm from "./components/auth/LoginForm";
+import AdminPage from "./components/admin/AdminPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
   }, [inforUser]);
 
   const isInstructorRoute = location.pathname.startsWith("/instructor");
+  const isAdminRoute = location.pathname.startsWith("/admin");
 
   return (
     <>
@@ -47,7 +49,7 @@ function App() {
         theme="light"
       />
 
-      {!isInstructorRoute && <Header />}
+      {!isInstructorRoute && !isAdminRoute && <Header />}
 
       <Routes>
         <Route path="*" element={<NotFound />} />
@@ -59,11 +61,12 @@ function App() {
         <Route path="/my-courses" element={<MyCourse />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile/*" element={<UserProfile />} />
         <Route path="/instructor/*" element={<InstructorPage />} />
+        <Route path="/admin/*" element={<AdminPage />} />
       </Routes>
 
-      {!isInstructorRoute && <Footer />}
+      {!isInstructorRoute && !isAdminRoute && <Footer />}
     </>
   );
 }

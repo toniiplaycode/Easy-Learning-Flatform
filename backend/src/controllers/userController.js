@@ -137,7 +137,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { id, name, password, bio, avatar } = req.body;
+  const { id, name, password, bio, avatar, role } = req.body;
 
   try {
     // Lấy thông tin người dùng hiện tại
@@ -150,6 +150,7 @@ export const updateUser = async (req, res) => {
     user.name = name || user.name;
     user.bio = bio || user.bio;
     user.avatar = avatar || user.avatar;
+    user.role = role || user.role;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
@@ -158,7 +159,8 @@ export const updateUser = async (req, res) => {
 
     await user.save();
 
-    res.json({ message: "OK", user });
+    if (role) res.json({ message: "Change role", user });
+    else res.json({ message: "OK", user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: "Server error" });

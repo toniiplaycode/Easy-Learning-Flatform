@@ -38,7 +38,7 @@ const Home = () => {
           fontSize: "2rem",
         }}
       >
-        Tích hợp với các công cụ yêu thích của bạn để học dễ dàng
+        Sử dụng với các công cụ yêu thích của bạn để học dễ dàng
       </p>
       <InfiniteScroll />
       <p

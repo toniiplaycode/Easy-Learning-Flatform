@@ -42,22 +42,24 @@ const ManagePayment = () => {
 
   return (
     <>
-      <BarChart
-        series={[
-          {
-            data: chartData.series.length > 0 ? chartData.series[0].data : [],
-            color: "#005bff",
-          },
-        ]}
-        height={290}
-        xAxis={[
-          {
-            data: chartData.xAxis.length > 0 ? chartData.xAxis : [],
-            scaleType: "band",
-          },
-        ]} // Đảm bảo xAxis là một mảng
-        margin={{ top: 10, bottom: 60, left: 90, right: 10 }}
-      />
+      {paymentAllCourse?.length > 0 && (
+        <BarChart
+          series={[
+            {
+              data: chartData.series.length > 0 ? chartData.series[0].data : [],
+              color: "#005bff",
+            },
+          ]}
+          height={290}
+          xAxis={[
+            {
+              data: chartData.xAxis.length > 0 ? chartData.xAxis : [],
+              scaleType: "band",
+            },
+          ]} // Đảm bảo xAxis là một mảng
+          margin={{ top: 10, bottom: 60, left: 90, right: 10 }}
+        />
+      )}
 
       <div className="mange-list-page-container">
         <div className="mange-list">
@@ -77,7 +79,13 @@ const ManagePayment = () => {
                 <div className="item">{payment.User.name}</div>
                 <div className="item">{payment.Course.title}</div>
                 <div className="item">{payment.amount.toLocaleString()} ₫</div>
-                <div className="item">{payment.payment_method}</div>
+                <div className="item">
+                  {payment.payment_method == "credit_card"
+                    ? "Credit card"
+                    : payment.payment_method == "paypal"
+                    ? "Paypal"
+                    : "Bank transfer"}
+                </div>
                 <div className="item">{formatDate(payment.created_at)}</div>
                 <div className="item">
                   {payment.status == "completed"

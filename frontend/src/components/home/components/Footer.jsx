@@ -3,7 +3,6 @@ const Footer = () => {
     <footer className="footer">
       <div className="container">
         <div className="row">
-          {/* Left Side */}
           <div className="col-md-3 col-6">
             <ul className="footer-links">
               <li>
@@ -24,7 +23,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Middle */}
           <div className="col-md-3 col-6">
             <ul className="footer-links">
               <li>
@@ -45,7 +43,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Right Side */}
           <div className="col-md-3 col-6">
             <ul className="footer-links">
               <li>
@@ -67,9 +64,23 @@ const Footer = () => {
           </div>
 
           <div className="col-md-3 col-6">
-            <button className="btn-language">
-              <i className="fa fa-globe"></i> Tiếng Việt
-            </button>
+            <ul className="footer-links">
+              <li>
+                <a href="#">Công nghệ thông tin</a>
+              </li>
+              <li>
+                <a href="#">Thiết kế đồ hoạ</a>
+              </li>
+              <li>
+                <a href="#">Ngoại ngữ</a>
+              </li>
+              <li>
+                <a href="#">Tin học văn phòng</a>
+              </li>
+              <li>
+                <a href="#">Kinh tế và tài chính</a>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="row">

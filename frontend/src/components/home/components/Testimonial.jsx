@@ -8,7 +8,7 @@ const Testimonial = () => {
       author: {
         name: "Alvin Lim",
         title: "Đồng sáng lập kỹ thuật, CTO tại Dimensional",
-        image: "imgs/profile.png",
+        image: "/imgs/user.png",
       },
       link: "Xem các khóa học website",
     },
@@ -18,7 +18,7 @@ const Testimonial = () => {
       author: {
         name: "Alvin Lim",
         title: "Đồng sáng lập kỹ thuật, CTO tại Dimensional",
-        image: "imgs/profile1.png",
+        image: "/imgs/profile1.png",
       },
       link: "Xem khóa học iOS & Swift này",
     },
@@ -28,7 +28,7 @@ const Testimonial = () => {
       author: {
         name: "William A. Wachlin",
         title: "Chuyên viên đối tác tại Amazon Web Services",
-        image: "imgs/profile2.png",
+        image: "/imgs/profile2.png",
       },
       link: "Xem khóa học AWS này",
     },
@@ -38,7 +38,7 @@ const Testimonial = () => {
       author: {
         name: "Ian Stevens",
         title: "Head Development, at Publicis Sapient",
-        image: "imgs/profile3.png",
+        image: "/imgs/profile3.png",
       },
       link: "Xem khóa học business này",
     },

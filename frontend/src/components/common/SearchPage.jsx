@@ -176,7 +176,9 @@ const SearchPage = () => {
             );
           })
         ) : (
-          <h3>Không tìm thấy khóa học bạn tìm !</h3>
+          <h3 style={{ textAlign: "center" }}>
+            Không tìm thấy khóa học bạn tìm !
+          </h3>
         )}
       </div>
 

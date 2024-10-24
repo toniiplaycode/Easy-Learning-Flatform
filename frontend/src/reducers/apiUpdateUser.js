@@ -17,10 +17,13 @@ export const putUpdateUser = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    thunkAPI.dispatch(fetchInforUser(obj.id)); // post xong tự động fetch lại
     if (res.data.message == "OK") {
       toast.success("Đã thay đổi thông tin !");
     }
+    if (res.data.message == "Change role") {
+      toast.success("Hãy tạo các khóa học của bạn !");
+    }
+    thunkAPI.dispatch(fetchInforUser(obj.id)); // post xong tự động fetch lại
     return res.data;
   }
 );

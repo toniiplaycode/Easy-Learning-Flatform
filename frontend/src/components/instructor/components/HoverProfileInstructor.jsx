@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { handleLogout } from "../../../../reducers/apiLoginLogout";
 import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../../../reducers/apiLoginLogout";
 
-const HoverProfile = ({ right }) => {
+const HoverProfileInstructor = ({ right }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -12,12 +12,6 @@ const HoverProfile = ({ right }) => {
       <div className={`header-container-hover ${right && "right"}`}>
         <div className="header-hover-item" onClick={() => navigate("/profile")}>
           Hồ sơ của bạn
-        </div>
-        <div
-          className="header-hover-item"
-          onClick={() => navigate("/profile/certificate")}
-        >
-          Các chứng chỉ
         </div>
         <div
           className="header-hover-item"
@@ -33,4 +27,4 @@ const HoverProfile = ({ right }) => {
   );
 };
 
-export default HoverProfile;
+export default HoverProfileInstructor;

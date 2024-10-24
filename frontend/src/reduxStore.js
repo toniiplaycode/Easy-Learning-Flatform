@@ -5,7 +5,7 @@ import apiCourse, { fetchCourse } from "./reducers/apiCourse";
 import apiCategory, { fetchCategory } from "./reducers/apiCategory";
 import apiEnrollment from "./reducers/apiEnrollment";
 import modalTrailer from "./reducers/modalTrailer";
-import apiCart from "./reducers/apiCart";
+import apiCart, { fetchCartEachUser } from "./reducers/apiCart";
 import search from "./reducers/search";
 import apiCoupon, { fetchCoupon } from "./reducers/apiCoupon";
 import apiPayment from "./reducers/apiPayment";
@@ -37,5 +37,6 @@ const reduxStore = configureStore({
 reduxStore.dispatch(fetchCourse());
 reduxStore.dispatch(fetchCategory());
 reduxStore.dispatch(fetchCoupon());
+reduxStore.dispatch(fetchCartEachUser());
 
 export default reduxStore;

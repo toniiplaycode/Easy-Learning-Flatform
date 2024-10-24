@@ -317,21 +317,6 @@ $color-star: #f39c12;
         background-color: #444;
       }
     }
-
-    .btn-icon {
-      background-color: #fff;
-      border: 2px solid #333;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0;
-
-      &:hover {
-        background-color: #f0f0f0;
-      }
-    }
   }
 }
 
@@ -553,27 +538,6 @@ $color-star: #f39c12;
     }
   }
 
-  .btn-language {
-    background-color: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-
-    i {
-      margin-right: 8px;
-    }
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
-
   .footer-logo {
     margin-top: 20px;
     img {
@@ -583,7 +547,7 @@ $color-star: #f39c12;
   }
 
   .footer-copyright {
-    margin-top: 20px;
+    margin: auto 0;
     text-align: right;
     color: #b0b0b0;
     font-size: 0.9rem;
@@ -1340,13 +1304,14 @@ $color-star: #f39c12;
   .profile-header {
     position: relative;
     height: 350px;
-    margin-bottom: 100px;
+    // margin-bottom: 70px;
 
     .profile-header-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
 
     .profile-avatar {
@@ -1367,8 +1332,61 @@ $color-star: #f39c12;
       text-align: center;
       font-size: 1.4rem;
       font-weight: bold;
-      left: 140px;
       position: absolute;
+      left: 140px;
+      bottom: -35px;
+    }
+  }
+
+  .profile-navbar {
+    background-color: #f1eded;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 60px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 99.8%;
+
+    span {
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .active {
+      position: relative;
+    }
+
+    /* Pseudo-element để tạo border-bottom */
+    .active::after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: $primary-color;
+
+      /* Thêm animation mượt hơn */
+      animation: move-border 2.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+    }
+  }
+
+  /* Keyframes cho hiệu ứng di chuyển border */
+  @keyframes move-border {
+    0% {
+      transform: translateX(0); /* Vị trí bắt đầu */
+    }
+    50% {
+      transform: translateX(8px); /* Di chuyển sang phải */
+    }
+    100% {
+      transform: translateX(-8px); /* Di chuyển sang trái */
     }
   }
 
@@ -1744,6 +1762,102 @@ $color-star: #f39c12;
 //--------instructor page main---------
 
 .instructor-main-page {
+  .beinstructor-container {
+    .step1,
+    .step2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+
+      h1 {
+        text-align: center;
+        animation: run-in 1s ease forwards; /* Áp dụng animation */
+      }
+
+      @keyframes run-in {
+        0% {
+          transform: translateX(-100%);
+          opacity: 0; /* Bắt đầu với độ trong suốt 0 */
+        }
+        50% {
+          opacity: 1; /* Hiện chữ giữa animation */
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      button {
+        @extend .btn-common;
+        padding: 10px 30px;
+        margin-top: 20px;
+        font-size: 2rem;
+      }
+    }
+
+    .category-select {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 50%; // Chiều rộng tùy ý
+      cursor: pointer;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff; // Màu border khi được focus
+      }
+    }
+
+    .stepfinal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+
+      .congratulations-message {
+        font-weight: bold;
+        color: $primary-color; // Màu chữ
+        opacity: 0; // Bắt đầu với độ trong suốt
+        transform: translateY(-50px); // Bắt đầu từ trên
+        animation: slide-in 1s forwards, pulse 1s 1s infinite; // Thêm animation nhấp nháy
+
+        // Keyframes cho animation slide-in
+        @keyframes slide-in {
+          0% {
+            opacity: 0; // Vô hình ở đầu
+            transform: translateY(-50px); // Di chuyển lên
+          }
+          100% {
+            opacity: 1; // Hiện rõ
+            transform: translateY(0); // Về vị trí gốc
+          }
+        }
+
+        // Keyframes cho animation nhấp nháy
+        @keyframes pulse {
+          0%,
+          100% {
+            transform: scale(1); // Kích thước gốc
+          }
+          50% {
+            transform: scale(1.1); // Phóng to một chút
+          }
+        }
+      }
+
+      button {
+        @extend .btn-common;
+        padding: 10px 30px;
+        margin-top: 20px;
+        font-size: 2rem;
+      }
+    }
+  }
+
   .footer {
     padding-left: 60px;
   }
@@ -1835,6 +1949,11 @@ $color-star: #f39c12;
 }
 
 //--------header instructor---------
+.instructor-header.container_header {
+  justify-content: flex-end;
+  padding: 15px;
+}
+
 .instructor-header {
   display: flex;
   justify-content: flex-end;
@@ -2483,6 +2602,7 @@ $color-star: #f39c12;
     text-align: center;
     font-weight: bold;
     margin: 35px 0;
+    margin-top: 100px;
   }
 
   & > h5 {
@@ -2740,6 +2860,143 @@ $color-star: #f39c12;
 
     img {
       width: 150px;
+    }
+  }
+}
+
+//-------certificate user page--------
+.profile-courses-certificate {
+  .courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .course-item {
+      display: flex;
+      align-items: flex-start;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      @extend .transition-common;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .course-img {
+        width: 20%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 20px;
+
+        @media (max-width: 768px) {
+          width: 100%;
+          height: 220px;
+        }
+      }
+
+      .course-info {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        max-width: 800px;
+        height: 100%;
+        margin: auto 0;
+
+        h3 {
+          font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+          margin-top: 20px;
+          text-align: center;
+        }
+
+        button {
+          @extend .btn-common;
+          max-width: 160px;
+
+          @media (max-width: 768px) {
+            max-width: 100%;
+          }
+        }
+      }
+
+      .course-info h3 {
+        margin: 0 0 10px;
+        font-size: 1.2rem;
+      }
+
+      .course-info p {
+        margin: 0;
+        color: #666;
+      }
+    }
+  }
+}
+
+//-------login admin--------
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8; // Light background
+
+  .login-form {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      padding: 20px 0;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff; // Blue focus
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
+    }
+
+    .login-button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px 0;
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0056b3; // Darker blue on hover
+      }
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
     }
   }
 }

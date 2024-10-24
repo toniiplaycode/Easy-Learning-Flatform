@@ -6,9 +6,11 @@ import { toast } from "react-toastify";
 const initialState = {
   certificateAllCourse: [],
   detailCertificate: {},
+  certificateEachUser: [],
   statusFetchCertificateAllCourse: "idle",
   statusAddCertificate: "idle",
   statusDetailCertificate: "idle",
+  statusFetchCertificateEachUser: "idle",
 };
 
 export const fetchCertificateAllCourse = createAsyncThunk(
@@ -81,6 +83,21 @@ export const FetchdetailCertificate = createAsyncThunk(
   }
 );
 
+export const fetchCertificateEachUser = createAsyncThunk(
+  "apiCertificate/fetchCertificateEachUser",
+  async (user_id, thunkAPI) => {
+    const response = await axios.get(
+      `${url}/api/certificate/getCertificateEachUser`,
+      {
+        params: {
+          user_id,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 const apiCertificate = createSlice({
   name: "apiCertificate",
   initialState,
@@ -118,6 +135,17 @@ const apiCertificate = createSlice({
       })
       .addCase(FetchdetailCertificate.rejected, (state, action) => {
         state.statusDetailCertificate = "failed";
+      })
+
+      .addCase(fetchCertificateEachUser.pending, (state) => {
+        state.statusFetchCertificateEachUser = "loading";
+      })
+      .addCase(fetchCertificateEachUser.fulfilled, (state, action) => {
+        state.statusFetchCertificateEachUser = "succeeded";
+        state.certificateEachUser = action.payload.certificates;
+      })
+      .addCase(fetchCertificateEachUser.rejected, (state, action) => {
+        state.statusFetchCertificateEachUser = "failed";
       });
   },
 });

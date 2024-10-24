@@ -1,7 +1,6 @@
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -49,7 +48,7 @@ const Drawer = () => {
                   <>
                     <div className="drawer-profile">
                       <img
-                        src="/imgs/profile.png"
+                        src="/imgs/user.png"
                         onClick={() => {
                           handleClose();
                           navigate("/profile");
@@ -138,9 +137,6 @@ const Drawer = () => {
                   Tất cả thể loại <FontAwesomeIcon icon={faAngleRight} />
                 </Link>
                 <hr />
-                <Button variant="outline-secondary" className="w-100 mt-2">
-                  🌐 Tiếng Việt
-                </Button>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

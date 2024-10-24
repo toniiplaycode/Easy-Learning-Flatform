@@ -6,7 +6,7 @@ import {
   FetchdetailCertificate,
 } from "../../../../reducers/apiCertificate";
 
-const Certificate = ({ idCertificateView }) => {
+const Certificate = ({ idCertificateView, isViewUserSide }) => {
   const dispatch = useDispatch();
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
   const enrollmentAllCourse = useSelector(
@@ -18,8 +18,10 @@ const Certificate = ({ idCertificateView }) => {
   );
 
   useEffect(() => {
-    dispatch(FetchdetailCertificate(idCertificateView));
-  }, [idCertificateView]);
+    if (idCertificateView) {
+      dispatch(FetchdetailCertificate(idCertificateView));
+    }
+  }, [dispatch, idCertificateView]);
 
   // States for the selected recipient and course
   const [selectedEnrollment, setSelectedEnrollment] = useState(null);
@@ -73,7 +75,10 @@ const Certificate = ({ idCertificateView }) => {
   };
 
   return (
-    <div className="certificate-container">
+    <div
+      className="certificate-container"
+      style={isViewUserSide && { marginTop: "60px" }}
+    >
       <div className="certificate-content">
         <div className="certificate-header">
           <h1>CERTIFICATE</h1>
@@ -146,7 +151,7 @@ const Certificate = ({ idCertificateView }) => {
         </div>
       </div>
 
-      {isView && (
+      {isView && !isViewUserSide && (
         <button
           className="btn-add-certificate"
           onClick={() => {

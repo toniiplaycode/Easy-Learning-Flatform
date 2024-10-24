@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../reducers/apiLoginLogout";
+import { postLogin } from "../../reducers/apiLoginLogout";
 import { toast } from "react-toastify";
 import { Button } from "@chakra-ui/react";
 
@@ -13,6 +13,14 @@ const LoginForm = () => {
   const [CheckEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
+  useEffect(() => {
+    if (Object.keys(inforUser).length > 0) {
+      navigate("/");
+    }
+  }, [inforUser]);
 
   const statusPostLogin = useSelector(
     (state) => state.apiLoginLogout.statusPostLogin

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { FiShoppingCart } from "react-icons/fi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import Drawer from "./Drawer";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +28,7 @@ const HeaderMobile = () => {
             type="text"
             className="form-control headermobile-search"
             placeholder="Tìm kiếm..."
-            onChange={() => {
+            onChange={(e) => {
               navigate("/search");
               dispatch(searchCourse(e.target.value));
             }}
@@ -37,7 +36,7 @@ const HeaderMobile = () => {
         </div>
       ) : (
         <div class="logo" onClick={() => navigate("/")}>
-          <img src={"imgs/logo.png"} className="logo" />
+          <img src={"/imgs/logo.png"} className="logo" />
         </div>
       )}
 

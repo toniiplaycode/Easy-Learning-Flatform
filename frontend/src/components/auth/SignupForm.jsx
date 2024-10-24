@@ -18,6 +18,14 @@ const SignupForm = () => {
   const [checkConfirmPassword, setCheckConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
+
+  useEffect(() => {
+    if (Object.keys(inforUser).length > 0) {
+      navigate("/");
+    }
+  }, [inforUser]);
+
   const statusPostSignUp = useSelector(
     (state) => state.apiSignup.statusPostSignUp
   );

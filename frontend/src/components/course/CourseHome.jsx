@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TiTickOutline } from "react-icons/ti";
 import { AiFillStar } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchDetailCourse } from "../../reducers/apiCourse";
 import {
   formatDate,
-  formatTime,
   formatTimeText,
   formatUrlYoutube,
 } from "../../utils/common";
@@ -37,6 +35,8 @@ const CourseHome = () => {
       (item) => item.course_id === Number(idCourseUrl)
     );
   }, [idCourseUrl]);
+
+  const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
 
   const detailCourse = useSelector((state) => state.apiCourse.detailCourse);
   let enrollmentEachUser = useSelector(
@@ -200,6 +200,10 @@ const CourseHome = () => {
                     if (isEnrolled) {
                       toast.warning("Bạn đã tham gia khóa học này !");
                     } else {
+                      if (Object.keys(inforUser) == 0) {
+                        navigate(`/login`);
+                        return;
+                      }
                       dispatch(addCart(detailCourse.id));
                       navigate(`/my-courses#cart`);
                     }
@@ -212,6 +216,10 @@ const CourseHome = () => {
               <button
                 className="enroll-button"
                 onClick={() => {
+                  if (Object.keys(inforUser) == 0) {
+                    navigate(`/login`);
+                    return;
+                  }
                   if (!isEnrolled) {
                     toast.error(
                       "Bạn chưa mua khóa học này ! Hãy thêm vào giỏ hàng và thanh toán",
