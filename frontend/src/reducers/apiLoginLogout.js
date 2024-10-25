@@ -11,9 +11,11 @@ const initialState = {
     localStorage.getItem("inforUser") != undefined
       ? JSON.parse(localStorage.getItem("inforUser"))
       : {},
+  users: [],
   statusPostLogin: "idle",
   statusFetchLogin: "idle",
   statusLogout: "idle",
+  statusFetchAllUsers: "idle",
   error: null,
 };
 
@@ -34,6 +36,36 @@ export const fetchInforUser = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
+    return res.data;
+  }
+);
+
+export const fetchAllUsers = createAsyncThunk(
+  "apiLoginLogout/fetchAllUsers",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token;
+    const res = await axios.get(`${url}/api/user/getAllUsers`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
+export const deleteUser = createAsyncThunk(
+  "apiLoginLogout/deleteUser",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token;
+    const res = await axios.delete(`${url}/api/user/deleteUser`, {
+      params: {
+        id,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    thunkAPI.dispatch(fetchAllUsers());
     return res.data;
   }
 );
@@ -88,6 +120,17 @@ const apiLoginLogout = createSlice({
       })
       .addCase(fetchInforUser.rejected, (state, action) => {
         state.statusFetchLogin = "failed";
+      })
+
+      .addCase(fetchAllUsers.pending, (state) => {
+        state.statusFetchAllUsers = "loading";
+      })
+      .addCase(fetchAllUsers.fulfilled, (state, action) => {
+        state.statusFetchAllUsers = "succeeded";
+        state.users = action.payload.users;
+      })
+      .addCase(fetchAllUsers.rejected, (state, action) => {
+        state.statusFetchAllUsers = "failed";
       });
   },
 });

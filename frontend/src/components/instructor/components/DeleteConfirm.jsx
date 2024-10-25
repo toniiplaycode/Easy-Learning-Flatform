@@ -10,6 +10,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { deleteSection } from "../../../reducers/apiSection";
 import { deleteLecture } from "../../../reducers/apiLecture";
 import { deleteCertificate } from "../../../reducers/apiCertificate";
+import { deleteUser } from "../../../reducers/apiLoginLogout";
 
 const DeleteConfirm = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const DeleteConfirm = (props) => {
       dispatch(deleteLecture(props.detail_lecture));
     } else if ("delete_certificate" in props) {
       dispatch(deleteCertificate(props.delete_certificate));
+    } else if ("delete_user" in props) {
+      dispatch(deleteUser(props.delete_user));
     }
 
     setVisible(false);

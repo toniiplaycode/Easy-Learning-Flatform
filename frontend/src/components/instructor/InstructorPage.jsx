@@ -15,7 +15,6 @@ import ManageCoupon from "./components/Coupon/ManageCoupon";
 import ManagePayment from "./components/Payment/ManagePayment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { fetchCategory } from "../../reducers/apiCategory";
 import { putUpdateUser } from "../../reducers/apiUpdateUser";
 
 const InstructorPage = () => {
@@ -35,7 +34,7 @@ const InstructorPage = () => {
 
   return (
     <div className="instructor-main-page">
-      {inforUser.role == "student" ? (
+      {inforUser.role == "student" || inforUser.role == "admin" ? (
         <div className="min-vh-100">
           <Header />
           <div className="beinstructor-container">

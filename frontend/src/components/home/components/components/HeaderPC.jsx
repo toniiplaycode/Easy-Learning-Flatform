@@ -79,7 +79,14 @@ const HeaderPC = () => {
           </>
         ) : (
           <>
-            <div className="header-hover">Giảng dạy trên easy learning</div>
+            <div
+              className="header-hover"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Giảng dạy trên easy learning
+            </div>
             <div className="header_button-container">
               <button
                 class="btn btn-outline"

@@ -1,4 +1,4 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, DATE } from "sequelize";
 import sequelize from "../config/connectDB.js"; // Đảm bảo thay đổi đường dẫn cho đúng
 
 const User = sequelize.define(
@@ -31,6 +31,10 @@ const User = sequelize.define(
     },
     avatar: {
       type: DataTypes.TEXT,
+    },
+    created_at: {
+      type: DATE,
+      allowNull: true,
     },
   },
   {
