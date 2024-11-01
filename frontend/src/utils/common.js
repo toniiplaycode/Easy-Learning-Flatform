@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const url = "http://localhost:3000";
 
 export const formatDate = (dateStr) => {
@@ -32,6 +34,18 @@ export const formatTimeText = (seconds) => {
 };
 
 export const formatUrlYoutube = (url) => {
-  const videoId = url.match(/v=([^&]+)/)[1];
-  return videoId;
+  // Check if the URL starts with 'https://www.youtube.com'
+  if (!url.startsWith("https://www.youtube.com")) {
+    toast.error("Link youtube không hợp lệ !");
+    return null; // Return null or handle as necessary
+  }
+
+  // Extract the video ID if the URL is valid
+  const match = url.match(/v=([^&]+)/);
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    toast.error("Invalid YouTube URL. Unable to extract video ID.");
+    return null;
+  }
 };

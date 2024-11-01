@@ -13,6 +13,7 @@ import apiSection from "./reducers/apiSection";
 import apiLecture from "./reducers/apiLecture";
 import apiReview from "./reducers/apiReview";
 import apiCertificate from "./reducers/apiCertificate";
+import apiYoutube from "./reducers/apiYoutube";
 
 const reduxStore = configureStore({
   reducer: {
@@ -30,6 +31,7 @@ const reduxStore = configureStore({
     apiLecture: apiLecture,
     apiReview: apiReview,
     apiCertificate: apiCertificate,
+    apiYoutube: apiYoutube,
   },
 });
 

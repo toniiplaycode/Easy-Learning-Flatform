@@ -7,6 +7,8 @@ import { faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
 import DeleteConfirm from "../DeleteConfirm";
 import { toast } from "react-toastify";
+import { getApiVideoYoutube } from "../../../../reducers/apiYoutube";
+import { formatUrlYoutube } from "../../../../utils/common";
 
 const LectureCourse = () => {
   const dispatch = useDispatch();
@@ -16,6 +18,10 @@ const LectureCourse = () => {
 
   const sectionAllLectureEachCourse = useSelector(
     (state) => state.apiSection.sectionAllLectureEachCourse
+  );
+
+  const apiVideoYoutube = useSelector(
+    (state) => state.apiYoutube.apiVideoYoutube
   );
 
   useEffect(() => {
@@ -127,6 +133,10 @@ const LectureCourse = () => {
   const handleVideoUrlChange = (e) => {
     setVideoUrl(e.target.value);
     setValidate((prev) => ({ ...prev, video_url: true }));
+
+    if (formatUrlYoutube(e.target.value)) {
+      dispatch(getApiVideoYoutube(formatUrlYoutube(e.target.value)));
+    }
   };
 
   const handlePutPosition = (lecture) => {

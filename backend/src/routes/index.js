@@ -9,6 +9,7 @@ import paymentRouter from "./paymentRouter.js";
 import certificateRouter from "./certificateRouter.js";
 import cartRouter from "./cartRouter.js";
 import couponRouter from "./couponRouter.js";
+import youtubeRouter from "./youtubeRouter.js";
 
 const initRoutes = (app) => {
   app.use("/api/user", userRouter);
@@ -22,6 +23,7 @@ const initRoutes = (app) => {
   app.use("/api/certificate", certificateRouter);
   app.use("/api/cart", cartRouter);
   app.use("/api/coupon", couponRouter);
+  app.use("/api/youtube", youtubeRouter);
 };
 
 export default initRoutes;
