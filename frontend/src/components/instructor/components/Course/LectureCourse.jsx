@@ -8,7 +8,7 @@ import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
 import DeleteConfirm from "../DeleteConfirm";
 import { toast } from "react-toastify";
 import { getApiVideoYoutube } from "../../../../reducers/apiYoutube";
-import { formatUrlYoutube } from "../../../../utils/common";
+import { formatDuration, formatUrlYoutube } from "../../../../utils/common";
 
 const LectureCourse = () => {
   const dispatch = useDispatch();
@@ -18,10 +18,6 @@ const LectureCourse = () => {
 
   const sectionAllLectureEachCourse = useSelector(
     (state) => state.apiSection.sectionAllLectureEachCourse
-  );
-
-  const apiVideoYoutube = useSelector(
-    (state) => state.apiYoutube.apiVideoYoutube
   );
 
   useEffect(() => {
@@ -40,6 +36,20 @@ const LectureCourse = () => {
   const [isUpdatePosition, setIsUpdatePosition] = useState(null);
   const [isUpdateLecture, setIsUpdateLecture] = useState(null);
   const [lectureDataUpdate, setLectureDataUpdate] = useState({});
+
+  const apiVideoYoutube = useSelector(
+    (state) => state.apiYoutube.apiVideoYoutube
+  );
+
+  // set duration when add link youtube
+  useEffect(() => {
+    if (Object.keys(apiVideoYoutube).length > 0)
+      if (apiVideoYoutube?.items[0]?.contentDetails?.duration != null) {
+        setDuration(
+          formatDuration(apiVideoYoutube?.items[0]?.contentDetails?.duration)
+        );
+      }
+  }, [apiVideoYoutube]);
 
   // State for validation
   const [validate, setValidate] = useState({

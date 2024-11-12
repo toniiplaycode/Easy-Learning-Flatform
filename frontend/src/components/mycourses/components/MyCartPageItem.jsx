@@ -55,7 +55,7 @@ const MyCartPageItem = ({ cart, coupon }) => {
         <div className="mycart-content">
           <h3>{cart.Course.title}</h3>
           <p>{cart.Course.User.name}</p>
-          <div className="badge">Bán chạy nhất</div>
+          <div className="badge">Lựa chọn tốt nhất</div>
           <div className="rating">
             <span>{avgRating}</span>
             <span className="stars">

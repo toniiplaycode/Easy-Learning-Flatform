@@ -10,30 +10,9 @@ const LoginAdmin = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [CheckEmail, setCheckEmail] = useState(false);
+  const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const statusPostLogin = useSelector(
-    (state) => state.apiLoginLogout.statusPostLogin
-  );
-
-  useEffect(() => {
-    if (statusPostLogin == "failed") {
-      toast.error("Email hoặc password sai !");
-      setIsLoading(false);
-    }
-
-    if (statusPostLogin == "loading") {
-      setIsLoading(true);
-    }
-
-    if (statusPostLogin == "succeeded") {
-      toast.success("Đăng nhập thành công !");
-      setIsLoading(false);
-      navigate("/");
-    }
-  }, [statusPostLogin]);
 
   const handleCheck = () => {
     let check = true;

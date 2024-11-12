@@ -28,7 +28,6 @@ const Home = () => {
         >
           <span>Các khóa học miễn phí</span>
         </p>
-        {/* <p>Xem thêm</p> */}
         <CourseList category={"free"} />
       </div>
       <p

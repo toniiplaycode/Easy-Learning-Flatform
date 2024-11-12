@@ -6,6 +6,7 @@ import {
   getAllUsers,
   updateUser,
   deleteUser,
+  detailUserOther,
 } from "../controllers/userController.js";
 import {
   authenticateToken,
@@ -18,6 +19,7 @@ router.post("/registerUser", registerUser);
 router.post("/loginUser", loginUser);
 
 router.get("/detailUser", authenticateToken, detailUser);
+router.get("/detailUserOther", detailUserOther);
 
 router.get(
   "/getAllUsers",

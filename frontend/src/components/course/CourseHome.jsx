@@ -140,7 +140,7 @@ const CourseHome = () => {
           </ul>
           <div className="course-details">
             <div className="course-rating-container">
-              <p className="highlight-label">Bán chạy nhất</p>
+              <p className="highlight-label">Lựa chọn tốt nhất</p>
               <div className="course-rating">
                 <p>
                   {avgRating}{" "}
@@ -154,7 +154,20 @@ const CourseHome = () => {
               <p>({totalReviews} đánh giá)</p>
             </div>
             <p>
-              Được tạo bởi <a href="#">{sortedDetailCourse?.User?.name}</a>
+              Được tạo bởi{" "}
+              <a
+                href="#"
+                onClick={() =>
+                  navigate(
+                    `/profile?construtor_id=${sortedDetailCourse?.User?.id}`,
+                    {
+                      state: { isViewProfile: true },
+                    }
+                  )
+                }
+              >
+                {sortedDetailCourse?.User?.name}
+              </a>
             </p>
             <p>
               <span>

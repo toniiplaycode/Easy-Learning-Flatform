@@ -22,14 +22,61 @@ const InforUser = () => {
   );
 
   useEffect(() => {
-    if (Object.keys(inforUser).length == 0) navigate("/");
-  }, [inforUser]);
+    if (Object.keys(inforUser).length === 0) navigate("/");
+  }, [inforUser, navigate]);
 
-  const [isDisable, setisDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState(inforUser.name || "");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState(inforUser.bio || "");
+  const [avatar, setAvatar] = useState(inforUser.avatar || ""); // For storing the uploaded avatar URL
+  const [previewImage, setPreviewImage] = useState(null); // For displaying the selected image preview
+
+  // Function to handle Cloudinary upload
+  const postCloudinary = (pic) => {
+    setIsLoading(true);
+    if (!pic) {
+      alert("No file selected");
+      setIsLoading(false);
+      return;
+    }
+
+    if (["image/jpg", "image/jpeg", "image/png"].includes(pic.type)) {
+      const data = new FormData();
+      data.append("file", pic);
+      data.append("upload_preset", "chat-app"); // Replace with your Cloudinary preset
+      data.append("cloud_name", "dj8ae1gpq"); // Replace with your Cloudinary name
+
+      fetch("https://api.cloudinary.com/v1_1/dj8ae1gpq/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setAvatar(data.url.toString());
+          setIsLoading(false);
+          setIsDisable(false); // Enable the update button
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.error("Error uploading image:", error);
+        });
+    } else {
+      setIsLoading(false);
+      alert("Please select a valid image format (jpg, jpeg, or png).");
+    }
+  };
+
+  // Function to handle image selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file)); // Display preview when new image is selected
+      postCloudinary(file); // Upload to Cloudinary
+      setIsDisable(false); // Enable the button after selecting the file
+    }
+  };
 
   return (
     <div className="profile-devide container">
@@ -52,6 +99,31 @@ const InforUser = () => {
             )}
           </p>
           <p>{inforUser.email}</p>
+
+          {/* Avatar Preview */}
+          <div className="avatar-preview mb-3">
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt="Avatar Preview"
+                className="avatar-img"
+              />
+            )}
+          </div>
+
+          {/* Upload Avatar */}
+          <div className="mb-3">
+            <label htmlFor="avatar" className="form-label">
+              Cập nhật ảnh đại diện
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
+
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Tên đầy đủ
@@ -62,7 +134,7 @@ const InforUser = () => {
               value={name}
               placeholder="Tên của bạn"
               onChange={(e) => {
-                setisDisable(false);
+                setIsDisable(false);
                 setName(e.target.value);
               }}
             />
@@ -77,7 +149,7 @@ const InforUser = () => {
               className="form-control"
               placeholder="Mật khẩu mới của bạn"
               onChange={(e) => {
-                setisDisable(false);
+                setIsDisable(false);
                 setPassword(e.target.value);
               }}
             />
@@ -93,7 +165,7 @@ const InforUser = () => {
               value={bio}
               placeholder="Giáo viên dạy toán, giảng viên CNTT,..."
               onChange={(e) => {
-                setisDisable(false);
+                setIsDisable(false);
                 setBio(e.target.value);
               }}
             />
@@ -108,8 +180,15 @@ const InforUser = () => {
               disabled={isDisable}
               onClick={() => {
                 dispatch(
-                  putUpdateUser({ id: inforUser.id, name, password, bio })
+                  putUpdateUser({
+                    id: inforUser.id,
+                    name,
+                    password,
+                    bio,
+                    avatar,
+                  })
                 );
+                setPreviewImage(null); // Reset preview after update
               }}
             >
               Cập nhật
@@ -124,6 +203,7 @@ const InforUser = () => {
               enrollmentEachUser?.map((enroll) => (
                 <div
                   className="course-item"
+                  key={enroll.Course.id}
                   onClick={() =>
                     navigate(`/course-home?id=${enroll.Course.id}`)
                   }

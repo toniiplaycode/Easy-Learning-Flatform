@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchEnrollmentAllUser } from "../../../../reducers/apiEnrollment";
 import { formatDate } from "../../../../utils/common";
 import { AiFillStar } from "react-icons/ai";
+import DeleteConfirm from "../DeleteConfirm";
 
 const DetailStudent = () => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const DetailStudent = () => {
 
   useEffect(() => {
     dispatch(fetchEnrollmentAllUser(idCourseUrl));
-  }, [idCourseUrl]);
+  }, [idCourseUrl, dispatch]);
 
   const enrollmentAllUser = useSelector(
     (state) => state.apiEnrollment.enrollmentAllUser
@@ -36,37 +37,55 @@ const DetailStudent = () => {
           <div className="header-item">Ngày tham gia</div>
           <div className="header-item">Đánh giá</div>
           <div className="header-item">Bình luận</div>
+          <div className="header-item" style={{ maxWidth: "55px" }}></div>
         </div>
 
         {enrollmentAllUser?.length > 0 ? (
-          enrollmentAllUser?.map((student) => (
-            <div className="mange-item" key={student.id}>
-              <div className="item">{student.User.email}</div>
-              <div className="item">{student.User.name}</div>
-              <div className="item">{formatDate(student.created_at)}</div>
-              <div className="item">
-                {student?.User?.Reviews.length > 0 ? (
-                  [...Array(student?.User?.Reviews[0]?.rating)].map(
-                    (_, index) => (
-                      <AiFillStar
-                        key={index}
-                        size={18}
-                        color="#ffa41b"
-                        style={{ display: "inline-block" }}
-                      />
+          enrollmentAllUser?.map((student) => {
+            const delete_user_enrollment = {
+              id_enrollment: student.id,
+              course_id: student.course_id,
+            };
+            return (
+              <div className="mange-item" key={student.id}>
+                <div className="item">{student.User.email}</div>
+                <div className="item">{student.User.name}</div>
+                <div className="item">{formatDate(student.created_at)}</div>
+                <div className="item">
+                  {student?.User?.Reviews.length > 0 ? (
+                    [...Array(student?.User?.Reviews[0]?.rating)].map(
+                      (_, index) => (
+                        <AiFillStar
+                          key={index}
+                          size={18}
+                          color="#ffa41b"
+                          style={{ display: "inline-block" }}
+                        />
+                      )
                     )
-                  )
-                ) : (
-                  <div>...</div>
-                )}
+                  ) : (
+                    <div>...</div>
+                  )}
+                </div>
+                <div className="item">
+                  {student.User.Reviews.length > 0
+                    ? student.User.Reviews[0].comment
+                    : "..."}
+                </div>
+                <div
+                  className="item"
+                  style={{
+                    maxWidth: "40px",
+                    marginLeft: "-20px",
+                  }}
+                >
+                  <DeleteConfirm
+                    delete_user_enrollment={delete_user_enrollment}
+                  />
+                </div>
               </div>
-              <div className="item">
-                {student.User.Reviews.length > 0
-                  ? student.User.Reviews[0].comment
-                  : "..."}
-              </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div>Chưa có học viên nào</div>
         )}

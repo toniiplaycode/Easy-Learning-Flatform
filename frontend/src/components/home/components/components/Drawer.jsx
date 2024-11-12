@@ -48,7 +48,9 @@ const Drawer = () => {
                   <>
                     <div className="drawer-profile">
                       <img
-                        src="/imgs/user.png"
+                        src={
+                          inforUser.avatar ? inforUser.avatar : "/imgs/user.png"
+                        }
                         onClick={() => {
                           handleClose();
                           navigate("/profile");

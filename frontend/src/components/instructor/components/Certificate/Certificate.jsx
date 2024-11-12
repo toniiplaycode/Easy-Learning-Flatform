@@ -23,7 +23,6 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
     }
   }, [dispatch, idCertificateView]);
 
-  // States for the selected recipient and course
   const [selectedEnrollment, setSelectedEnrollment] = useState(null);
   const [userId, setUserId] = useState(null);
   const [courseId, setCourseId] = useState(null);
@@ -40,7 +39,6 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
     dispatch(fetchEnrollmentAllCourse(instructor_id));
   }, [inforUser]);
 
-  // Function to handle selection change
   const handleSelectionChange = (e) => {
     const selectedId = e.target.value;
     const selected = enrollmentAllCourse.find(
@@ -53,11 +51,9 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
 
   const getCurrentDate = () => {
     const today = new Date();
-
-    const day = String(today.getDate()).padStart(2, "0"); // Get day and pad with 0 if necessary
-    const month = String(today.getMonth() + 1).padStart(2, "0"); // Get month (0-indexed) and pad with 0
-    const year = today.getFullYear(); // Get the full 4-digit year
-
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = today.getFullYear();
     return `${day}/${month}/${year}`;
   };
 
@@ -89,9 +85,9 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
         <div className="certificate-body">
           <p className="present-text">THIS CERTIFICATE IS PRESENTED TO</p>
 
-          {(Object.keys(detailCertificate).length == 0 || isView == false) && (
+          {(Object.keys(detailCertificate).length === 0 ||
+            isView === false) && (
             <div className="certificate-container-add">
-              {/* Select dropdown for recipient and course */}
               <select
                 className="styled-select"
                 onChange={handleSelectionChange}

@@ -240,3 +240,14 @@ export const deleteLecture = async (req, res) => {
 //     res.status(500).json({ message: "Internal Server Error" });
 //   }
 // };
+
+export const getAllLecture = async (req, res) => {
+  try {
+    const lectures = await Lecture.findAll();
+
+    res.status(200).json({ message: "OK", lectures });
+  } catch (error) {
+    console.error("Error fetching lectures:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

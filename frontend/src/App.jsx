@@ -12,7 +12,7 @@ import UserProfile from "./components/profile/UserProfile";
 import SearchPage from "./components/common/SearchPage";
 import CoursePage from "./components/course/CoursePage";
 import PaymentPage from "./components/mycourses/components/PaymentPage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEnrollmentEachUser } from "./reducers/apiEnrollment";
 import InstructorPage from "./components/instructor/InstructorPage";

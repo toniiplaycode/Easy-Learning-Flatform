@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { searchCourse } from "../../../../reducers/search";
 import Badge from "@mui/material/Badge";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRightToBracket,
+  faSortDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 const HeaderPC = () => {
   const dispatch = useDispatch();
@@ -27,6 +32,10 @@ const HeaderPC = () => {
         </div>
         <div className="header-hover">
           Thể loại
+          <FontAwesomeIcon
+            icon={faSortDown}
+            style={{ fontSize: "1.2rem", position: "relative", bottom: "2px" }}
+          />
           <HoverCategory right={false} />
         </div>
         <div class="header_search">
@@ -49,6 +58,10 @@ const HeaderPC = () => {
               onClick={() => navigate(`/instructor`)}
             >
               Chuyển sang giảng viên
+              <FontAwesomeIcon
+                icon={faRightToBracket}
+                style={{ fontSize: "1.2rem" }}
+              />
             </div>
             <div
               className="header-hover"
@@ -70,7 +83,7 @@ const HeaderPC = () => {
             <div className="header_your-profile">
               <div className="header-hover">
                 <img
-                  src="/imgs/user.png"
+                  src={inforUser.avatar || "/imgs/user.png"}
                   onClick={() => navigate("/profile")}
                 />
                 <HoverProfile right={true} />

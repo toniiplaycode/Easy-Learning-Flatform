@@ -13,12 +13,12 @@ const ManageCourse = () => {
 
   return (
     <>
-      <button
+      {/* <button
         className="manage-btn-back"
         onClick={() => navigate("/instructor")}
       >
         <FontAwesomeIcon icon={faCircleLeft} />
-      </button>
+      </button> */}
 
       <div className="manage-container">
         <SidebarManageCourse detailCourse={detailCourse} />

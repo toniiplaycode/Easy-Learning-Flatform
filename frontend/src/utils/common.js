@@ -49,3 +49,15 @@ export const formatUrlYoutube = (url) => {
     return null;
   }
 };
+
+export const formatDuration = (durationString) => {
+  const hoursMatch = durationString.match(/(\d+)H/);
+  const minutesMatch = durationString.match(/(\d+)M/);
+  const secondsMatch = durationString.match(/(\d+)S/);
+
+  const hours = hoursMatch ? parseInt(hoursMatch[1], 10) : 0;
+  const minutes = minutesMatch ? parseInt(minutesMatch[1], 10) : 0;
+  const seconds = secondsMatch ? parseInt(secondsMatch[1], 10) : 0;
+
+  return hours * 3600 + minutes * 60 + seconds;
+};

@@ -10,6 +10,7 @@ const initialState = {
   statusFetchEnrollmentEachUser: "idle",
   statusPostEnrollment: "idle",
   statusFetchEnrollmentAllCourse: "idle",
+  statusDeleteUserEnrollment: "idle",
 };
 
 export const fetchEnrollmentEachUser = createAsyncThunk(
@@ -85,6 +86,29 @@ export const fetchEnrollmentAllCourse = createAsyncThunk(
   }
 );
 
+export const deleteUserEnrollment = createAsyncThunk(
+  "apiEnrollment/deleteUserEnrollment",
+  async (obj, thunkAPI) => {
+    console.log(obj);
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const config = {
+      params: {
+        id: obj.id_enrollment,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.delete(
+      `${url}/api/enrollment/deleteEnrollment`,
+      config
+    );
+    thunkAPI.dispatch(fetchEnrollmentAllUser(obj.course_id));
+    toast.success("Xóa người dùng khỏi khóa học thành công !");
+    return res.data;
+  }
+);
+
 const apiEnrollment = createSlice({
   name: "apiEnrollment",
   initialState,
@@ -133,6 +157,16 @@ const apiEnrollment = createSlice({
       })
       .addCase(fetchEnrollmentAllCourse.rejected, (state, action) => {
         state.statusFetchEnrollmentAllCourse = "failed";
+      })
+
+      .addCase(deleteUserEnrollment.pending, (state) => {
+        state.statusDeleteUserEnrollment = "loading";
+      })
+      .addCase(deleteUserEnrollment.fulfilled, (state, action) => {
+        state.statusDeleteUserEnrollment = "succeeded";
+      })
+      .addCase(deleteUserEnrollment.rejected, (state, action) => {
+        state.statusDeleteUserEnrollment = "failed";
       });
   },
 });

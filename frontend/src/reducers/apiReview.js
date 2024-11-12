@@ -67,7 +67,6 @@ export const deleteReview = createAsyncThunk(
         config
       );
 
-      toast.success("Bạn đánh giá đánh giá !");
       thunkAPI.dispatch(fetchCourse());
       thunkAPI.dispatch(fetchDetailCourse(obj.course_id));
       return response.data;

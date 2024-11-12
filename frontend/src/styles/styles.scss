@@ -153,7 +153,7 @@ $color-star: #f39c12;
 .header-pc {
   display: block;
 
-  @media (max-width: 750px) {
+  @media (max-width: 1150px) {
     display: none;
   }
 }
@@ -161,7 +161,7 @@ $color-star: #f39c12;
 .header-mobile {
   display: none;
 
-  @media (max-width: 750px) {
+  @media (max-width: 1150px) {
     display: flex;
   }
 }
@@ -188,6 +188,8 @@ $color-star: #f39c12;
       font-weight: 600;
       position: relative;
       cursor: pointer;
+      display: flex;
+      gap: 5px;
 
       &:hover {
         color: $primary-color;
@@ -737,14 +739,21 @@ $color-star: #f39c12;
 
     .section {
       margin-top: 20px;
-      cursor: pointer;
+
       h3 {
+        cursor: pointer;
         display: flex;
         justify-content: space-between;
         padding: 10px;
         background-color: #f1f1f1;
         border-radius: 5px;
         font-size: 1.2rem;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+
+        &:hover {
+          transform: scale(1.01); // Slight zoom-in effect on hover
+          background-color: #e2e2e2;
+        }
       }
       ul {
         margin-top: 10px;
@@ -1411,6 +1420,18 @@ $color-star: #f39c12;
         border-radius: 10px;
         background-color: #fff;
       }
+
+      .avatar-preview {
+        text-align: center;
+      }
+
+      .avatar-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
     }
 
     .profile-courses {
@@ -1465,6 +1486,106 @@ $color-star: #f39c12;
             margin: 0;
             color: #666;
           }
+        }
+      }
+    }
+  }
+}
+
+.view-profile-container {
+  width: 80%;
+  .view-profile-infor {
+    display: flex;
+    margin-bottom: 20px;
+
+    .left {
+      margin-right: 20px;
+      img {
+        width: 100px;
+        border-radius: 50%;
+      }
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > span {
+        font-weight: 100;
+        &:hover {
+          color: #333;
+        }
+
+        &:first-child {
+          font-size: 1.4rem;
+          font-weight: bold;
+        }
+      }
+
+      .statistical {
+        display: flex;
+        padding: 5px 0;
+        gap: 10px;
+
+        span {
+          font-weight: 100;
+
+          &:hover {
+            color: #333;
+          }
+        }
+
+        @media (max-width: 768px) {
+          justify-content: center;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+
+      .left {
+        margin: 10px auto;
+        img {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+  .courses-container {
+    .course-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth transition
+
+      &:hover {
+        transform: translateY(-8px); // Lift the item slightly on hover
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Increase shadow on hover
+      }
+
+      img {
+        width: 150px;
+        border-radius: 5px;
+        transition: transform 0.3s ease; // Smooth transition for image
+
+        &:hover {
+          transform: scale(1.05); // Slight zoom on image when hovering over it
+        }
+      }
+
+      h5 {
+        @media (max-width: 768px) {
+          font-size: 1.1rem;
         }
       }
     }
@@ -1569,6 +1690,75 @@ $color-star: #f39c12;
           }
         }
       }
+    }
+  }
+}
+//--------Pagination---------
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+
+  .page-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $primary-color;
+    background-color: #fff;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+
+    &.active {
+      background-color: $primary-color;
+      color: #fff;
+      cursor: default;
+    }
+  }
+
+  .dots {
+    font-size: 16px;
+    font-weight: bold;
+    color: #6c757d;
+    margin: 0 4px;
+  }
+
+  .arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    color: $primary-color;
+    background-color: #fff;
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-color;
+      color: #fff;
+    }
+
+    &.disabled {
+      color: #ccc;
+      border-color: #ccc;
+      cursor: not-allowed;
+      pointer-events: none;
     }
   }
 }
@@ -2163,11 +2353,11 @@ $color-star: #f39c12;
     margin-right: 10px; // Space between sidebar and form
 
     div {
-      margin: 10px 0; // Space between each menu item
+      position: fixed;
       padding: 10px 5px;
       text-align: left;
       font-size: 16px;
-      font-weight: 500;
+      font-weight: bold;
       border-radius: 5px;
       color: #333; // Text color
       cursor: pointer;
@@ -2181,6 +2371,22 @@ $color-star: #f39c12;
       &.active {
         background-color: $primary-color;
         color: #fff;
+      }
+
+      &:nth-child(1) {
+        top: 90px; // Position the first div
+      }
+
+      &:nth-child(2) {
+        top: calc(
+          90px + 58px
+        ); // Position the second div, adjust based on height
+      }
+
+      &:nth-child(3) {
+        top: calc(
+          90px + 58px + 58px
+        ); // Position the third div, adjust based on height
       }
     }
   }
@@ -2695,171 +2901,173 @@ $color-star: #f39c12;
   align-items: center;
   padding: 0 20px;
   margin: 20px 0 50px 0;
+  z-index: 9;
 
   .btn-add-certificate {
     margin-top: 30px;
     @extend .btn-common;
   }
-}
 
-.certificate-content {
-  border: 5px solid #f0b429;
-  border-radius: 10px;
-  padding: 40px 40px 0 40px;
-  max-width: 800px;
-  width: 100%;
-  position: relative;
-  @extend .box-shadow-common;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    background-color: $primary-color;
-    width: 100px;
-    height: 100px;
-  }
-
-  &::before {
-    top: -10px;
-    left: -10px;
-    clip-path: polygon(0 0, 100% 0, 0 100%);
-  }
-
-  &::after {
-    bottom: -10px;
-    right: -10px;
-    clip-path: polygon(100% 100%, 0 100%, 100% 0);
-  }
-
-  .certificate-header {
-    text-align: center;
-    margin-bottom: 30px;
+  .certificate-content {
+    border: 5px solid #f0b429;
+    border-radius: 10px;
+    padding: 40px 40px 0 40px;
+    max-width: 800px;
+    width: 100%;
     position: relative;
+    @extend .box-shadow-common;
 
-    h1 {
-      font-size: 36px;
-      font-weight: 700;
-      color: #000;
-    }
-
-    p {
-      font-size: 18px;
-      font-weight: 600;
-      color: #000;
-    }
-
-    img {
+    &::before,
+    &::after {
+      content: "";
       position: absolute;
-      width: 250px;
-      right: -140px;
-      top: -100px;
-    }
-  }
-
-  .certificate-body {
-    text-align: center;
-
-    .certificate-container-add {
-      display: flex;
-
-      button {
-        @extend .btn-common;
-        margin-left: 4px;
-        height: 100%;
-        padding: 11px;
-      }
-
-      .styled-select {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        appearance: none;
-        background-color: #f7f7f7;
-        color: #333;
-        outline: none;
-        margin-bottom: 20px;
-        position: relative;
-        text-align: center;
-        padding-left: 70px;
-
-        @media (max-width: 768px) {
-          padding-left: 10px;
-        }
-
-        // Custom dropdown arrow
-        &::after {
-          content: "\f078"; /* Unicode for FontAwesome 'chevron-down' */
-          font-family: "Font Awesome 5 Free";
-          font-weight: 900;
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          pointer-events: none;
-          color: #666;
-        }
-
-        &:focus {
-          border-color: #3b82f6;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        }
-
-        &:hover {
-          background-color: #f1f1f1;
-        }
-
-        option {
-          padding: 10px;
-          font-size: 16px;
-          color: #333;
-        }
-      }
+      border-radius: 10px;
+      background-color: $primary-color;
+      width: 100px;
+      height: 100px;
     }
 
-    .present-text {
-      font-size: 16px;
-      color: #f0b429;
-      margin-bottom: 10px;
+    &::before {
+      top: -10px;
+      left: -10px;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
     }
 
-    .recipient-name {
-      font-family: "Brush Script MT", cursive;
-      font-size: 30px;
-      color: #1e3a8a;
-      margin-bottom: 20px;
+    &::after {
+      bottom: -10px;
+      right: -10px;
+      clip-path: polygon(100% 100%, 0 100%, 100% 0);
     }
 
-    .certificate-description {
-      font-size: 1.2rem;
-      color: #333;
-    }
-  }
-
-  .certificate-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 50px;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-
-    .signatures {
+    .certificate-header {
       text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+
+      h1 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #000;
+      }
 
       p {
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 600;
-        padding-top: 10px;
+        color: #000;
+      }
+
+      img {
+        position: absolute;
+        width: 250px;
+        right: -140px;
+        top: -100px;
       }
     }
 
-    img {
-      width: 150px;
+    .certificate-body {
+      text-align: center;
+
+      .certificate-container-add {
+        display: flex;
+
+        button {
+          @extend .btn-common;
+          margin-left: 4px;
+          height: 100%;
+          padding: 11px;
+        }
+
+        .styled-select {
+          width: 100%;
+          padding: 10px;
+          font-size: 16px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          appearance: none;
+          background-color: #f7f7f7;
+          color: #333;
+          outline: none;
+          margin-bottom: 20px;
+          position: relative;
+          text-align: center;
+          padding-left: 70px;
+
+          @media (max-width: 768px) {
+            padding-left: 10px;
+          }
+
+          // Custom dropdown arrow
+          &::after {
+            content: "\f078"; /* Unicode for FontAwesome 'chevron-down' */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #666;
+          }
+
+          &:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+          }
+
+          &:hover {
+            background-color: #f1f1f1;
+          }
+
+          option {
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+          }
+        }
+      }
+
+      .present-text {
+        font-size: 16px;
+        color: #f0b429;
+        margin-bottom: 10px;
+      }
+
+      .recipient-name {
+        font-family: "Brush Script MT", cursive;
+        font-size: 30px;
+        color: #1e3a8a;
+        margin-bottom: 20px;
+      }
+
+      .certificate-description {
+        font-size: 1.2rem;
+        color: #333;
+      }
+    }
+
+    .certificate-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 50px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+
+      .signatures {
+        text-align: center;
+
+        p {
+          font-size: 14px;
+          font-weight: 600;
+          padding-top: 10px;
+        }
+      }
+
+      img {
+        width: 150px;
+      }
     }
   }
 }

@@ -11,6 +11,7 @@ import { deleteSection } from "../../../reducers/apiSection";
 import { deleteLecture } from "../../../reducers/apiLecture";
 import { deleteCertificate } from "../../../reducers/apiCertificate";
 import { deleteUser } from "../../../reducers/apiLoginLogout";
+import { deleteUserEnrollment } from "../../../reducers/apiEnrollment";
 
 const DeleteConfirm = (props) => {
   const dispatch = useDispatch();
@@ -27,6 +28,8 @@ const DeleteConfirm = (props) => {
       dispatch(deleteCertificate(props.delete_certificate));
     } else if ("delete_user" in props) {
       dispatch(deleteUser(props.delete_user));
+    } else if ("delete_user_enrollment" in props) {
+      dispatch(deleteUserEnrollment(props.delete_user_enrollment));
     }
 
     setVisible(false);

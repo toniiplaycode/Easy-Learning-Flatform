@@ -116,6 +116,20 @@ export const detailUser = async (req, res) => {
   });
 };
 
+export const detailUserOther = async (req, res) => {
+  const id = req.query.id; // ID từ query string
+
+  const detailUser = await User.findOne({
+    where: { id },
+    attributes: { exclude: ["password"] },
+  });
+
+  res.json({
+    message: "OK",
+    user: detailUser, // Trả về thông tin người dùng từ token
+  });
+};
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({

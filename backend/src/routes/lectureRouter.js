@@ -8,6 +8,7 @@ import {
   addLecture,
   deleteLecture,
   detailLecture,
+  getAllLecture,
   getLectureSection,
   updateLecture,
 } from "../controllers/lectureController.js";
@@ -48,5 +49,7 @@ router.delete(
   authorizeRoles("instructor"),
   deleteLecture
 );
+
+router.get("/getAllLecture", getAllLecture);
 
 export default router;

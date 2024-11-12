@@ -12,10 +12,12 @@ const initialState = {
       ? JSON.parse(localStorage.getItem("inforUser"))
       : {},
   users: [],
+  detailUserOther: {},
   statusPostLogin: "idle",
   statusFetchLogin: "idle",
   statusLogout: "idle",
   statusFetchAllUsers: "idle",
+  statusFetchDetailUserOther: "idle",
   error: null,
 };
 
@@ -36,6 +38,14 @@ export const fetchInforUser = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
+    return res.data;
+  }
+);
+
+export const fetchInforUserOther = createAsyncThunk(
+  "apiLoginLogout/fetchInforUserOther",
+  async (id, thunkAPI) => {
+    const res = await axios.get(`${url}/api/user/detailUserOther?id=${id}`);
     return res.data;
   }
 );
@@ -131,6 +141,17 @@ const apiLoginLogout = createSlice({
       })
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.statusFetchAllUsers = "failed";
+      })
+
+      .addCase(fetchInforUserOther.pending, (state) => {
+        state.statusFetchDetailUserOther = "loading";
+      })
+      .addCase(fetchInforUserOther.fulfilled, (state, action) => {
+        state.detailUserOther = action.payload.user;
+        state.statusFetchDetailUserOther = "succeeded";
+      })
+      .addCase(fetchInforUserOther.rejected, (state, action) => {
+        state.statusFetchDetailUserOther = "failed";
       });
   },
 });

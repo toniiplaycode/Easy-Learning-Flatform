@@ -36,12 +36,12 @@ export const fetchDetailCourse = createAsyncThunk(
 
 export const fetchCourseInstructor = createAsyncThunk(
   "apiCourse/fetchCourseInstructor",
-  async (_, thunkAPI) => {
+  async (construtor_id, thunkAPI) => {
     const inforUser = thunkAPI.getState().apiLoginLogout.inforUser; //lấy inforUser bên apiLoginLogout
 
     const response = await axios.get(`${url}/api/course/getCourseInstructor`, {
       params: {
-        instructor_id: inforUser.id,
+        instructor_id: construtor_id ?? inforUser.id,
       },
     });
     return response.data;

@@ -28,7 +28,7 @@ const AdminHome = () => {
         <div className="instructor-header container_header">
           <p onClick={() => navigate("/")}>Về trang chủ</p>
           <div className="header-hover">
-            <img src="/imgs/user.png" />
+            <img src={inforUser.avatar ? inforUser.avatar : "/imgs/user.png"} />
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ const AdminHome = () => {
                 style={{ display: "flex" }}
                 key={user.id}
               >
-                <div className="item" style={{ flex: 1}}>
+                <div className="item" style={{ flex: 1 }}>
                   {user.email}
                 </div>
                 <div className="item" style={{ flex: 1 }}>

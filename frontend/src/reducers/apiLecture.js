@@ -6,7 +6,9 @@ import { fetchSectionAllLectureEachCourse } from "./apiSection";
 
 const initialState = {
   lectures: [],
+  allLecture: [],
   statusAddLecture: "idle",
+  statusAllLecture: "idle",
 };
 
 export const addLecture = createAsyncThunk(
@@ -80,6 +82,19 @@ export const updateLecture = createAsyncThunk(
   }
 );
 
+export const fetchAllLecture = createAsyncThunk(
+  "apiLecture/fetchAllLecture",
+  async () => {
+    try {
+      const response = await axios.get(`${url}/api/lecture/getAllLecture`);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const apiLecture = createSlice({
   name: "apiLecture",
   initialState,
@@ -94,6 +109,17 @@ const apiLecture = createSlice({
       })
       .addCase(addLecture.rejected, (state, action) => {
         state.statusAddLecture = "failed";
+      })
+
+      .addCase(fetchAllLecture.pending, (state) => {
+        state.statusAllLecture = "loading";
+      })
+      .addCase(fetchAllLecture.fulfilled, (state, action) => {
+        state.allLecture = action.payload.lectures;
+        state.statusAllLecture = "succeeded";
+      })
+      .addCase(fetchAllLecture.rejected, (state, action) => {
+        state.statusAllLecture = "failed";
       });
   },
 });
