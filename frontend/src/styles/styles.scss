@@ -2144,6 +2144,31 @@ $color-star: #f39c12;
   padding: 15px;
 }
 
+.instructor-header.container_header.admin {
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigate {
+    margin-left: 10px;
+    gap: 20px;
+
+    span {
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    .active {
+      color: $primary-color;
+    }
+  }
+}
+
 .instructor-header {
   display: flex;
   justify-content: flex-end;
@@ -2803,6 +2828,20 @@ $color-star: #f39c12;
 .mange-list-page-container {
   width: 100%;
   padding-left: 20px;
+
+  .search-filter-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+
+    select {
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
 
   & > h3 {
     text-align: center;

@@ -10,6 +10,7 @@ import Payment from "./Payment.js";
 import Certificate from "./Certificate.js";
 import Cart from "./Cart.js";
 import Coupon from "./Coupon.js";
+import PaymentMethod from "./PaymentMethod.js";
 
 // Thiết lập các mối quan hệ giữa các model
 // User - Course (1 - N)
@@ -52,6 +53,10 @@ Payment.belongsTo(User, { foreignKey: "user_id" });
 Course.hasMany(Payment, { foreignKey: "course_id" });
 Payment.belongsTo(Course, { foreignKey: "course_id" });
 
+// PaymentMethod - Payment (1 - N)
+PaymentMethod.hasMany(Payment, { foreignKey: "payment_method_id" });
+Payment.belongsTo(PaymentMethod, { foreignKey: "payment_method_id" });
+
 // User - Certificate (1 - N)
 User.hasMany(Certificate, { foreignKey: "user_id" });
 Certificate.belongsTo(User, { foreignKey: "user_id" });
@@ -93,6 +98,7 @@ export {
   Review,
   Enrollment,
   Payment,
+  PaymentMethod,
   Certificate,
   Cart,
   Coupon,

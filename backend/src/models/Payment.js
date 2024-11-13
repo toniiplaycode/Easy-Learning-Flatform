@@ -17,12 +17,12 @@ const Payment = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    amount: {
-      type: DataTypes.DECIMAL(10, 2),
+    payment_method_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    payment_method: {
-      type: DataTypes.ENUM("credit_card", "paypal", "bank_transfer"),
+    amount: {
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     status: {

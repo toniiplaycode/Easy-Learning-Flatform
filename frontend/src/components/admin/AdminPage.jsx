@@ -19,7 +19,7 @@ const AdminPage = () => {
     <>
       <Routes>
         {inforUser?.role == "admin" ? (
-          <Route path="/" element={<AdminHome />} />
+          <Route path="/*" element={<AdminHome />} />
         ) : (
           <Route path="/" element={<LoginAdmin />} />
         )}

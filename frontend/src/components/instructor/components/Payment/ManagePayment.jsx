@@ -85,13 +85,7 @@ const ManagePayment = () => {
                 <div className="item">{payment.User.name}</div>
                 <div className="item">{payment.Course.title}</div>
                 <div className="item">{payment.amount.toLocaleString()} ₫</div>
-                <div className="item">
-                  {payment.payment_method === "credit_card"
-                    ? "Credit card"
-                    : payment.payment_method === "paypal"
-                    ? "Paypal"
-                    : "Bank transfer"}
-                </div>
+                <div className="item">{payment.PaymentMethod.name}</div>
                 <div className="item">{formatDate(payment.created_at)}</div>
                 <div className="item">
                   {payment.status === "completed"

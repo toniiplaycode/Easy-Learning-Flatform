@@ -17,7 +17,7 @@ export const addPaymentEachUser = createAsyncThunk(
       course_id: data.course_id,
       user_id: inforUser.id,
       amount: data.amount,
-      payment_method: data.payment_method,
+      payment_method_id: data.payment_method_id,
       status: "completed",
     };
     const response = await axios.post(`${url}/api/payment/addPayment`, obj, {

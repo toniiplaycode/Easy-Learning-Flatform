@@ -1,7 +1,8 @@
 import { Course, Payment, User } from "../models/models.js";
+import PaymentMethods from "../models/PaymentMethod.js";
 
 export const addPayment = async (req, res) => {
-  const { course_id, user_id, amount, payment_method, status } = req.body;
+  const { course_id, user_id, amount, payment_method_id, status } = req.body;
 
   try {
     // Check if course_id and amount are arrays and they have the same length
@@ -52,7 +53,7 @@ export const addPayment = async (req, res) => {
         course_id: courseId,
         user_id,
         amount: courseAmount,
-        payment_method,
+        payment_method_id,
         status, // status can be 'pending', 'completed', 'failed', etc.
       });
 
@@ -151,6 +152,7 @@ export const getAllPaymentAllCourse = async (req, res) => {
             instructor_id,
           },
         },
+        { model: PaymentMethods },
       ],
     });
 

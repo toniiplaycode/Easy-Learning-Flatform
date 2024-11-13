@@ -6,6 +6,7 @@ import lectureRouter from "./lectureRouter.js";
 import reviewRouter from "./reviewRouter.js";
 import enrollmentRouter from "./enrollmentRouter.js";
 import paymentRouter from "./paymentRouter.js";
+import paymentMethodRouter from "./paymentMethodRouter.js";
 import certificateRouter from "./certificateRouter.js";
 import cartRouter from "./cartRouter.js";
 import couponRouter from "./couponRouter.js";
@@ -20,6 +21,7 @@ const initRoutes = (app) => {
   app.use("/api/review", reviewRouter);
   app.use("/api/enrollment", enrollmentRouter);
   app.use("/api/payment", paymentRouter);
+  app.use("/api/paymentMethod", paymentMethodRouter);
   app.use("/api/certificate", certificateRouter);
   app.use("/api/cart", cartRouter);
   app.use("/api/coupon", couponRouter);

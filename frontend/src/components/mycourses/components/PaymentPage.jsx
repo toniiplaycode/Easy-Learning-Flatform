@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addEnrollmentEachUser } from "../../../reducers/apiEnrollment";
 import { addPaymentEachUser } from "../../../reducers/apiPayment";
@@ -8,15 +8,26 @@ const PaymentPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { addCouponList, cartEachUser, originalPrice, totalPrice, discount } =
     location.state || {};
 
-  const [paymentMethod, setPaymentMethod] = useState("credit_card");
+  const paymentMethods = useSelector(
+    (state) => state.apiPaymentMethod.paymentMethods
+  );
+
+  const [paymentMethod, setPaymentMethod] = useState(null);
+
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
   const [listCourseId, setListCourseId] = useState(() => {
     return cartEachUser.map((item) => {
       return item.course_id;
     });
   });
+
   const [listAmount, setListAmount] = useState(() => {
     return cartEachUser.map((item) => {
       const matchingCoupon = addCouponList.find(
@@ -34,13 +45,31 @@ const PaymentPage = () => {
     });
   });
 
-  // "credit_card", "paypal", "bank_transfer"
+  const handleCompletePayment = () => {
+    // Find the selected payment method's ID
+    const selectedPaymentMethod = paymentMethods.find(
+      (method) => method.name.toLowerCase().replace(" ", "_") === paymentMethod
+    );
 
-  const handlePaymentMethodChange = (e) => {
-    setPaymentMethod(e.target.value);
+    const paymentMethodId = selectedPaymentMethod
+      ? selectedPaymentMethod.id
+      : null;
+
+    // Dispatch actions only if paymentMethodId is valid
+    if (paymentMethodId) {
+      dispatch(addEnrollmentEachUser(listCourseId));
+      dispatch(
+        addPaymentEachUser({
+          course_id: listCourseId,
+          amount: listAmount,
+          payment_method_id: paymentMethodId,
+        })
+      );
+      navigate("/my-courses#courses");
+    } else {
+      console.error("Invalid payment method selected");
+    }
   };
-
-  let data;
 
   return (
     <div className="min-vh-100">
@@ -49,37 +78,26 @@ const PaymentPage = () => {
           <div className="payment-methods">
             <h4>Phương thức thanh toán</h4>
             <div className="method-options">
-              <label>
-                <div className="credit-choose">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="credit_card"
-                    checked={paymentMethod === "credit_card"}
-                    onChange={handlePaymentMethodChange}
-                  />
-                  <span>Thẻ tín dụng</span>
-                </div>
-                <div className="credit-icons">
-                  <img src="/imgs/visa.png" />
-                  <img src="/imgs/masterCard.png" />
-                </div>
-              </label>
-              <label>
-                <div className="credit-choose">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="paypal"
-                    checked={paymentMethod === "paypal"}
-                    onChange={handlePaymentMethodChange}
-                  />
-                  <span>PayPal</span>
-                </div>
-                <div className="credit-icons">
-                  <img src="/imgs/paypal.png" />
-                </div>
-              </label>
+              {paymentMethods?.map((method) => (
+                <label key={method.id}>
+                  <div className="credit-choose">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value={method.name.toLowerCase().replace(" ", "_")}
+                      checked={
+                        paymentMethod ===
+                        method.name.toLowerCase().replace(" ", "_")
+                      }
+                      onChange={handlePaymentMethodChange}
+                    />
+                    <span>{method.name}</span>
+                  </div>
+                  <div className="credit-icons">
+                    <img src={method.img} alt={method.name} />
+                  </div>
+                </label>
+              ))}
             </div>
           </div>
 
@@ -123,19 +141,8 @@ const PaymentPage = () => {
           </div>
           <button
             className="complete-payment-btn"
-            onClick={() => {
-              dispatch(addEnrollmentEachUser(listCourseId));
-              dispatch(
-                addPaymentEachUser(
-                  (data = {
-                    course_id: listCourseId,
-                    amount: listAmount,
-                    payment_method: paymentMethod,
-                  })
-                )
-              );
-              navigate("/my-courses#courses");
-            }}
+            onClick={handleCompletePayment}
+            disabled={!paymentMethod} // Disable button if no payment method is selected
           >
             Hoàn tất thanh toán
           </button>

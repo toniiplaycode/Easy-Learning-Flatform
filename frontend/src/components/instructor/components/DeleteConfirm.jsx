@@ -12,6 +12,7 @@ import { deleteLecture } from "../../../reducers/apiLecture";
 import { deleteCertificate } from "../../../reducers/apiCertificate";
 import { deleteUser } from "../../../reducers/apiLoginLogout";
 import { deleteUserEnrollment } from "../../../reducers/apiEnrollment";
+import { deletePaymentMethod } from "../../../reducers/apiPaymentMethod";
 
 const DeleteConfirm = (props) => {
   const dispatch = useDispatch();
@@ -30,6 +31,8 @@ const DeleteConfirm = (props) => {
       dispatch(deleteUser(props.delete_user));
     } else if ("delete_user_enrollment" in props) {
       dispatch(deleteUserEnrollment(props.delete_user_enrollment));
+    } else if ("delete_payment_method" in props) {
+      dispatch(deletePaymentMethod(props.delete_payment_method));
     }
 
     setVisible(false);

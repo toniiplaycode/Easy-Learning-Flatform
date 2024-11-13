@@ -9,6 +9,9 @@ import apiCart, { fetchCartEachUser } from "./reducers/apiCart";
 import search from "./reducers/search";
 import apiCoupon, { fetchCoupon } from "./reducers/apiCoupon";
 import apiPayment from "./reducers/apiPayment";
+import apiPaymentMethod, {
+  fetchAllPaymentMethod,
+} from "./reducers/apiPaymentMethod";
 import apiSection from "./reducers/apiSection";
 import apiLecture from "./reducers/apiLecture";
 import apiReview from "./reducers/apiReview";
@@ -27,6 +30,7 @@ const reduxStore = configureStore({
     search: search,
     apiCoupon: apiCoupon,
     apiPayment: apiPayment,
+    apiPaymentMethod: apiPaymentMethod,
     apiSection: apiSection,
     apiLecture: apiLecture,
     apiReview: apiReview,
@@ -40,5 +44,6 @@ reduxStore.dispatch(fetchCourse());
 reduxStore.dispatch(fetchCategory());
 reduxStore.dispatch(fetchCoupon());
 reduxStore.dispatch(fetchCartEachUser());
+reduxStore.dispatch(fetchAllPaymentMethod());
 
 export default reduxStore;
