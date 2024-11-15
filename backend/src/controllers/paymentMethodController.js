@@ -58,3 +58,27 @@ export const deletePaymentMethod = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const updatePaymentMethod = async (req, res) => {
+  try {
+    const { id, name, img } = req.body;
+
+    const paymentMethod = await PaymentMethod.findByPk(id);
+    if (!paymentMethod) {
+      return res.status(404).json({ message: "Payment method not found!" });
+    }
+
+    paymentMethod.name = name || paymentMethod.name;
+    paymentMethod.img = img || paymentMethod.img;
+
+    await paymentMethod.save();
+
+    res.status(200).json({
+      message: "Payment method updated successfully!",
+      paymentMethod,
+    });
+  } catch (error) {
+    console.error("Error updating payment method:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

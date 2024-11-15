@@ -59,6 +59,25 @@ export const addPaymentMethod = createAsyncThunk(
   }
 );
 
+export const updatePaymentMethod = createAsyncThunk(
+  "apiPaymentMethod/updatePaymentMethod",
+  async (obj, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const response = await axios.put(
+      `${url}/api/paymentMethod/updatePaymentMethod`,
+      obj,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    thunkAPI.dispatch(fetchAllPaymentMethod());
+    toast.success("Sửa phương thức thành công !");
+    return response.data;
+  }
+);
+
 const apiPaymentMethod = createSlice({
   name: "apiPaymentMethod",
   initialState,

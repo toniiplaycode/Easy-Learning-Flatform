@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteConfirm from "../instructor/components/DeleteConfirm";
-import { addPaymentMethod } from "../../reducers/apiPaymentMethod";
+import {
+  addPaymentMethod,
+  updatePaymentMethod,
+} from "../../reducers/apiPaymentMethod";
 
 const AdminPayment = () => {
   const dispatch = useDispatch();
@@ -13,6 +16,8 @@ const AdminPayment = () => {
   const [img, setImg] = useState(""); // URL of uploaded image
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [editMode, setEditMode] = useState(false); // Tracks if we're in edit mode
+  const [editPaymentMethodId, setEditPaymentMethodId] = useState(null); // Stores ID of payment method being edited
 
   // Cloudinary image upload function
   const postCloudinary = (pic) => {
@@ -58,13 +63,31 @@ const AdminPayment = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle add payment method
-  const handleAddPaymentMethod = () => {
+  // Handle add/update payment method
+  const handleSubmit = () => {
     if (validateForm()) {
-      dispatch(addPaymentMethod({ name, img }));
+      if (editMode) {
+        // Update existing payment method
+        dispatch(updatePaymentMethod({ id: editPaymentMethodId, name, img }));
+        setEditMode(false); // Exit edit mode
+        setEditPaymentMethodId(null); // Reset the editing ID
+      } else {
+        // Add new payment method
+        dispatch(addPaymentMethod({ name, img }));
+      }
+
+      // Clear form fields after submit
       setName("");
       setImg("");
     }
+  };
+
+  // Handle edit button click
+  const handleEditClick = (paymentMethod) => {
+    setName(paymentMethod.name);
+    setImg(paymentMethod.img);
+    setEditPaymentMethodId(paymentMethod.id);
+    setEditMode(true);
   };
 
   return (
@@ -73,7 +96,7 @@ const AdminPayment = () => {
         <div className="header" style={{ display: "flex" }}>
           <div className="header-item">Phương thức</div>
           <div className="header-item">Ảnh</div>
-          <div className="header-item">Xóa</div>
+          <div className="header-item"></div>
         </div>
         {paymentMethods?.length > 0 &&
           paymentMethods.map((paymentMethod) => (
@@ -96,14 +119,21 @@ const AdminPayment = () => {
                 />
               </div>
               <div className="item" style={{ marginLeft: "-30px" }}>
+                <button onClick={() => handleEditClick(paymentMethod)}>
+                  Sửa
+                </button>
                 <DeleteConfirm delete_payment_method={paymentMethod.id} />
               </div>
             </div>
           ))}
       </div>
 
-      {/* Form to add new payment method */}
-      <h5>Thêm phương thức thanh toán</h5>
+      {/* Form to add/update payment method */}
+      <h5>
+        {editMode
+          ? "Cập nhật phương thức thanh toán"
+          : "Thêm phương thức thanh toán"}
+      </h5>
       <div className="form-group">
         <input
           type="text"
@@ -136,7 +166,7 @@ const AdminPayment = () => {
 
       <button
         className="submit-btn"
-        onClick={handleAddPaymentMethod}
+        onClick={handleSubmit}
         style={{
           padding: "10px 20px",
           backgroundColor: "#007bff",
@@ -145,7 +175,9 @@ const AdminPayment = () => {
           cursor: "pointer",
         }}
       >
-        Thêm phương thức thanh toán
+        {editMode
+          ? "Cập nhật phương thức thanh toán"
+          : "Thêm phương thức thanh toán"}
       </button>
     </div>
   );

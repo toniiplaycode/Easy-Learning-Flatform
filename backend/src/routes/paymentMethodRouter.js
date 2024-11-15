@@ -8,6 +8,7 @@ import {
   addPaymentMethod,
   deletePaymentMethod,
   getAllPaymentMethod,
+  updatePaymentMethod,
 } from "../controllers/paymentMethodController.js";
 
 let router = express.Router();
@@ -24,6 +25,12 @@ router.delete(
   authenticateToken,
   authorizeRoles("admin"),
   deletePaymentMethod
+);
+router.put(
+  "/updatePaymentMethod",
+  authenticateToken,
+  authorizeRoles("admin"),
+  updatePaymentMethod
 );
 
 export default router;

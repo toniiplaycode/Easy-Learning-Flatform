@@ -28,7 +28,7 @@ const AdminHome = () => {
               className={getUrl == "/admin/payment" && "active"}
               onClick={() => navigate("payment")}
             >
-              Quản lý thanh toán
+              Quản lý phương thức thanh toán
             </span>
           </div>
           <div>
