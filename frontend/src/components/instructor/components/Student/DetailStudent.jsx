@@ -37,7 +37,7 @@ const DetailStudent = () => {
           <div className="header-item">Ngày tham gia</div>
           <div className="header-item">Đánh giá</div>
           <div className="header-item">Bình luận</div>
-          <div className="header-item" style={{ maxWidth: "55px" }}></div>
+          <div className="header-item">Xóa tài khoản khỏi khóa học</div>
         </div>
 
         {enrollmentAllUser?.length > 0 ? (
@@ -72,13 +72,7 @@ const DetailStudent = () => {
                     ? student.User.Reviews[0].comment
                     : "..."}
                 </div>
-                <div
-                  className="item"
-                  style={{
-                    maxWidth: "40px",
-                    marginLeft: "-20px",
-                  }}
-                >
+                <div className="item">
                   <DeleteConfirm
                     delete_user_enrollment={delete_user_enrollment}
                   />
