@@ -18,6 +18,7 @@ import { fetchEnrollmentEachUser } from "./reducers/apiEnrollment";
 import InstructorPage from "./components/instructor/InstructorPage";
 import LoginForm from "./components/auth/LoginForm";
 import AdminPage from "./components/admin/AdminPage";
+import PaymentSuccessPaypalPage from "./components/mycourses/components/PaymentSuccessPaypalPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ function App() {
         <Route path="/course-page" element={<CoursePage />} />
         <Route path="/my-courses" element={<MyCourse />} />
         <Route path="/payment" element={<PaymentPage />} />
+        {/* xử lý phản hồi của Paypal */}
+        <Route path="/payment-success" element={<PaymentSuccessPaypalPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/profile/*" element={<UserProfile />} />
         <Route path="/instructor/*" element={<InstructorPage />} />

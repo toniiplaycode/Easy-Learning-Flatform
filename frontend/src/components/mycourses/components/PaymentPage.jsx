@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addEnrollmentEachUser } from "../../../reducers/apiEnrollment";
 import { addPaymentEachUser } from "../../../reducers/apiPayment";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PaymentPage = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const PaymentPage = () => {
   );
 
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   const handlePaymentMethodChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -45,8 +48,12 @@ const PaymentPage = () => {
     });
   });
 
-  const handleCompletePayment = () => {
-    // Find the selected payment method's ID
+  const handleCompletePayment = async () => {
+    if (!paymentMethod) {
+      toast.error("Vui lòng chọn phương thức thanh toán!"); // Hiển thị thông báo lỗi
+      return;
+    }
+
     const selectedPaymentMethod = paymentMethods.find(
       (method) => method.name.toLowerCase().replace(" ", "_") === paymentMethod
     );
@@ -55,17 +62,36 @@ const PaymentPage = () => {
       ? selectedPaymentMethod.id
       : null;
 
-    // Dispatch actions only if paymentMethodId is valid
     if (paymentMethodId) {
-      dispatch(addEnrollmentEachUser(listCourseId));
-      dispatch(
-        addPaymentEachUser({
-          course_id: listCourseId,
-          amount: listAmount,
-          payment_method_id: paymentMethodId,
-        })
-      );
-      navigate("/my-courses#courses");
+      try {
+        setIsLoading(true); // Set loading state to true
+
+        // If payment method is PayPal, handle redirect
+        if (selectedPaymentMethod.name.toLowerCase() === "paypal") {
+          const paymentResponse = await dispatch(
+            addPaymentEachUser({
+              course_id: listCourseId,
+              amount: listAmount,
+              payment_method_id: paymentMethodId,
+            })
+          ).unwrap();
+
+          if (paymentResponse.approvalUrl) {
+            window.location.href = paymentResponse.approvalUrl; // Redirect to PayPal
+            return;
+          } else {
+            console.error("Approval URL not found");
+          }
+        }
+
+        // Handle other payment methods (if any)
+        await dispatch(addEnrollmentEachUser(listCourseId));
+        navigate("/my-courses#courses");
+      } catch (error) {
+        console.error("Error during payment:", error);
+      } finally {
+        setIsLoading(false); // Reset loading state
+      }
     } else {
       console.error("Invalid payment method selected");
     }
@@ -142,9 +168,9 @@ const PaymentPage = () => {
           <button
             className="complete-payment-btn"
             onClick={handleCompletePayment}
-            disabled={!paymentMethod} // Disable button if no payment method is selected
+            disabled={isLoading} // Disable button during loading
           >
-            Hoàn tất thanh toán
+            {isLoading ? "Đang xử lý..." : "Thanh toán"}
           </button>
         </div>
       </div>

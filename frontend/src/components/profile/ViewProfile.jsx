@@ -58,8 +58,8 @@ const ViewProfile = () => {
         <div className="left">
           <img
             src={
-              detailUserOther?.avartar
-                ? detailUserOther?.avartar
+              detailUserOther?.avatar
+                ? detailUserOther?.avatar
                 : "/imgs/user.png"
             }
             alt="Profile"

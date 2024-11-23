@@ -10,11 +10,13 @@ import {
   getAllPaymentAllCourse,
   getAllPaymentEachCourse,
   getAllPaymentEachUser,
+  verifyPaymentPaypal,
 } from "../controllers/paymentController.js";
 
 let router = express.Router();
 
 router.post("/addPayment", authenticateToken, addPayment);
+router.get("/verifyPaymentPaypal", verifyPaymentPaypal);
 router.get("/detailPayment", authenticateToken, detailPayment);
 router.get("/getAllPaymentEachUser", authenticateToken, getAllPaymentEachUser);
 router.get(
