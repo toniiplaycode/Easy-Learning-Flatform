@@ -19,29 +19,26 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoEnterOutline } from "react-icons/io5";
 import parse from "html-react-parser";
 import CourseHomeReview from "./CourseHomeReview";
+import { addEnrollmentEachUser } from "../../reducers/apiEnrollment";
 
 const CourseHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [expandedSections, setExpandedSections] = useState({});
-  const [isEnrolled, setIsEnrolled] = useState();
+  const [isEnrolled, setIsEnrolled] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
   const idCourseUrl = params.get("id");
 
-  useEffect(() => {
-    dispatch(fetchDetailCourse(idCourseUrl));
-    const checkEnrolled = enrollmentEachUser?.some(
-      (item) => item.course_id === Number(idCourseUrl)
-    );
-  }, [idCourseUrl]);
-
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
-
   const detailCourse = useSelector((state) => state.apiCourse.detailCourse);
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
   );
+
+  useEffect(() => {
+    dispatch(fetchDetailCourse(idCourseUrl));
+  }, [idCourseUrl]);
 
   useEffect(() => {
     if (idCourseUrl && enrollmentEachUser) {
@@ -52,11 +49,10 @@ const CourseHome = () => {
     }
   }, [idCourseUrl, enrollmentEachUser]);
 
-  // sort lecture
+  // Sắp xếp bài giảng
   const [sortedDetailCourse, setSortedDetailCourse] = useState(null);
   useEffect(() => {
     if (detailCourse && detailCourse.Sections) {
-      // Sort the position, lectures inside each section
       const sortedCourse = {
         ...detailCourse,
         Sections: detailCourse.Sections.slice()
@@ -66,10 +62,9 @@ const CourseHome = () => {
             Lectures:
               section.Lectures?.slice().sort(
                 (a, b) => a.position - b.position
-              ) || [], // Sort lectures by position within each section
+              ) || [],
           })),
       };
-
       setSortedDetailCourse(sortedCourse);
     }
   }, [detailCourse]);
@@ -81,7 +76,7 @@ const CourseHome = () => {
     }));
   };
 
-  //tính số review trung bình
+  // Tính số review trung bình
   let avgRating = 0;
   let totalReviews = sortedDetailCourse?.Reviews?.length || 0;
 
@@ -92,21 +87,20 @@ const CourseHome = () => {
     avgRating = (avgRating / totalReviews).toFixed(1);
   }
 
-  //tính số bài giảng
+  // Tính tổng số bài giảng
   let sumLecture = 0;
   let totalLectures = sortedDetailCourse?.Sections?.length || 0;
 
   if (totalLectures > 0) {
     sortedDetailCourse.Sections.forEach((section) => {
-      section.Lectures.forEach((lecture) => {
+      section.Lectures.forEach(() => {
         sumLecture++;
       });
     });
   }
 
-  //tính tổng thời lượng
+  // Tính tổng thời lượng
   let sumDuration = 0;
-
   if (totalLectures > 0) {
     sortedDetailCourse.Sections.forEach((section) => {
       section.Lectures.forEach((lecture) => {
@@ -115,14 +109,27 @@ const CourseHome = () => {
     });
   }
 
-  // toggle trailer
+  // Toggle trailer
   const toggleTrailerModal = () => {
     dispatch(
       saveUrl(
-        formatUrlYoutube(sortedDetailCourse?.Sections[0].Lectures[0].video_url)
+        formatUrlYoutube(
+          sortedDetailCourse?.Sections[0]?.Lectures[0]?.video_url
+        )
       )
     );
     dispatch(toggleTrailer());
+  };
+
+  // Tham gia khóa học miễn phí
+  const addEnrollmentCourseFree = () => {
+    if (Object.keys(inforUser).length === 0) {
+      navigate(`/login`);
+      return;
+    }
+    dispatch(addEnrollmentEachUser([sortedDetailCourse?.id])).then(() => {
+      navigate(`/course-page?id=${sortedDetailCourse?.id}`);
+    });
   };
 
   return (
@@ -190,9 +197,7 @@ const CourseHome = () => {
                 icon={faCirclePlay}
                 color="#343434"
                 size="5x"
-                onClick={() => {
-                  toggleTrailerModal();
-                }}
+                onClick={toggleTrailerModal}
               />
               <p>Xem trước khóa học này</p>
             </div>
@@ -201,65 +206,61 @@ const CourseHome = () => {
             <h3>
               {isEnrolled
                 ? "Bạn đã tham gia khóa học này"
-                : sortedDetailCourse?.price == 0
+                : sortedDetailCourse?.price === 0
                 ? "Miễn phí"
                 : "₫ " + sortedDetailCourse?.price.toLocaleString()}
             </h3>
             <div className="course-info-btn">
-              <div>
+              {sortedDetailCourse?.price > 0 && !isEnrolled && (
                 <button
                   className="enroll-button not-bg"
                   onClick={() => {
-                    if (isEnrolled) {
-                      toast.warning("Bạn đã tham gia khóa học này !");
-                    } else {
-                      if (Object.keys(inforUser) == 0) {
-                        navigate(`/login`);
-                        return;
-                      }
-                      dispatch(addCart(detailCourse.id));
-                      navigate(`/my-courses#cart`);
+                    if (Object.keys(inforUser).length === 0) {
+                      navigate(`/login`);
+                      return;
                     }
+                    dispatch(addCart(detailCourse.id));
+                    navigate(`/my-courses#cart`);
                   }}
                 >
                   Thêm vào giỏ hàng
                   <FiShoppingCart />
                 </button>
-              </div>
+              )}
               <button
                 className="enroll-button"
                 onClick={() => {
-                  if (Object.keys(inforUser) == 0) {
-                    navigate(`/login`);
-                    return;
-                  }
-                  if (!isEnrolled) {
+                  if (isEnrolled || sortedDetailCourse?.price === 0) {
+                    addEnrollmentCourseFree();
+                  } else {
                     toast.error(
-                      "Bạn chưa mua khóa học này ! Hãy thêm vào giỏ hàng và thanh toán",
+                      "Bạn chưa mua khóa học này! Hãy thêm vào giỏ hàng và thanh toán",
                       {
                         autoClose: 4000,
                       }
                     );
-                  } else {
-                    navigate(`/course-page?id=${sortedDetailCourse?.id}`);
                   }
                 }}
               >
-                Tham gia
+                {!isEnrolled && sortedDetailCourse?.price === 0
+                  ? "Tham gia miễn phí"
+                  : !isEnrolled && sortedDetailCourse?.price !== 0
+                  ? "Tham gia"
+                  : ""}
+                {isEnrolled && "Xem khóa học"}
                 <IoEnterOutline />
               </button>
             </div>
           </div>
         </div>
       </div>
-      {/* Section: Nội dung khóa học */}
+
       <div className="course-content">
         <h1>Nội dung khóa học</h1>
         <p>
-          {sortedDetailCourse?.Sections?.length} Chương - {sumLecture} bài học -
+          {sortedDetailCourse?.Sections?.length} Chương - {sumLecture} bài học -{" "}
           Thời lượng {formatTimeText(sumDuration)}
         </p>
-
         {sortedDetailCourse?.Sections?.map((section) => (
           <div className="section" onClick={() => toggleSection(section.id)}>
             <h3>

@@ -11,6 +11,7 @@ import {
   getEnrollmentAllCourse,
   getEnrollmentAllUser,
   getEnrollmentEachUser,
+  updateEnrollmentCompletedProgress,
 } from "../controllers/enrollmentController.js";
 
 let router = express.Router();
@@ -21,5 +22,10 @@ router.get("/getEnrollmentAllUser", getEnrollmentAllUser); //Lấy danh sách ng
 router.get("/getEnrollmentAllCourse", getEnrollmentAllCourse); //Lấy danh sách người học đã ghi danh của 1 người hướng dẫn
 router.get("/detailEnrollment", authenticateToken, detailEnrollment);
 router.delete("/deleteEnrollment", authenticateToken, deleteEnrollment);
+router.put(
+  "/updateEnrollmentCompletedProgress",
+  authenticateToken,
+  updateEnrollmentCompletedProgress
+);
 
 export default router;

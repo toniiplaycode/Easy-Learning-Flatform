@@ -15,12 +15,7 @@ import {
 
 let router = express.Router();
 
-router.post(
-  "/addCertificate",
-  authenticateToken,
-  authorizeRoles("instructor"),
-  addCertificate
-);
+router.post("/addCertificate", authenticateToken, addCertificate);
 
 router.get("/getCertificateEachUser", getCertificateEachUser);
 router.get("/getCertificateEachCourse", getCertificateEachCourse);

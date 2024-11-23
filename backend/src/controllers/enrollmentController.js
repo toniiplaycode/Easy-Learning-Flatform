@@ -209,3 +209,39 @@ export const deleteEnrollment = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const updateEnrollmentCompletedProgress = async (req, res) => {
+  const { enrollmentId } = req.body;
+  const progress = 100;
+
+  // Validate input
+  if (!enrollmentId) {
+    return res.status(400).json({ error: "Enrollment ID is required" });
+  }
+
+  if (progress === undefined || progress < 0 || progress > 100) {
+    return res.status(400).json({ error: "Invalid progress value" });
+  }
+
+  try {
+    // Find the enrollment by ID
+    const enrollment = await Enrollment.findByPk(enrollmentId);
+
+    // Check if enrollment exists
+    if (!enrollment) {
+      return res.status(404).json({ error: "Enrollment not found" });
+    }
+
+    // Update progress
+    enrollment.progress = progress;
+    await enrollment.save();
+
+    res.status(200).json({
+      message: "Progress updated successfully",
+      enrollment,
+    });
+  } catch (error) {
+    console.error("Error updating enrollment progress:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

@@ -16,8 +16,6 @@ const CertificateUser = () => {
     (state) => state.apiCertificate.certificateEachUser
   );
 
-  console.log(certificateEachUser);
-
   return (
     <div className="profile-courses-certificate">
       <div className="courses-list">

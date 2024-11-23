@@ -402,14 +402,15 @@
 .course-card .course-details .course-author {
   height: 10%;
   color: gray;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-bottom: 10px;
+  color: #007bff;
 }
 .course-card .course-details .course-rating {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .course-card .course-details .course-rating .stars {
   color: #f39c12;
@@ -794,7 +795,7 @@
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  max-height: 600px;
+  height: 100vh;
   overflow-y: auto;
 }
 @media (max-width: 768px) {

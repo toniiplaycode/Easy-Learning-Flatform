@@ -441,8 +441,9 @@ $color-star: #f39c12;
     .course-author {
       height: 10%;
       color: gray;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       margin-bottom: 10px;
+      color: $primary-color;
       @extend .webkit-line-clamp;
     }
 
@@ -450,7 +451,7 @@ $color-star: #f39c12;
       display: flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.8rem;
+      font-size: 1rem;
 
       .stars {
         color: $color-star; // Star color
@@ -904,7 +905,8 @@ $color-star: #f39c12;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    max-height: 600px;
+    // max-height: 600px;
+    height: 100vh;
     overflow-y: auto;
 
     @media (max-width: 768px) {

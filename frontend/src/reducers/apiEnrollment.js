@@ -89,7 +89,6 @@ export const fetchEnrollmentAllCourse = createAsyncThunk(
 export const deleteUserEnrollment = createAsyncThunk(
   "apiEnrollment/deleteUserEnrollment",
   async (obj, thunkAPI) => {
-    console.log(obj);
     const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
     const config = {
       params: {
@@ -106,6 +105,24 @@ export const deleteUserEnrollment = createAsyncThunk(
     thunkAPI.dispatch(fetchEnrollmentAllUser(obj.course_id));
     toast.success("Xóa người dùng khỏi khóa học thành công !");
     return res.data;
+  }
+);
+
+export const updateEnrollmentCompletedProgress = createAsyncThunk(
+  "apiEnrollment/updateEnrollmentCompletedProgress",
+  async (obj, thunkAPI) => {
+    const token = thunkAPI.getState().apiLoginLogout.token; //lấy token bên apiLoginLogout
+    const response = await axios.put(
+      `${url}/api/enrollment/updateEnrollmentCompletedProgress`,
+      obj,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    toast.success("Bạn đã hoàn thành khóa học!");
+    return response.data;
   }
 );
 

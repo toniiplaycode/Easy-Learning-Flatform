@@ -42,7 +42,9 @@ export const addCertificate = createAsyncThunk(
       }
     );
     toast.success("Đã cấp chứng chỉ thành công !");
-    thunkAPI.dispatch(fetchCertificateAllCourse(obj.instructor_id));
+    if (obj?.instructor_id) {
+      thunkAPI.dispatch(fetchCertificateAllCourse(obj.instructor_id));
+    }
     return response.data;
   }
 );

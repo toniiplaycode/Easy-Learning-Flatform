@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../common/ProgressBar";
 
 const MyCoursePage = ({ enrollmentEachUser }) => {
   const navigate = useNavigate();
+  const [completionData, setCompletionData] = useState({});
+
+  useEffect(() => {
+    const updatedCompletionData = {};
+    enrollmentEachUser?.forEach((enroll) => {
+      let sumLecture = 0;
+
+      enroll?.Course?.Sections?.forEach((section) => {
+        sumLecture += section.Lectures.length;
+      });
+
+      if (enroll.progress == 100) {
+        updatedCompletionData[enroll.Course.id] = sumLecture;
+        return;
+      }
+
+      const completedLectures = JSON.parse(
+        localStorage.getItem(
+          `completedLectures_${enroll.Course.id}_${enroll.user_id}`
+        ) || "[]"
+      );
+
+      updatedCompletionData[enroll.Course.id] = completedLectures.length;
+    });
+    setCompletionData(updatedCompletionData);
+  }, [enrollmentEachUser]);
 
   return (
     <>
@@ -15,24 +41,35 @@ const MyCoursePage = ({ enrollmentEachUser }) => {
             sumLecture += section.Lectures.length;
           });
 
+          const completedLessons = completionData[enroll.Course.id] || 0; // Lấy số bài đã hoàn thành
+
           return (
             <div
               className="mycourse__card"
               onClick={() => navigate(`/course-home?id=${enroll.Course.id}`)}
+              key={enroll.Course.id}
             >
               <img src={enroll.Course.img} className="mycourse__card-img" />
               <div className="mycourse__card-info">
                 <h3 className="mycourse__card-title">{enroll.Course.title}</h3>
                 <p className="mycourse__card-author">
-                  {enroll.Course.User.name}
+                  Giảng viên{" "}
+                  <span style={{ color: "#007bff" }}>
+                    {enroll.Course.User.name}
+                  </span>
                 </p>
                 <div className="mycourse__progress-bar">
                   <div
                     className="mycourse__progress"
-                    style={{ width: "14%" }}
+                    style={{
+                      width: `${(completedLessons / sumLecture) * 100}%`,
+                    }}
                   ></div>
                 </div>
-                <ProgressBar completedLessons={0} totalLessons={sumLecture} />
+                <ProgressBar
+                  completedLessons={completedLessons}
+                  totalLessons={sumLecture}
+                />
               </div>
             </div>
           );
