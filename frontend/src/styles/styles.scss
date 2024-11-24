@@ -119,6 +119,27 @@ $color-star: #f39c12;
   }
 }
 
+.description-limit {
+  display: -webkit-box; /* Dành cho trình duyệt hỗ trợ WebKit */
+  -webkit-line-clamp: 2; /* Hiển thị tối đa 3 dòng (WebKit) */
+  -webkit-box-orient: vertical; /* Định hướng box theo chiều dọc (WebKit) */
+
+  line-clamp: 2; /* Thuộc tính tiêu chuẩn (khi được hỗ trợ) */
+  box-orient: vertical; /* Thuộc tính tiêu chuẩn (khi được hỗ trợ) */
+
+  overflow: hidden; /* Ẩn phần văn bản dư */
+  text-overflow: ellipsis; /* Hiển thị dấu '...' */
+  line-height: 1.5; /* Điều chỉnh khoảng cách giữa các dòng */
+  max-height: calc(1.5em * 3); /* Đặt chiều cao tương ứng 3 dòng */
+}
+
+.description-breakline {
+  white-space: pre-line; /* Respect whitespace and line breaks */
+  overflow-wrap: break-word; /* Allow words to break at appropriate points */
+  word-wrap: break-word; /* Compatibility for older browsers */
+  word-break: break-word; /* Compatibility */
+}
+
 //======SCROLLBAR=====//
 *::-webkit-scrollbar {
   width: 10px;
@@ -876,6 +897,10 @@ $color-star: #f39c12;
 
   @media (max-width: 768px) {
     flex-direction: column;
+  }
+
+  .content-description {
+    @extend .description-breakline;
   }
 
   &__left {
@@ -1677,6 +1702,7 @@ $color-star: #f39c12;
         p {
           color: #666;
           margin-bottom: 0;
+          @extend .description-limit;
         }
 
         .result-author {
@@ -2489,7 +2515,7 @@ $color-star: #f39c12;
 
   textarea {
     resize: none;
-    height: 150px;
+    height: 200px;
   }
 }
 
@@ -2627,6 +2653,11 @@ $color-star: #f39c12;
       flex: 1;
       p {
         border-top: 1px solid #c6c5c5;
+      }
+
+      .item-description {
+        @extend .description-limit;
+        @extend .description-breakline;
       }
     }
 

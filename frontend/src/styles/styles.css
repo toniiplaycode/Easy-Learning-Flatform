@@ -113,6 +113,25 @@
   font-weight: bold;
 }
 
+.description-limit, .lecture-course-item .lecture-current-item .lecture-current-item-left .item-description, .search-page .search-results .search-result-item .result-info p {
+  display: -webkit-box; /* Dành cho trình duyệt hỗ trợ WebKit */
+  -webkit-line-clamp: 2; /* Hiển thị tối đa 3 dòng (WebKit) */
+  -webkit-box-orient: vertical; /* Định hướng box theo chiều dọc (WebKit) */
+  line-clamp: 2; /* Thuộc tính tiêu chuẩn (khi được hỗ trợ) */
+  box-orient: vertical; /* Thuộc tính tiêu chuẩn (khi được hỗ trợ) */
+  overflow: hidden; /* Ẩn phần văn bản dư */
+  text-overflow: ellipsis; /* Hiển thị dấu '...' */
+  line-height: 1.5; /* Điều chỉnh khoảng cách giữa các dòng */
+  max-height: 4.5em; /* Đặt chiều cao tương ứng 3 dòng */
+}
+
+.description-breakline, .lecture-course-item .lecture-current-item .lecture-current-item-left .item-description, .course-page .content-description {
+  white-space: pre-line; /* Respect whitespace and line breaks */
+  overflow-wrap: break-word; /* Allow words to break at appropriate points */
+  word-wrap: break-word; /* Compatibility for older browsers */
+  word-break: break-word; /* Compatibility */
+}
+
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -2142,7 +2161,7 @@
 }
 .form-group textarea {
   resize: none;
-  height: 150px;
+  height: 200px;
 }
 
 .image-preview {

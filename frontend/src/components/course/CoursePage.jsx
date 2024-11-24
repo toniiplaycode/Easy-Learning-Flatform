@@ -14,7 +14,10 @@ import { useNavigate } from "react-router-dom";
 import { formatTime, formatUrlYoutube } from "../../utils/common";
 import ProgressBar from "../common/ProgressBar";
 import { updateEnrollmentCompletedProgress } from "../../reducers/apiEnrollment";
-import { addCertificate } from "../../reducers/apiCertificate";
+import {
+  addCertificate,
+  fetchCertificateEachUser,
+} from "../../reducers/apiCertificate";
 
 const CoursePage = () => {
   const dispatch = useDispatch();
@@ -61,6 +64,10 @@ const CoursePage = () => {
   let certificateEachUser = useSelector(
     (state) => state.apiCertificate.certificateEachUser
   );
+
+  useEffect(() => {
+    dispatch(fetchCertificateEachUser(inforUser.id));
+  }, certificateEachUser);
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);
@@ -211,7 +218,7 @@ const CoursePage = () => {
           ></div>
           <div className="course-page__content">
             <h3>{currentLecture?.title}</h3>
-            <p>{currentLecture?.description}</p>
+            <p className="content-description">{currentLecture?.description}</p>
           </div>
         </div>
         <div className="course-page__right">

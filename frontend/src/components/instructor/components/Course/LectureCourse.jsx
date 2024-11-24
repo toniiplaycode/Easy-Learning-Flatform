@@ -8,7 +8,11 @@ import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
 import DeleteConfirm from "../DeleteConfirm";
 import { toast } from "react-toastify";
 import { getApiVideoYoutube } from "../../../../reducers/apiYoutube";
-import { formatDuration, formatUrlYoutube } from "../../../../utils/common";
+import {
+  formatDuration,
+  formatTime,
+  formatUrlYoutube,
+} from "../../../../utils/common";
 
 const LectureCourse = () => {
   const dispatch = useDispatch();
@@ -41,15 +45,25 @@ const LectureCourse = () => {
     (state) => state.apiYoutube.apiVideoYoutube
   );
 
-  // set duration when add link youtube
+  // set state when add link youtube
   useEffect(() => {
-    if (Object.keys(apiVideoYoutube).length > 0)
+    if (Object.keys(apiVideoYoutube).length > 0) {
       if (apiVideoYoutube?.items[0]?.contentDetails?.duration != null) {
         setDuration(
           formatDuration(apiVideoYoutube?.items[0]?.contentDetails?.duration)
         );
+
+        if (apiVideoYoutube?.items[0]?.snippet?.description != null) {
+          setDescription(apiVideoYoutube?.items[0]?.snippet?.description);
+        }
+        if (apiVideoYoutube?.items[0]?.snippet?.title != null) {
+          setTitle(apiVideoYoutube?.items[0]?.snippet?.title);
+        }
       }
+    }
   }, [apiVideoYoutube]);
+
+  console.log(apiVideoYoutube);
 
   // State for validation
   const [validate, setValidate] = useState({
@@ -148,7 +162,7 @@ const LectureCourse = () => {
       dispatch(getApiVideoYoutube(formatUrlYoutube(e.target.value)));
     }
   };
-
+  1;
   const handlePutPosition = (lecture) => {
     setIsUpdatePosition(lecture.id);
     setLectureDataUpdate({
@@ -275,7 +289,9 @@ const LectureCourse = () => {
                           lecture.position
                         )}
                         . {lecture.title}
-                        <p>{lecture.description}</p>
+                        <p className="item-description">
+                          {lecture.description}
+                        </p>
                       </span>
                       <span className="lecture-current-item-right">
                         <button
@@ -320,6 +336,38 @@ const LectureCourse = () => {
       </div>
 
       <h5 ref={targetElementRef}>Thêm bài giảng mới</h5>
+
+      <div className="form-group custom-file-input">
+        <label htmlFor="img" className="custom-file-label">
+          Tải lên video bài giảng
+        </label>
+        <input
+          type="file"
+          id="img"
+          name="img"
+          accept="video/*"
+          onChange={handleFileChange}
+        />
+        <span className="file-name">{fileName}</span>
+      </div>
+
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Hoặc nhập link video từ youtube"
+          value={video_url}
+          onChange={handleVideoUrlChange}
+        />
+        {!validate.video_url && (
+          <p style={{ color: "red", marginTop: "5px" }}>Chưa có video nào</p>
+        )}
+      </div>
+
+      {duration > 1 && (
+        <div className="form-group">
+          <span>Thời lượng: {formatTime(duration)}</span>
+        </div>
+      )}
 
       <div className="form-group">
         <label htmlFor="section_id">Thuộc chương</label>
@@ -369,33 +417,6 @@ const LectureCourse = () => {
           <p style={{ color: "red", marginTop: "5px" }}>
             Mô tả không được để trống
           </p>
-        )}
-      </div>
-
-      <div className="form-group custom-file-input">
-        <label htmlFor="img" className="custom-file-label">
-          Tải lên video bài giảng
-        </label>
-        <input
-          type="file"
-          id="img"
-          name="img"
-          accept="video/*"
-          onChange={handleFileChange}
-        />
-        <span className="file-name">{fileName}</span>
-      </div>
-
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Hoặc nhập link video từ youtube"
-          value={video_url}
-          onChange={handleVideoUrlChange}
-        />
-
-        {!validate.video_url && (
-          <p style={{ color: "red", marginTop: "5px" }}>Chưa có video nào</p>
         )}
       </div>
 

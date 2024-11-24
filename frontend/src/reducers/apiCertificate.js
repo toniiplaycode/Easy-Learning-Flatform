@@ -41,9 +41,10 @@ export const addCertificate = createAsyncThunk(
         },
       }
     );
-    toast.success("Đã cấp chứng chỉ thành công !");
-    if (obj?.instructor_id) {
-      thunkAPI.dispatch(fetchCertificateAllCourse(obj.instructor_id));
+    if ((response.data.message = "OK")) {
+      if (obj?.instructor_id)
+        thunkAPI.dispatch(fetchCertificateAllCourse(obj.instructor_id));
+      thunkAPI.dispatch(fetchCertificateEachUser(user_id));
     }
     return response.data;
   }
@@ -122,10 +123,11 @@ const apiCertificate = createSlice({
       })
       .addCase(addCertificate.fulfilled, (state, action) => {
         state.statusAddCertificate = "succeeded";
+        toast.success("Đã cấp chứng chỉ thành công !");
       })
       .addCase(addCertificate.rejected, (state, action) => {
         state.statusAddCertificate = "failed";
-        toast.warning("Chứng chỉ đã này đã được cấp !");
+        toast.success("Chứng chỉ đã này đã được cấp !");
       })
 
       .addCase(FetchdetailCertificate.pending, (state) => {
