@@ -1,6 +1,6 @@
 import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchEnrollmentAllUser } from "../../../../reducers/apiEnrollment";
@@ -14,6 +14,9 @@ const DetailStudent = () => {
   const params = new URLSearchParams(window.location.search);
   const idCourseUrl = Number(params.get("course_id"));
 
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [filteredStudents, setFilteredStudents] = useState([]); // State for filtered students
+
   useEffect(() => {
     dispatch(fetchEnrollmentAllUser(idCourseUrl));
   }, [idCourseUrl, dispatch]);
@@ -21,6 +24,18 @@ const DetailStudent = () => {
   const enrollmentAllUser = useSelector(
     (state) => state.apiEnrollment.enrollmentAllUser
   );
+
+  // Filter students based on the search term
+  useEffect(() => {
+    if (enrollmentAllUser) {
+      const filtered = enrollmentAllUser.filter(
+        (student) =>
+          student.User.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          student.User.email.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredStudents(filtered);
+    }
+  }, [searchTerm, enrollmentAllUser]);
 
   return (
     <div className="mange-list-page-container">
@@ -30,6 +45,18 @@ const DetailStudent = () => {
       >
         <FontAwesomeIcon icon={faCircleLeft} />
       </button>
+
+      {/* Search Input */}
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Tìm kiếm theo tên hoặc email..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+        />
+      </div>
+
       <div className="mange-list">
         <div className="header">
           <div className="header-item">Gmail</div>
@@ -40,8 +67,8 @@ const DetailStudent = () => {
           <div className="header-item">Xóa tài khoản khỏi khóa học</div>
         </div>
 
-        {enrollmentAllUser?.length > 0 ? (
-          enrollmentAllUser?.map((student) => {
+        {filteredStudents?.length > 0 ? (
+          filteredStudents.map((student) => {
             const delete_user_enrollment = {
               id_enrollment: student.id,
               course_id: student.course_id,
@@ -81,7 +108,7 @@ const DetailStudent = () => {
             );
           })
         ) : (
-          <div>Chưa có học viên nào</div>
+          <div>Không tìm thấy học viên nào!</div>
         )}
       </div>
     </div>

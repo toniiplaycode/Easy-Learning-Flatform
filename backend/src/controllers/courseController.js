@@ -112,6 +112,23 @@ export const getCourseInstructor = async (req, res) => {
         {
           model: Review,
         },
+        {
+          model: Section,
+          where: { course_id: Sequelize.col("Course.id") },
+          required: false,
+          include: [
+            {
+              model: Lecture,
+              where: { course_id: Sequelize.col("Course.id") },
+              required: false,
+            },
+          ],
+        },
+        {
+          model: Coupon,
+          where: { course_id: Sequelize.col("Course.id") },
+          required: false,
+        },
       ],
     });
 

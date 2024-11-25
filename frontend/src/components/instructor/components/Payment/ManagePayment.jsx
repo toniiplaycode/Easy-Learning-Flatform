@@ -7,6 +7,9 @@ import { BarChart } from "@mui/x-charts/BarChart";
 const ManagePayment = () => {
   const dispatch = useDispatch();
   const [chartData, setChartData] = useState({ series: [], xAxis: [] });
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [filteredPayments, setFilteredPayments] = useState([]);
 
   useEffect(() => {
     dispatch(fetchAllPaymentAllCourse());
@@ -23,10 +26,11 @@ const ManagePayment = () => {
       )
     : [];
 
-  // Calculate total payment amount for each course
+  // Calculate total payment amount for each course and total revenue
   useEffect(() => {
     if (sortedPayments && sortedPayments.length > 0) {
       const coursePayments = {};
+      let totalRevenueTemp = 0;
 
       sortedPayments.forEach((payment) => {
         const courseTitle = payment.Course.title;
@@ -34,6 +38,7 @@ const ManagePayment = () => {
           coursePayments[courseTitle] = 0;
         }
         coursePayments[courseTitle] += payment.amount;
+        totalRevenueTemp += payment.amount; // Accumulate total revenue
       });
 
       const chartSeries = Object.values(coursePayments);
@@ -43,8 +48,24 @@ const ManagePayment = () => {
         series: [{ data: chartSeries }],
         xAxis: xAxisData,
       });
+
+      setTotalRevenue(totalRevenueTemp); // Update total revenue state
     }
   }, [sortedPayments]);
+
+  // Filter payments by search term
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setFilteredPayments(sortedPayments);
+    } else {
+      const filtered = sortedPayments.filter(
+        (payment) =>
+          payment.User.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          payment.User.email.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredPayments(filtered);
+    }
+  }, [searchTerm, sortedPayments]);
 
   return (
     <>
@@ -67,6 +88,20 @@ const ManagePayment = () => {
         />
       )}
 
+      <h3 style={{ margin: "0 20px 20px 20px" }}>
+        Tổng doanh thu: {totalRevenue.toLocaleString()} ₫
+      </h3>
+
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Tìm kiếm theo tên hoặc email..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="mange-list-page-container">
         <div className="mange-list">
           <div className="header">
@@ -78,8 +113,8 @@ const ManagePayment = () => {
             <div className="header-item">Ngày thanh toán</div>
             <div className="header-item">Trạng thái</div>
           </div>
-          {sortedPayments.length > 0 ? (
-            sortedPayments.map((payment) => (
+          {filteredPayments.length > 0 ? (
+            filteredPayments.map((payment) => (
               <div className="mange-item" key={payment.id}>
                 <div className="item">{payment.User.email}</div>
                 <div className="item">{payment.User.name}</div>
@@ -97,7 +132,7 @@ const ManagePayment = () => {
               </div>
             ))
           ) : (
-            <div>Chưa có thanh toán nào!</div>
+            <div>Không tìm thấy thanh toán nào!</div>
           )}
         </div>
       </div>

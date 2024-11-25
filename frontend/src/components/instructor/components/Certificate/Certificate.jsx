@@ -5,6 +5,7 @@ import {
   addCertificate,
   FetchdetailCertificate,
 } from "../../../../reducers/apiCertificate";
+import { formatDate } from "../../../../utils/common";
 
 const Certificate = ({ idCertificateView, isViewUserSide }) => {
   const dispatch = useDispatch();
@@ -142,7 +143,12 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
             />
           </div>
           <div className="signatures">
-            <p>Can Tho, {getCurrentDate()}</p>
+            <p>
+              Can Tho,{" "}
+              {isView
+                ? formatDate(detailCertificate.created_at)
+                : getCurrentDate()}
+            </p>
           </div>
         </div>
       </div>

@@ -17,18 +17,46 @@ const ManageCertificate = () => {
   );
 
   const [idCertificateView, setIdCertificateView] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [filteredCertificates, setFilteredCertificates] = useState([]); // State for filtered certificates
 
   useEffect(() => {
     const instructor_id = inforUser.id;
     dispatch(fetchCertificateAllCourse(instructor_id));
   }, [inforUser]);
 
+  // Update filtered certificates whenever the search term or certificate data changes
+  useEffect(() => {
+    if (certificateAllCourse) {
+      const filtered = certificateAllCourse.filter(
+        (certificate) =>
+          certificate.User.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          certificate.User.email
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+      );
+      setFilteredCertificates(filtered);
+    }
+  }, [searchTerm, certificateAllCourse]);
+
   return (
     <div className="mange-list-page-container">
       <h3 ref={targetElementRef}>Cấp chứng chỉ cho học viên</h3>
       <Certificate idCertificateView={idCertificateView} />
 
-      <h5>Các chứng chỉ đã cấp</h5>
+      {/* Search Input */}
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Tìm kiếm theo tên hoặc email..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+        />
+      </div>
+
       <div className="mange-list">
         <div className="header">
           <div className="header-item">Gmail</div>
@@ -38,8 +66,9 @@ const ManageCertificate = () => {
           <div className="header-item"></div>
         </div>
 
-        {certificateAllCourse?.length > 0 ? (
-          certificateAllCourse?.map((certificate) => (
+        {/* Display filtered certificates */}
+        {filteredCertificates?.length > 0 ? (
+          filteredCertificates?.map((certificate) => (
             <div className="mange-item" key={certificate.id}>
               <div className="item">{certificate.User.email}</div>
               <div className="item">{certificate.User.name}</div>
@@ -66,7 +95,7 @@ const ManageCertificate = () => {
             </div>
           ))
         ) : (
-          <div>Chưa có học viên nào đạt được chứng chỉ !</div>
+          <div>Không tìm thấy kết quả phù hợp!</div>
         )}
       </div>
     </div>

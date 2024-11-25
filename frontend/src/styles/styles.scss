@@ -2297,6 +2297,27 @@ $color-star: #f39c12;
     }
   }
 
+  .statistics-summary {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+
+      .stat-icon {
+        font-size: 24px;
+        color: #007bff;
+      }
+    }
+  }
+
   .course-list {
     .course-item {
       display: flex;
@@ -2858,6 +2879,25 @@ $color-star: #f39c12;
 }
 
 //-------student detail page--------
+.search-container {
+  text-align: center;
+  margin: 20px 0;
+
+  .search-input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+
+    &:focus {
+      border-color: #005bff;
+      box-shadow: 0 0 5px rgba(0, 91, 255, 0.5);
+    }
+  }
+}
+
 .mange-list-page-container {
   width: 100%;
   padding-left: 20px;
@@ -2974,6 +3014,14 @@ $color-star: #f39c12;
   padding: 0 20px;
   margin: 20px 0 50px 0;
   z-index: 9;
+  margin: 0 auto;
+  max-width: 1000px;
+  height: 650px;
+  background-image: url("/imgs/bgcertificate.png"); // Replace with the actual path to your image
+  background-size: cover; // Ensures the image covers the entire container
+  background-position: center; // Centers the image
+  border-radius: 10px; // Optional: Add rounded corners
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Optional: Add a subtle shadow
 
   .btn-add-certificate {
     margin-top: 30px;
@@ -2981,6 +3029,7 @@ $color-star: #f39c12;
   }
 
   .certificate-content {
+    background-color: #ffffff;
     border: 5px solid #f0b429;
     border-radius: 10px;
     padding: 40px 40px 0 40px;
@@ -2989,27 +3038,27 @@ $color-star: #f39c12;
     position: relative;
     @extend .box-shadow-common;
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      border-radius: 10px;
-      background-color: $primary-color;
-      width: 100px;
-      height: 100px;
-    }
+    // &::before,
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   border-radius: 10px;
+    //   background-color: $primary-color;
+    //   width: 100px;
+    //   height: 100px;
+    // }
 
-    &::before {
-      top: -10px;
-      left: -10px;
-      clip-path: polygon(0 0, 100% 0, 0 100%);
-    }
+    // &::before {
+    //   top: -10px;
+    //   left: -10px;
+    //   clip-path: polygon(0 0, 100% 0, 0 100%);
+    // }
 
-    &::after {
-      bottom: -10px;
-      right: -10px;
-      clip-path: polygon(100% 100%, 0 100%, 100% 0);
-    }
+    // &::after {
+    //   bottom: -10px;
+    //   right: -10px;
+    //   clip-path: polygon(100% 100%, 0 100%, 100% 0);
+    // }
 
     .certificate-header {
       text-align: center;
