@@ -32,78 +32,94 @@ const InstructorPage = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const renderPendingApproval = () => (
+    <div className="min-vh-100">
+      <Header />
+      <div className="beinstructor-container">
+        <div className="step1">
+          <h1>Quản lý đang duyệt bạn thành giảng viên !</h1>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderBecomeInstructorSteps = () => (
+    <div className="min-vh-100">
+      <Header />
+      <div className="beinstructor-container">
+        {steps === 1 && (
+          <div className="step1">
+            <h1 key={steps}>
+              Bạn muốn trở thành giảng viên của EASY LEARNING ?
+            </h1>
+            <button onClick={() => setSteps(steps + 1)}>
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        )}
+        {steps === 2 && (
+          <div className="step2">
+            <h1 key={steps}>Bạn dạy về lĩnh vực nào?</h1>
+            <select
+              value={selectedCategory}
+              onChange={handleChange}
+              className="category-select"
+            >
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={() => setSteps(steps + 1)}>
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        )}
+        {steps === 3 && (
+          <div className="stepfinal">
+            <h1 key={steps} className="congratulations-message">
+              Hãy đợi duyệt để trở thành giảng viên của EASY LEARNING!
+            </h1>
+            <button
+              onClick={() => {
+                dispatch(putUpdateUser({ id: inforUser.id, role: "pending" }));
+              }}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderInstructorPage = () => (
+    <div className="min-vh-100">
+      <Sidebar />
+      <div className="instructor-page-right">
+        <Header />
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Courses />} />
+          <Route path="/create-course" element={<CreateUpdateCourse />} />
+          <Route path="/manage-course/*" element={<ManageCourse />} />
+          <Route path="/manage-student/*" element={<ManageStudent />} />
+          <Route path="/manage-coupon/*" element={<ManageCoupon />} />
+          <Route path="/manage-certificate/*" element={<ManageCertificate />} />
+          <Route path="/manage-payment/*" element={<ManagePayment />} />
+        </Routes>
+      </div>
+    </div>
+  );
+
   return (
     <div className="instructor-main-page">
-      {inforUser.role == "student" || inforUser.role == "admin" ? (
-        <div className="min-vh-100">
-          <Header />
-          <div className="beinstructor-container">
-            {steps == 1 ? (
-              <div className="step1">
-                <h1 key={steps}>
-                  Bạn muốn trở thành giảng viên của EASY LEARNING ?
-                </h1>
-                <button onClick={() => setSteps(steps + 1)}>
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </button>
-              </div>
-            ) : steps == 2 ? (
-              <div className="step2">
-                <h1 key={steps}>Bạn dạy về lĩnh vực nào?</h1>
-                <select
-                  value={selectedCategory}
-                  onChange={handleChange}
-                  className="category-select"
-                >
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
-                <button onClick={() => setSteps(steps + 1)}>
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </button>
-              </div>
-            ) : (
-              <div className="stepfinal">
-                <h1 key={steps} className="congratulations-message">
-                  Bạn đã là giảng viên của EASY LEARNING !
-                </h1>
-                <button
-                  onClick={() => {
-                    dispatch(
-                      putUpdateUser({ id: inforUser.id, role: "instructor" })
-                    );
-                  }}
-                >
-                  <FontAwesomeIcon icon={faArrowRight} />
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="min-vh-100">
-          <Sidebar />
-          <div className="instructor-page-right">
-            <Header />
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<Courses />} />
-              <Route path="/create-course" element={<CreateUpdateCourse />} />
-              <Route path="/manage-course/*" element={<ManageCourse />} />
-              <Route path="/manage-student/*" element={<ManageStudent />} />
-              <Route path="/manage-coupon/*" element={<ManageCoupon />} />
-              <Route
-                path="/manage-certificate/*"
-                element={<ManageCertificate />}
-              />
-              <Route path="/manage-payment/*" element={<ManagePayment />} />
-            </Routes>
-          </div>
-        </div>
-      )}
+      {inforUser.role === "pending"
+        ? renderPendingApproval()
+        : inforUser.role === "student" || inforUser.role === "admin"
+        ? renderBecomeInstructorSteps()
+        : renderInstructorPage()}
       <Footer />
     </div>
   );

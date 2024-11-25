@@ -84,7 +84,7 @@ const InforUser = () => {
         <div className="profile-info col-xl-4 col-12">
           <p className="profile-title">Thông tin tài khoản</p>
           <p style={{ color: "#007bff", fontWeight: "bold" }}>
-            {inforUser.role === "student" ? (
+            {inforUser.role === "student" || inforUser.role === "pending" ? (
               <>
                 <FontAwesomeIcon icon={faUser} /> Tài khoản học viên
               </>

@@ -11,19 +11,25 @@ import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import reduxStore from "./reduxStore";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const theme = createTheme({
   // Define any custom theme overrides if needed
 });
+
+const CLIENT_ID =
+  "459500879068-l4tgvoss4dtg9j2i0877s2998do9g19i.apps.googleusercontent.com"; // Thay bằng Client ID từ Google Cloud Console
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={reduxStore}>
       <BrowserRouter>
         <ChakraProvider>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
+          <GoogleOAuthProvider clientId={CLIENT_ID}>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </GoogleOAuthProvider>
         </ChakraProvider>
       </BrowserRouter>
     </Provider>

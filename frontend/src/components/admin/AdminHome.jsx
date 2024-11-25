@@ -22,7 +22,7 @@ const AdminHome = () => {
               className={getUrl == "/admin" && "active"}
               onClick={() => navigate("")}
             >
-              Quản lý người dùng
+              Quản lý tài khoản
             </span>
             <span
               className={getUrl == "/admin/payment" && "active"}

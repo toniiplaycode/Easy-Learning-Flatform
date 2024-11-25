@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;1200&family=Great+Vibes&display=swap");
 @font-face {
   font-family: "Rubik";
   src: url("../assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");
@@ -37,7 +38,8 @@
   padding-right: 10%;
 }
 
-.btn-common, .profile-courses-certificate .courses-list .course-item .course-info button, .certificate-container .certificate-content .certificate-body .certificate-container-add button, .certificate-container .btn-add-certificate, .mange-list-page-container .mange-list .mange-item .item button, .student-page-instructor .course-list .course-item .course-action button, .section-course-container .section-course-item button,
+.btn-common, .profile-courses-certificate .courses-list .course-item .course-info button, .certificate-container .certificate-content .certificate-body .certificate-container-add button, .certificate-container .btn-add-certificate,
+.certificate-container .btn-download-certificate, .mange-list-page-container .mange-list .mange-item .item button, .student-page-instructor .course-list .course-item .course-action button, .section-course-container .section-course-item button,
 .section-course-container .lecture-course-item button,
 .lecture-course-container .section-course-item button,
 .lecture-course-container .lecture-course-item button, .submit-btn, .create-update-course-container .new-category button, .manage-btn-back, .course-page-instructor .course-list .course-item .course-action button, .course-page-instructor .header-actions .new-course-button, .instructor-main-page .beinstructor-container .stepfinal button, .instructor-main-page .beinstructor-container .step1 button,
@@ -51,7 +53,8 @@
   cursor: pointer;
   transition: 0.2s ease;
 }
-.btn-common:hover, .profile-courses-certificate .courses-list .course-item .course-info button:hover, .certificate-container .certificate-content .certificate-body .certificate-container-add button:hover, .certificate-container .btn-add-certificate:hover, .mange-list-page-container .mange-list .mange-item .item button:hover, .student-page-instructor .course-list .course-item .course-action button:hover, .section-course-container .section-course-item button:hover,
+.btn-common:hover, .profile-courses-certificate .courses-list .course-item .course-info button:hover, .certificate-container .certificate-content .certificate-body .certificate-container-add button:hover, .certificate-container .btn-add-certificate:hover,
+.certificate-container .btn-download-certificate:hover, .mange-list-page-container .mange-list .mange-item .item button:hover, .student-page-instructor .course-list .course-item .course-action button:hover, .section-course-container .section-course-item button:hover,
 .section-course-container .lecture-course-item button:hover,
 .lecture-course-container .section-course-item button:hover,
 .lecture-course-container .lecture-course-item button:hover, .submit-btn:hover, .create-update-course-container .new-category button:hover, .manage-btn-back:hover, .course-page-instructor .course-list .course-item .course-action button:hover, .course-page-instructor .header-actions .new-course-button:hover, .instructor-main-page .beinstructor-container .stepfinal button:hover, .instructor-main-page .beinstructor-container .step1 button:hover,
@@ -2613,37 +2616,29 @@
   padding: 0 20px;
   margin: 20px 0 50px 0;
   z-index: 9;
+  margin: 0 auto;
+  max-width: 1000px;
+  position: relative;
+  height: 650px;
+  background-image: url("/imgs/bgcertificate.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.certificate-container .btn-add-certificate {
-  margin-top: 30px;
+.certificate-container .btn-add-certificate,
+.certificate-container .btn-download-certificate {
+  position: absolute;
+  bottom: -60px;
 }
 .certificate-container .certificate-content {
+  background-color: #ffffff;
   border: 5px solid #f0b429;
   border-radius: 10px;
   padding: 40px 40px 0 40px;
   max-width: 800px;
   width: 100%;
   position: relative;
-}
-.certificate-container .certificate-content::before, .certificate-container .certificate-content::after {
-  content: "";
-  position: absolute;
-  border-radius: 10px;
-  background-color: #007bff;
-  width: 100px;
-  height: 100px;
-}
-.certificate-container .certificate-content::before {
-  top: -10px;
-  left: -10px;
-  -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
-          clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-.certificate-container .certificate-content::after {
-  bottom: -10px;
-  right: -10px;
-  -webkit-clip-path: polygon(100% 100%, 0 100%, 100% 0);
-          clip-path: polygon(100% 100%, 0 100%, 100% 0);
 }
 .certificate-container .certificate-content .certificate-header {
   text-align: center;
@@ -2652,13 +2647,17 @@
 }
 .certificate-container .certificate-content .certificate-header h1 {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: bold;
   color: #000;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
 }
 .certificate-container .certificate-content .certificate-header p {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: bold;
   color: #000;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
 }
 .certificate-container .certificate-content .certificate-header img {
   position: absolute;
@@ -2726,6 +2725,8 @@
   font-size: 16px;
   color: #f0b429;
   margin-bottom: 10px;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
 }
 .certificate-container .certificate-content .certificate-body .recipient-name {
   font-family: "Brush Script MT", cursive;
@@ -2733,9 +2734,16 @@
   color: #1e3a8a;
   margin-bottom: 20px;
 }
+.certificate-container .certificate-content .certificate-body p {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
+}
 .certificate-container .certificate-content .certificate-body .certificate-description {
   font-size: 1.2rem;
   color: #333;
+  font-weight: bold;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 1.4px;
 }
 .certificate-container .certificate-content .certificate-footer {
   display: flex;
@@ -2755,6 +2763,8 @@
   font-size: 14px;
   font-weight: 600;
   padding-top: 10px;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 2px;
 }
 .certificate-container .certificate-content .certificate-footer img {
   width: 150px;

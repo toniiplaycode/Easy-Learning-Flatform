@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;1200&family=Great+Vibes&display=swap");
+
 @font-face {
   font-family: "Rubik";
   src: url("../assets/fonts/Rubik-VariableFont_wght.ttf") format("truetype");
@@ -3016,6 +3018,7 @@ $color-star: #f39c12;
   z-index: 9;
   margin: 0 auto;
   max-width: 1000px;
+  position: relative;
   height: 650px;
   background-image: url("/imgs/bgcertificate.png"); // Replace with the actual path to your image
   background-size: cover; // Ensures the image covers the entire container
@@ -3023,8 +3026,10 @@ $color-star: #f39c12;
   border-radius: 10px; // Optional: Add rounded corners
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Optional: Add a subtle shadow
 
-  .btn-add-certificate {
-    margin-top: 30px;
+  .btn-add-certificate,
+  .btn-download-certificate {
+    position: absolute;
+    bottom: -60px;
     @extend .btn-common;
   }
 
@@ -3038,28 +3043,6 @@ $color-star: #f39c12;
     position: relative;
     @extend .box-shadow-common;
 
-    // &::before,
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   border-radius: 10px;
-    //   background-color: $primary-color;
-    //   width: 100px;
-    //   height: 100px;
-    // }
-
-    // &::before {
-    //   top: -10px;
-    //   left: -10px;
-    //   clip-path: polygon(0 0, 100% 0, 0 100%);
-    // }
-
-    // &::after {
-    //   bottom: -10px;
-    //   right: -10px;
-    //   clip-path: polygon(100% 100%, 0 100%, 100% 0);
-    // }
-
     .certificate-header {
       text-align: center;
       margin-bottom: 30px;
@@ -3067,14 +3050,18 @@ $color-star: #f39c12;
 
       h1 {
         font-size: 36px;
-        font-weight: 700;
+        font-weight: bold;
         color: #000;
+        font-family: "Cormorant Garamond", serif; // Elegant serif font
+        letter-spacing: 2px;
       }
 
       p {
         font-size: 18px;
-        font-weight: 600;
+        font-weight: bold;
         color: #000;
+        font-family: "Cormorant Garamond", serif; // Elegant serif font
+        letter-spacing: 2px;
       }
 
       img {
@@ -3151,6 +3138,8 @@ $color-star: #f39c12;
         font-size: 16px;
         color: #f0b429;
         margin-bottom: 10px;
+        font-family: "Cormorant Garamond", serif; // Elegant serif font
+        letter-spacing: 2px;
       }
 
       .recipient-name {
@@ -3160,9 +3149,17 @@ $color-star: #f39c12;
         margin-bottom: 20px;
       }
 
+      p {
+        font-family: "Cormorant Garamond", serif; // Elegant serif font
+        letter-spacing: 2px;
+      }
+
       .certificate-description {
         font-size: 1.2rem;
         color: #333;
+        font-weight: bold;
+        font-family: "Cormorant Garamond", serif; // Elegant serif font
+        letter-spacing: 1.4px;
       }
     }
 
@@ -3183,6 +3180,9 @@ $color-star: #f39c12;
           font-size: 14px;
           font-weight: 600;
           padding-top: 10px;
+
+          font-family: "Cormorant Garamond", serif; // Elegant serif font
+          letter-spacing: 2px;
         }
       }
 

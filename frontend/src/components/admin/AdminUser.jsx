@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchAllUsers } from "../../reducers/apiLoginLogout";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/common";
-import DeleteConfirm from "../instructor/components/DeleteConfirm";
+import { fetchAllUsers, deleteUser } from "../../reducers/apiLoginLogout"; // Import deleteUser
+import { putUpdateUser } from "../../reducers/apiUpdateUser"; // Import putUpdateUser
+import DeleteConfirm from "../instructor/components/DeleteConfirm"; // Reuse DeleteConfirm
 
-const AdminUser = () => {
+const AdminRole = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [filterUser, setFilterUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [sortOrder, setSortOrder] = useState("earliest"); // Default sort order
+  const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
     dispatch(fetchAllUsers());
@@ -21,29 +23,36 @@ const AdminUser = () => {
   const users = useSelector((state) => state.apiLoginLogout.users);
 
   useEffect(() => {
-    const filteredUsers = users.filter((user) => user.id !== inforUser.id);
+    const filteredUsers = users
+      .filter((user) => user.id !== inforUser.id) // Exclude current admin
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Default: newest first
+
     setFilterUser(filteredUsers);
+
+    // Count the number of pending accounts
+    const pendingUsersCount = users.filter(
+      (user) => user.role === "pending"
+    ).length;
+    setPendingCount(pendingUsersCount);
   }, [users, inforUser]);
 
   // Function to filter and sort users based on search term, selected role, and sort order
   const handleFilter = () => {
     const filtered = users
-      .filter((user) => user.id !== inforUser.id)
+      .filter((user) => user.id !== inforUser.id) // Exclude current admin
       .filter((user) => {
         const matchesSearch =
           user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           user.email.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesRole =
-          selectedRole === "" ||
-          (selectedRole === "student" && user.role === "student") ||
-          (selectedRole === "instructor" && user.role === "instructor");
+        const matchesRole = selectedRole === "" || user.role === selectedRole;
         return matchesSearch && matchesRole;
       })
       .sort((a, b) => {
+        // Sort only by creation date
         if (sortOrder === "earliest") {
-          return new Date(a.created_at) - new Date(b.created_at);
+          return new Date(a.created_at) - new Date(b.created_at); // Oldest first
         } else {
-          return new Date(b.created_at) - new Date(a.created_at);
+          return new Date(b.created_at) - new Date(a.created_at); // Newest first
         }
       });
 
@@ -54,6 +63,20 @@ const AdminUser = () => {
   useEffect(() => {
     handleFilter();
   }, [searchTerm, selectedRole, sortOrder]);
+
+  // Handle role change
+  const handleRoleChange = (userId, newRole) => {
+    dispatch(putUpdateUser({ id: userId, role: newRole })).then(() => {
+      dispatch(fetchAllUsers()); // Refresh user list after updating role
+    });
+  };
+
+  // Handle delete user
+  const handleDeleteUser = (userId) => {
+    dispatch(deleteUser(userId)).then(() => {
+      dispatch(fetchAllUsers()); // Refresh user list after deletion
+    });
+  };
 
   return (
     <div className="mange-list-page-container" style={{ marginTop: "80px" }}>
@@ -81,6 +104,7 @@ const AdminUser = () => {
           <option value="">Tất cả loại tài khoản</option>
           <option value="student">Học viên</option>
           <option value="instructor">Giảng viên</option>
+          <option value="pending">Đang chờ duyệt</option>
         </select>
         <select
           value={sortOrder}
@@ -90,6 +114,17 @@ const AdminUser = () => {
           <option value="earliest">Sắp xếp: Ngày tạo (Cũ nhất)</option>
           <option value="latest">Sắp xếp: Ngày tạo (Mới nhất)</option>
         </select>
+      </div>
+
+      <div
+        style={{
+          padding: "10px",
+          background: "#f0f8ff",
+          marginBottom: "20px",
+          borderRadius: "10px",
+        }}
+      >
+        <strong>Số tài khoản đang chờ duyệt:</strong> {pendingCount}
       </div>
 
       <div className="mange-list">
@@ -107,19 +142,42 @@ const AdminUser = () => {
           filterUser.map((user) => (
             <div
               className="mange-item"
-              style={{ display: "flex" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                background: user.role === "pending" ? "#d9d9d9" : "transparent",
+              }}
               key={user.id}
             >
               <div className="item">{user.email}</div>
               <div className="item">{user.name}</div>
               <div className="item">
-                {user.role === "student" ? "Học viên" : "Giảng viên"}
+                {user.role === "student"
+                  ? "Học viên"
+                  : user.role === "instructor"
+                  ? "Giảng viên"
+                  : "Đang chờ duyệt"}
               </div>
               <div className="item" style={{ flex: 2 }}>
                 {user.bio ? user.bio : "..."}
               </div>
               <div className="item">{formatDate(user.created_at)}</div>
               <div className="item">
+                {/* Dropdown to update role */}
+                <select
+                  value={user.role}
+                  onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                  style={{
+                    padding: "5px",
+                    borderRadius: "5px",
+                    background: "#e6f7ff",
+                  }}
+                >
+                  <option value="student">Học viên</option>
+                  <option value="instructor">Giảng viên</option>
+                  <option value="pending">Đang chờ duyệt</option>
+                </select>
+                {/* Delete button */}
                 <DeleteConfirm delete_user={user.id} />
               </div>
             </div>
@@ -134,4 +192,4 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default AdminRole;

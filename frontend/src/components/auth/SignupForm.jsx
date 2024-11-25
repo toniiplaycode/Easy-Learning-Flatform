@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearStatusSignUp, postSignup } from "../../reducers/apiSignup";
 import { toast } from "react-toastify";
 import { Button } from "@chakra-ui/react";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const SignupForm = () => {
     if (Object.keys(inforUser).length > 0) {
       navigate("/");
     }
-  }, [inforUser]);
+  }, [inforUser, navigate]);
 
   const statusPostSignUp = useSelector(
     (state) => state.apiSignup.statusPostSignUp
@@ -51,7 +52,7 @@ const SignupForm = () => {
       dispatch(clearStatusSignUp());
       navigate("/login");
     }
-  }, [statusPostSignUp]);
+  }, [statusPostSignUp, dispatch, navigate]);
 
   const handleCheck = () => {
     let isValid = true;
@@ -75,12 +76,59 @@ const SignupForm = () => {
     return isValid;
   };
 
+  // Google Login Integration
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const res = await fetch(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${response.access_token}`,
+            },
+          }
+        );
+        const userData = await res.json();
+
+        // Send user data to your backend or register the user
+        dispatch(
+          postSignup({
+            name: userData.name || "Google User",
+            email: userData.email,
+            password: "default_password", // Set a default password or handle this differently
+          })
+        );
+
+        toast.success("Đăng ký bằng Google thành công!");
+      } catch (error) {
+        console.error("Google Login Error:", error);
+        toast.error("Đăng ký bằng Google thất bại!");
+      }
+    },
+    onError: () => toast.error("Đăng ký bằng Google thất bại!"),
+  });
+
   return (
     <div className="container mt-5 min-vh-100">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="text-center mb-4">Đăng ký và bắt đầu học</h2>
 
+          {/* Google Sign-In Button */}
+          <button
+            className="btn btn-outline-primary w-100 mb-3"
+            onClick={googleLogin}
+          >
+            <img
+              src="/imgs/google.png"
+              style={{ width: "25px", display: "inline-block" }}
+            />{" "}
+            Đăng ký bằng Google
+          </button>
+
+          <p className="text-center">Hoặc</p>
+
+          {/* Normal Sign-Up Form */}
           <div>
             <div className="mb-3">
               <label htmlFor="fullName" className="form-label">
@@ -94,7 +142,7 @@ const SignupForm = () => {
                 value={fullName}
                 onChange={(e) => {
                   setFullName(e.target.value);
-                  setCheckFullName(null);
+                  setCheckFullName(false);
                 }}
               />
               {checkFullName && (
@@ -114,7 +162,7 @@ const SignupForm = () => {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  setCheckEmail(null);
+                  setCheckEmail(false);
                 }}
               />
               {checkEmail && <p className="error-auth">Email không để trống</p>}
@@ -132,7 +180,7 @@ const SignupForm = () => {
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  setCheckPassword(null);
+                  setCheckPassword(false);
                 }}
               />
               {checkPassword && (
@@ -152,7 +200,7 @@ const SignupForm = () => {
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
-                  setCheckConfirmPassword(null);
+                  setCheckConfirmPassword(false);
                 }}
               />
               {checkConfirmPassword && (

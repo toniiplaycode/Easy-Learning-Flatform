@@ -47,7 +47,7 @@ const ManageCertificate = () => {
       <Certificate idCertificateView={idCertificateView} />
 
       {/* Search Input */}
-      <div className="search-container">
+      <div className="search-container" style={{ marginTop: "80px" }}>
         <input
           type="text"
           className="search-input"

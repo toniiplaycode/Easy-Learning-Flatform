@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import html2canvas from "html2canvas";
 import { fetchEnrollmentAllCourse } from "../../../../reducers/apiEnrollment";
 import {
   addCertificate,
@@ -9,6 +10,7 @@ import { formatDate } from "../../../../utils/common";
 
 const Certificate = ({ idCertificateView, isViewUserSide }) => {
   const dispatch = useDispatch();
+  const certificateRef = useRef(null); // Reference for download
   const inforUser = useSelector((state) => state.apiLoginLogout.inforUser);
   const enrollmentAllCourse = useSelector(
     (state) => state.apiEnrollment.enrollmentAllCourse
@@ -71,9 +73,20 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
     setSelectedEnrollment(null);
   };
 
+  const handleDownloadCertificate = async () => {
+    if (certificateRef.current) {
+      const canvas = await html2canvas(certificateRef.current, { scale: 2 });
+      const link = document.createElement("a");
+      link.download = "certificate.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  };
+
   return (
     <div
       className="certificate-container"
+      ref={certificateRef}
       style={isViewUserSide && { marginTop: "60px" }}
     >
       <div className="certificate-content">
@@ -152,6 +165,15 @@ const Certificate = ({ idCertificateView, isViewUserSide }) => {
           </div>
         </div>
       </div>
+
+      {isView && isViewUserSide && (
+        <button
+          className="btn-download-certificate"
+          onClick={handleDownloadCertificate}
+        >
+          Tải xuống chứng chỉ
+        </button>
+      )}
 
       {isView && !isViewUserSide && (
         <button

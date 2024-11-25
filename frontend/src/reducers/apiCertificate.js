@@ -127,7 +127,9 @@ const apiCertificate = createSlice({
       })
       .addCase(addCertificate.rejected, (state, action) => {
         state.statusAddCertificate = "failed";
-        toast.success("Chứng chỉ đã này đã được cấp !");
+        toast.success("Chứng chỉ này đã được cấp !", {
+          autoClose: 4000,
+        });
       })
 
       .addCase(FetchdetailCertificate.pending, (state) => {

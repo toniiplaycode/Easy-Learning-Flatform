@@ -67,6 +67,7 @@ const ViewProfile = () => {
         </div>
         <div className="right">
           <span>{detailUserOther?.name}</span>
+          <span>{detailUserOther?.email}</span>
           <div className="statistical">
             <span>
               <FontAwesomeIcon
