@@ -33,7 +33,7 @@ const PaymentSuccessPaypalPage = () => {
       try {
         // Gửi yêu cầu xác minh thanh toán tới backend
         const response = await fetch(
-          `http://localhost:3000/api/payment/verifyPaymentPaypal?paymentId=${paymentId}&PayerID=${payerId}&token=${token}`
+          `http://localhost:1234/api/payment/verifyPaymentPaypal?paymentId=${paymentId}&PayerID=${payerId}&token=${token}`
         );
 
         const data = await response.json();

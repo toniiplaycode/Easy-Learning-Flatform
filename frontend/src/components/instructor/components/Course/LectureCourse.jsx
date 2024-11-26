@@ -7,12 +7,16 @@ import { faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import { addLecture, updateLecture } from "../../../../reducers/apiLecture";
 import DeleteConfirm from "../DeleteConfirm";
 import { toast } from "react-toastify";
-import { getApiVideoYoutube } from "../../../../reducers/apiYoutube";
+import {
+  getApiVideoYoutube,
+  uploadVideoYoutube,
+} from "../../../../reducers/apiYoutube";
 import {
   formatDuration,
   formatTime,
   formatUrlYoutube,
 } from "../../../../utils/common";
+import { Spinner } from "@chakra-ui/react";
 
 const LectureCourse = () => {
   const dispatch = useDispatch();
@@ -45,9 +49,27 @@ const LectureCourse = () => {
     (state) => state.apiYoutube.apiVideoYoutube
   );
 
+  const statusUploadVideoYoutube = useSelector(
+    (state) => state.apiYoutube.statusUploadVideoYoutube
+  );
+
+  const idVideoUpload = useSelector((state) => state.apiYoutube.idVideoUpload);
+
+  useEffect(() => {
+    if (idVideoUpload.length > 0) {
+      const videoUrl = `https://www.youtube.com/watch?v=${idVideoUpload}`;
+      if (formatUrlYoutube(videoUrl)) {
+        dispatch(getApiVideoYoutube(formatUrlYoutube(videoUrl)));
+      }
+      setVideoUrl(videoUrl);
+    }
+  }, [idVideoUpload]);
+
   // set state when add link youtube
   useEffect(() => {
     if (Object.keys(apiVideoYoutube).length > 0) {
+      console.log(apiVideoYoutube);
+
       if (apiVideoYoutube?.items[0]?.contentDetails?.duration != null) {
         setDuration(
           formatDuration(apiVideoYoutube?.items[0]?.contentDetails?.duration)
@@ -61,9 +83,7 @@ const LectureCourse = () => {
         }
       }
     }
-  }, [apiVideoYoutube]);
-
-  console.log(apiVideoYoutube);
+  }, [apiVideoYoutube, idVideoUpload]);
 
   // State for validation
   const [validate, setValidate] = useState({
@@ -98,7 +118,33 @@ const LectureCourse = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setFileName(file ? file.name : "Chưa chọn video nào");
+    if (!file) {
+      toast.error("No file selected.");
+      return;
+    }
+
+    // Validation for title and description
+    if (title.trim().length === 0 || description.trim().length === 0) {
+      setValidate((prev) => ({
+        ...prev,
+        title: title.trim().length > 0,
+        description: description.trim().length > 0,
+      }));
+      toast.error(
+        "Vui lòng thêm 'Tiêu đề' và 'Mô tả' trước khi upload video !"
+      );
+      return;
+    }
+
+    setFileName(file.name);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("desc", description);
+    formData.append("video", file);
+
+    // Call the dispatch with the formData
+    dispatch(uploadVideoYoutube(formData));
   };
 
   const handleSubmit = () => {
@@ -125,7 +171,7 @@ const LectureCourse = () => {
       description,
       video_url,
       position: totalLecture + 1,
-      duration,
+      duration: duration == 0 ? 20 : duration, // vì duration bằng 0 sẽ lỗi, nếu bằng 0 thì hardcode là 20
     };
 
     dispatch(addLecture(newLectureData));
@@ -162,7 +208,7 @@ const LectureCourse = () => {
       dispatch(getApiVideoYoutube(formatUrlYoutube(e.target.value)));
     }
   };
-  1;
+
   const handlePutPosition = (lecture) => {
     setIsUpdatePosition(lecture.id);
     setLectureDataUpdate({
@@ -339,8 +385,22 @@ const LectureCourse = () => {
 
       <div className="form-group custom-file-input">
         <label htmlFor="img" className="custom-file-label">
-          Tải lên video bài giảng
+          <img src="/imgs/youtube.png" style={{ display: "inline-block" }} />{" "}
+          Tải lên video bài giảng lên Youtube
         </label>
+
+        {statusUploadVideoYoutube == "loading" && (
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              fontSize: "1rem",
+            }}
+          >
+            &nbsp; Đang tải video lên Youtube &nbsp;
+            <Spinner style={{ width: "1rem", height: "1rem" }} />
+          </span>
+        )}
         <input
           type="file"
           id="img"

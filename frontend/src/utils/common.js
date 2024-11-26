@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-export const url = "http://localhost:3000";
+export const url = "http://localhost:1234";
 
 export const formatDate = (dateStr) => {
   const date = new Date(dateStr);

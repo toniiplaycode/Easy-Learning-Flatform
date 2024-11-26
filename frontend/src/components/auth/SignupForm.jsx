@@ -98,8 +98,6 @@ const SignupForm = () => {
             password: "default_password", // Set a default password or handle this differently
           })
         );
-
-        toast.success("Đăng ký bằng Google thành công!");
       } catch (error) {
         console.error("Google Login Error:", error);
         toast.error("Đăng ký bằng Google thất bại!");
