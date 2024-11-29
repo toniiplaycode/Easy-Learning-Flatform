@@ -65,7 +65,7 @@ export const uploadVideo = async (req, res) => {
 
   oauth2Client.setCredentials({
     access_token:
-      "ya29.a0AeDClZAyAjFGXSG5NZ2C7hcwm2TPe1GseQXm7Zc_WnobCuzjLT1H2xLmWCMUs4Q4ITmkrUeczL9fsFtf6ZkuhnME66bo2oPodMnOsjFgc0MgVN52U_Li95YElpv6buk5wZIRYhXFe9moXUigeffDZRWxrDQKxgetOuQaCgYKAUcSARESFQHGX2MinSFkcylHjEB5B5rvkrIwiQ0170",
+      "ya29.a0AeDClZC5t03JmnGb9Tf8ZMhdEWcsA2bu1p-Jzfy9xLSStbYWh7ovDGq6C9mEDSbeCE0KLPCtA52AIiya07YIx2kLXoxssbDyrwWZzwtJnCcOaImGO7A1MI924lZjpit4RB2ofvtMNQzn10fPBNx2NnlRQTJh_msN_vsaCgYKAeASARESFQHGX2MiTmZCI4vHEHp2Q4GgA3xv7g0170",
     refresh_token:
       "1//0gm_jhIYnDrOmCgYIARAAGBASNwF-L9IreaUcDvbNBslxE3JCmGSduuNwRpzoX1vpga7_e5ECl5E3oQtVLztulJ7AELL9taOX8Zk",
     scope: "https://www.googleapis.com/auth/youtube.upload",

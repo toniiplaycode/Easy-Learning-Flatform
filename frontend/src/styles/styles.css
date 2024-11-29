@@ -73,7 +73,7 @@
 .section-course-container .lecture-course-item,
 .lecture-course-container .section-course-item,
 .lecture-course-container .lecture-course-item, .section-course-container,
-.lecture-course-container, .create-update-course-container, .manage-container .sidebar-manage-course {
+.lecture-course-container, .create-update-course-container, .manage-container .sidebar-manage-course, .custom-file-input .custom-file-label {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -96,9 +96,9 @@
   display: none;
 }
 .custom-file-input .custom-file-label {
-  background-color: #4caf50;
+  background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
@@ -107,7 +107,7 @@
   transition: background-color 0.3s ease;
 }
 .custom-file-input .custom-file-label:hover {
-  background-color: #45a049;
+  background-color: blueviolet;
 }
 .custom-file-input .file-name {
   margin-left: 10px;
