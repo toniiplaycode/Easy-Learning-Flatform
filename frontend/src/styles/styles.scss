@@ -897,6 +897,7 @@ $color-star: #f39c12;
   display: flex;
   padding: 0 20px 20px 20px;
   gap: 20px;
+  position: relative;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -928,13 +929,15 @@ $color-star: #f39c12;
   }
 
   &__right {
+    position: -webkit-sticky; // Ensure compatibility with older browsers
+    position: sticky;
+    top: 170px;
     width: 30%;
     background-color: #f8f9fa;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    // max-height: 600px;
-    height: 100vh;
+    height: calc(100vh - 40px); // Ensure it does not overflow
     overflow-y: auto;
 
     @media (max-width: 768px) {
