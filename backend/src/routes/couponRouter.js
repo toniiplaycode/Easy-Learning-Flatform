@@ -25,7 +25,7 @@ router.post(
 router.get(
   "/getCouponEachCourse",
   authenticateToken,
-  authorizeRoles("instructor"),
+  authorizeRoles("instructor", "student"),
   getCouponEachCourse
 );
 

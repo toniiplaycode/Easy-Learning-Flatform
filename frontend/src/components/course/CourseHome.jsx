@@ -20,6 +20,7 @@ import { IoEnterOutline } from "react-icons/io5";
 import parse from "html-react-parser";
 import CourseHomeReview from "./CourseHomeReview";
 import { addEnrollmentEachUser } from "../../reducers/apiEnrollment";
+import { fetchCouponEachCourse } from "../../reducers/apiCoupon";
 
 const CourseHome = () => {
   const dispatch = useDispatch();
@@ -35,9 +36,16 @@ const CourseHome = () => {
   let enrollmentEachUser = useSelector(
     (state) => state.apiEnrollment.enrollmentEachUser
   );
+  const couponEachCourse = useSelector(
+    (state) => state.apiCoupon.couponEachCourse
+  );
 
   useEffect(() => {
     dispatch(fetchDetailCourse(idCourseUrl));
+    if (idCourseUrl && Object.keys(inforUser).length > 0) {
+      var course_id = idCourseUrl;
+      dispatch(fetchCouponEachCourse(course_id));
+    }
   }, [idCourseUrl]);
 
   useEffect(() => {
@@ -111,6 +119,7 @@ const CourseHome = () => {
 
   // Toggle trailer
   const toggleTrailerModal = () => {
+    // Save the YouTube URL for the trailer
     dispatch(
       saveUrl(
         formatUrlYoutube(
@@ -135,7 +144,11 @@ const CourseHome = () => {
   return (
     <div className="course-home min-vh-100">
       <div className="course-header">
-        <ModalTrailer />
+        <ModalTrailer
+          idCourseUrl={idCourseUrl}
+          inforUser={inforUser}
+          couponEachCourse={couponEachCourse}
+        />
         <div className="course-title">
           <h1>{sortedDetailCourse?.title}</h1>
           <ul>
@@ -197,7 +210,9 @@ const CourseHome = () => {
                 icon={faCirclePlay}
                 color="#343434"
                 size="5x"
-                onClick={toggleTrailerModal}
+                onClick={() => {
+                  toggleTrailerModal();
+                }}
               />
               <p>Xem trước khóa học này</p>
             </div>

@@ -44,12 +44,6 @@ export const getCouponEachCourse = async (req, res) => {
 
   const course = await Course.findOne({ where: { id: course_id } });
 
-  if (course.instructor_id !== req.user.id) {
-    return res
-      .status(404)
-      .json({ error: "Are you not instructor this course" });
-  }
-
   try {
     const coupons = await Coupon.findAll({
       where: { course_id },

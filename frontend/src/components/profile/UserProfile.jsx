@@ -5,6 +5,7 @@ import CertificateUser from "./CertificateUser";
 import CetificateDetail from "./CetificateDetail";
 import ViewProfile from "./ViewProfile";
 import { useState } from "react";
+import MyCoupon from "./MyCoupon";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -54,6 +55,13 @@ const UserProfile = () => {
             </span>
 
             <span
+              onClick={() => navigate("/profile/mycoupon")}
+              className={getUrl == "/profile/mycoupon" && "active"}
+            >
+              Mã giảm giá của tôi{" "}
+            </span>
+
+            <span
               onClick={() => navigate("/profile/certificate")}
               className={getUrl == "/profile/certificate" && "active"}
             >
@@ -69,6 +77,7 @@ const UserProfile = () => {
         <Routes>
           <Route path="/" element={<InforUser />} />
           <Route path="/certificate" element={<CertificateUser />} />
+          <Route path="/mycoupon" element={<MyCoupon />} />
           <Route
             path="/certificate/detail-certificate"
             element={<CetificateDetail />}
