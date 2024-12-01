@@ -173,6 +173,17 @@ const CourseHome = () => {
               </div>
               <p>({totalReviews} đánh giá)</p>
             </div>
+            {couponEachCourse.length > 0 && (
+              <p>
+                <span>
+                  Hãy "Xem trước khóa học này" để nhận được mã giảm giá{" "}
+                  <img
+                    src="/imgs/voucher.png"
+                    className="course-have-voucher"
+                  />
+                </span>
+              </p>
+            )}
             <p>
               Được tạo bởi{" "}
               <a

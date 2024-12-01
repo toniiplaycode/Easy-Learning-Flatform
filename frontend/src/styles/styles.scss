@@ -651,6 +651,11 @@ $color-star: #f39c12;
           i {
             margin-right: 5px;
           }
+
+          img {
+            width: 25px;
+            display: inline;
+          }
         }
       }
     }
@@ -3030,7 +3035,7 @@ $color-star: #f39c12;
   background-size: cover; // Ensures the image covers the entire container
   background-position: center; // Centers the image
   border-radius: 10px; // Optional: Add rounded corners
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Optional: Add a subtle shadow
+  @extend .box-shadow-common;
 
   .btn-add-certificate,
   .btn-download-certificate {

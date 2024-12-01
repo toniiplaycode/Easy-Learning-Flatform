@@ -107,14 +107,19 @@ function App({ inforUser, couponEachCourse }) {
         <Button
           color="danger"
           onClick={toggle}
-          style={{ marginTop: "10px", marginLeft: "10px", float: "right" }}
+          style={{
+            marginTop: "10px",
+            marginLeft: "10px",
+            float: "right",
+            fontWeight: "bold",
+          }}
         >
           Thoát
         </Button>
 
         <Button
           color="primary"
-          style={{ marginTop: "10px", float: "right" }}
+          style={{ marginTop: "10px", float: "right", fontWeight: "bold" }}
           onClick={() => {
             if (!isEnrolled) {
               toast.error(
@@ -134,8 +139,14 @@ function App({ inforUser, couponEachCourse }) {
 
         {haveCoupon && (
           <Button
-            color="primary"
-            style={{ marginTop: "10px", float: "right", marginRight: "10px" }}
+            style={{
+              marginTop: "10px",
+              float: "right",
+              marginRight: "10px",
+              background: "#f8e71c",
+              color: "#333",
+              fontWeight: "bold",
+            }}
             onClick={() => {
               toggle();
               handleAddCoupon();
