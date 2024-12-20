@@ -10,6 +10,11 @@ const ManagePayment = () => {
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [filteredPayments, setFilteredPayments] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(""); // State for selected month
+  const [selectedYear, setSelectedYear] = useState(""); // State for selected year
+  const [selectedCourse, setSelectedCourse] = useState(""); // State for selected course
+  const [availableYears, setAvailableYears] = useState([]); // State for available years
+  const [availableCourses, setAvailableCourses] = useState([]); // State for available courses
 
   useEffect(() => {
     dispatch(fetchAllPaymentAllCourse());
@@ -25,6 +30,25 @@ const ManagePayment = () => {
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
       )
     : [];
+
+  // Extract available years and courses from the payment data
+  useEffect(() => {
+    if (sortedPayments.length > 0) {
+      const years = [
+        ...new Set(
+          sortedPayments.map((payment) =>
+            new Date(payment.created_at).getFullYear()
+          )
+        ),
+      ];
+      setAvailableYears(years.sort((a, b) => b - a)); // Sort years in descending order
+
+      const courses = [
+        ...new Set(sortedPayments.map((payment) => payment.Course.title)),
+      ];
+      setAvailableCourses(courses.sort()); // Sort courses alphabetically
+    }
+  }, [sortedPayments]);
 
   // Calculate total payment amount for each course and total revenue
   useEffect(() => {
@@ -53,19 +77,40 @@ const ManagePayment = () => {
     }
   }, [sortedPayments]);
 
-  // Filter payments by search term
+  // Filter payments by search term, selected month, selected year, and selected course
   useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setFilteredPayments(sortedPayments);
-    } else {
-      const filtered = sortedPayments.filter(
+    let filtered = sortedPayments;
+
+    if (searchTerm.trim() !== "") {
+      filtered = filtered.filter(
         (payment) =>
           payment.User.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           payment.User.email.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredPayments(filtered);
     }
-  }, [searchTerm, sortedPayments]);
+
+    if (selectedYear !== "") {
+      filtered = filtered.filter((payment) => {
+        const paymentDate = new Date(payment.created_at);
+        return paymentDate.getFullYear() === parseInt(selectedYear);
+      });
+    }
+
+    if (selectedMonth !== "") {
+      filtered = filtered.filter((payment) => {
+        const paymentDate = new Date(payment.created_at);
+        return paymentDate.getMonth() + 1 === parseInt(selectedMonth); // Match month
+      });
+    }
+
+    if (selectedCourse !== "") {
+      filtered = filtered.filter(
+        (payment) => payment.Course.title === selectedCourse
+      );
+    }
+
+    setFilteredPayments(filtered);
+  }, [searchTerm, selectedMonth, selectedYear, selectedCourse, sortedPayments]);
 
   return (
     <>
@@ -88,9 +133,84 @@ const ManagePayment = () => {
         />
       )}
 
-      <h3 style={{ margin: "0 20px 20px 20px" }}>
-        Tổng doanh thu: {totalRevenue.toLocaleString()} ₫
-      </h3>
+      {/* Filters: Year, Month, Course */}
+      <div
+        style={{
+          margin: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h3>Tổng doanh thu: {totalRevenue.toLocaleString()} ₫</h3>
+
+        <div>
+          <label htmlFor="yearFilter" style={{ marginRight: "10px" }}>
+            Năm:
+          </label>
+          <select
+            id="yearFilter"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            style={{
+              padding: "5px",
+              marginRight: "20px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+            }}
+          >
+            <option value="">Tất cả</option>
+            {availableYears.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="monthFilter" style={{ marginRight: "10px" }}>
+            Tháng:
+          </label>
+          <select
+            id="monthFilter"
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            style={{
+              padding: "5px",
+              marginRight: "20px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+            }}
+          >
+            <option value="">Tất cả</option>
+            {[...Array(12)].map((_, i) => (
+              <option key={i} value={i + 1}>
+                Tháng {i + 1}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="courseFilter" style={{ marginRight: "10px" }}>
+            Khóa học:
+          </label>
+          <select
+            id="courseFilter"
+            value={selectedCourse}
+            onChange={(e) => setSelectedCourse(e.target.value)}
+            style={{
+              padding: "5px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+            }}
+          >
+            <option value="">Tất cả</option>
+            {availableCourses.map((course) => (
+              <option key={course} value={course}>
+                {course}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       <div className="search-container">
         <input

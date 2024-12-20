@@ -67,7 +67,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     dispatch(fetchCertificateEachUser(inforUser.id));
-  }, certificateEachUser);
+  }, [certificateEachUser, dispatch]);
 
   const toggleSection = (section) => {
     setExpandedSection(expandedSection === section ? null : section);

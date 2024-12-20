@@ -54,6 +54,8 @@ const SignupForm = () => {
     }
   }, [statusPostSignUp, dispatch, navigate]);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleCheck = () => {
     let isValid = true;
 
@@ -65,8 +67,16 @@ const SignupForm = () => {
       setCheckEmail(true);
       isValid = false;
     }
+    if (!emailRegex.test(email)) {
+      toast.error("Email không hợp lệ!");
+      isValid = false;
+    }
     if (password.trim().length === 0) {
       setCheckPassword(true);
+      isValid = false;
+    }
+    if (password.trim().length < 8) {
+      toast.error("Mật khẩu phải có ít nhất 8 ký tự!");
       isValid = false;
     }
     if (confirmPassword !== password) {

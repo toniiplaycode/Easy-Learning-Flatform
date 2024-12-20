@@ -28,15 +28,17 @@ const ManageCertificate = () => {
   // Update filtered certificates whenever the search term or certificate data changes
   useEffect(() => {
     if (certificateAllCourse) {
-      const filtered = certificateAllCourse.filter(
-        (certificate) =>
-          certificate.User.name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          certificate.User.email
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
-      );
+      const filtered = certificateAllCourse
+        .filter(
+          (certificate) =>
+            certificate.User.name
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            certificate.User.email
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+        )
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Sort by newest date
       setFilteredCertificates(filtered);
     }
   }, [searchTerm, certificateAllCourse]);
