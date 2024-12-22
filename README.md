@@ -7,7 +7,9 @@
 
 ### You can use account test or sign up:
 
--  User account: <br/>
+-  Student account: <br/>
+  email: hung@gmail.com, password: 123
+-  Instructor account: <br/>
   email: toan@gmail.com, password: 123
 -  Administrator account: <br/>
   email: admin@gmail.com, password: 123 (Visit link: https://easy-learning-flatform.vercel.app/admin)
@@ -15,7 +17,7 @@
 ### About this project:
 
 #### role account
--  Student: Explore and enroll in courses to enhance skills and knowledge, with the opportunity to apply and become a lecturer.
+-  Student: Explore and enroll in courses to enhance skills and knowledge, get certificates, with the opportunity to apply and become a lecturer.
 -  Instructor: Design and manage courses, monitor student, view to feedback, issue certificates, and oversee revenue performance.
 -  Administrator: Oversee platform operations, manage user roles, configure payment methods.
 
