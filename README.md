@@ -15,39 +15,44 @@
 ### About this prjoect:
 
 #### role account
--  User: just view and booking ticket
--  Staff: have management rights but will be limited
--  Administrator: full management rights
+-  Student: Explore and enroll in courses to enhance skills and knowledge, with the opportunity to apply and become a lecturer.
+-  Instructor: Design and manage courses, monitor student, view to feedback, issue certificates, and oversee revenue performance.
+-  Administrator: Oversee platform operations, manage user roles, configure payment methods.
 
-#### user account: 
--  This project is about a booking ticket movie website with full features
--  View movie information and trailer, you can comment below each movie
--  Search movies by name or genre
--  When booking tickets, you can choose movie showtimes, seats, and payment methods
--  View purchased tickets and status's it
--  Change your information, change your password
+#### student account: 
+-  This project is about an E-Learning platform with full features.
+-  View detailed course information, including descriptions, instructors, and reviews.
+-  Search for courses by name or category.
+-  Enroll in courses, access video lectures.
+-  Obtain a certificate upon course completion.
+-  View your enrolled courses and track your learning progress.
+-  Update your personal information and securely change your password.
+-  Apply to become a lecturer and create your own courses.
 
-#### staff account: 
-- You can some role manage
-- View ticket sales and revenue statistics
-- Statistics of tickets purchased by each customer, and approval it
-- CRUD: movie, genre movie, movie showtimes, payment methods
+### instructor:
+-  Create new courses with detailed descriptions, section and video lectures.
+-  Manage course categories.
+-  Track students enrolled in your courses.
+-  Provide feedback and assistance to improve the learning experience.
+-  Generate and award certificates to students who successfully complete your courses.
+-  Monitor revenue earned from course enrollments.
 
-#### administrator account: 
-- You have full role manage all things
-- View ticket sales and revenue statistics
-- Statistics of tickets purchased by each customer, and approval it
-- Account managers can change the role of other accounts
-- CRUD: movie, genre movie, movie showtimes, payment methods, Cinemas, Cinema rooms, Customer
- 
+### administrator: 
+-  Manage all users
+-  Approve registration to become a lecturer
+-  Manage payment methods
+
 ### Languages & Tools:
 
 #### Backend:
 -  ExpressJS, JWT, MySQL
 #### Frontend:
--  ReactJS, Redux, Axios, React-Bootstrap, Material UI, FontAwesomeIcon
+-  ReactJS, Redux, Axios, React-Bootstrap, Chakra UI, FontAwesomeIcon
+### Payment:
+- Paypal
+### Youtube API v3
 #### Database online, Clound:
-- Clever Clound, Cloundinary
+- Clever Clound, Cloundinary, Google Cloud Console
 #### Deploy:
 -  Render(backend), Vercel(Frontend) 
 
