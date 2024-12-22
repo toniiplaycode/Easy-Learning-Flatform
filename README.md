@@ -71,7 +71,6 @@
 
 #### Detail a course:
 <img src="https://github.com/user-attachments/assets/05212984-00cb-48b6-b278-4da2983c22af" alt="Easy Learning" border="0">
-#### You can preview the video to get coupon:
 <img src="https://github.com/user-attachments/assets/a790d308-369d-4053-8eb1-44866ce16b1f" alt="Easy Learning" border="0">
 
 #### Video lectures of a course:
