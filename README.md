@@ -56,3 +56,28 @@
 - Clever Clound, Cloundinary, Google Cloud Console
 #### Deploy:
 -  Render(backend), Vercel(Frontend) 
+
+### Some project Screenshot:
+
+#### Homepage:
+<img src="https://github.com/user-attachments/assets/51f7a46d-0420-4f79-b8ab-d2b8ce06cb65" alt="Chat App" border="0">
+
+#### Login and sign up (can use your google account)
+<img src="https://github.com/user-attachments/assets/e0200f14-bd9f-40fb-aacc-75c85c398977" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/13848963-ee71-44ed-b07a-e19aa7eb3b78" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/22f130dc-4970-403d-ba5e-bae4e30b9c7f" alt="Chat App" border="0">
+
+#### Detail a course:
+<img src="https://github.com/user-attachments/assets/48b5212c-9449-4cf1-aa6e-56d604067715" alt="Chat App" border="0">
+
+#### Video lectures of a course:
+<img src="https://github.com/user-attachments/assets/37662c5e-385b-441f-a6c9-8cf3c046894c" alt="Chat App" border="0">
+
+#### Your Courses was enrollment:
+<img src="https://github.com/user-attachments/assets/808a1e94-4b4c-43c7-be55-edcd2a5e4a17" alt="Chat App" border="0">
+
+
+
+
+
+
