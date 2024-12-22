@@ -69,12 +69,34 @@
 
 #### Detail a course:
 <img src="https://github.com/user-attachments/assets/48b5212c-9449-4cf1-aa6e-56d604067715" alt="Chat App" border="0">
+#### You can preview the video to get coupon:
+<img src="https://github.com/user-attachments/assets/a790d308-369d-4053-8eb1-44866ce16b1f" alt="Chat App" border="0">
 
 #### Video lectures of a course:
 <img src="https://github.com/user-attachments/assets/37662c5e-385b-441f-a6c9-8cf3c046894c" alt="Chat App" border="0">
 
 #### Your Courses was enrollment:
 <img src="https://github.com/user-attachments/assets/808a1e94-4b4c-43c7-be55-edcd2a5e4a17" alt="Chat App" border="0">
+
+#### Your cart, you can apply a coupon to reduce the price of a course:
+<img src="https://github.com/user-attachments/assets/c27e0b6e-658b-4cde-8291-2216663def42" alt="Chat App" border="0">
+
+#### Payment with PAYPAL:
+<img src="https://github.com/user-attachments/assets/399260ce-f7d2-4927-a3eb-1a30d8d8c9c5" alt="Chat App" border="0">
+### It will be forwarded to your paypal login to make payment.
+<img src="https://github.com/user-attachments/assets/8ee3756e-aded-474a-93af-fc58873f4b8c" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/d13701c3-9d15-4675-bb43-6b251626af5e" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/831b450b-dc71-4e80-b3c2-d1abbed2da85" alt="Chat App" border="0">
+
+#### Your profile:
+![image](https://github.com/user-attachments/assets/e52c0714-62bf-472e-9ab4-ed4f44af745a)
+#### Coupon you got:
+![image](https://github.com/user-attachments/assets/01192bda-0d93-4e69-b3a3-a58d90712b7a)
+#### Cetificates you got: 
+![image](https://github.com/user-attachments/assets/8a3efde7-7848-4386-b4c3-28909974b1ac)
+![image](https://github.com/user-attachments/assets/6e5759c4-269b-49b2-aaa3-eb243d1c3ba2)
+
+
 
 
 
