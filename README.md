@@ -48,12 +48,14 @@
 -  ExpressJS, JWT, MySQL
 #### Frontend:
 -  ReactJS, Redux, Axios, React-Bootstrap, Chakra UI, FontAwesomeIcon
+#### Authentication
+-  Google authentication
 #### Payment:
-- Paypal
+-  Paypal
 #### Youtube API v3
-- Get/post API with youtube api v3
+-  Get/post API with youtube api v3
 #### Database online, Clound:
-- Clever Clound, Cloundinary, Google Cloud Console
+-  Clever Clound, Cloundinary, Google Cloud Console
 #### Deploy:
 -  Render(backend), Vercel(Frontend) 
 
@@ -70,8 +72,8 @@
 <img src="https://github.com/user-attachments/assets/22f130dc-4970-403d-ba5e-bae4e30b9c7f" alt="Easy Learning" border="0">
 
 #### Detail a course:
-<img src="https://github.com/user-attachments/assets/05212984-00cb-48b6-b278-4da2983c22af" alt="Easy Learning" border="0">
-<img src="https://github.com/user-attachments/assets/a790d308-369d-4053-8eb1-44866ce16b1f" alt="Easy Learning" border="0">
+![image](https://github.com/user-attachments/assets/68292917-8fdd-4c92-a944-faf0f714435b)
+![image](https://github.com/user-attachments/assets/661c32fe-faf1-452f-a402-f2e4a6575128)
 
 #### Video lectures of a course:
 <img src="https://github.com/user-attachments/assets/37662c5e-385b-441f-a6c9-8cf3c046894c" alt="Easy Learning" border="0">
