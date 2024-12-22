@@ -29,7 +29,7 @@
 -  Update your personal information and securely change your password.
 -  Apply to become a lecturer and create your own courses.
 
-### instructor:
+#### instructor account:
 -  Create new courses with detailed descriptions, section and video lectures.
 -  Manage course categories.
 -  Track students enrolled in your courses.
@@ -37,7 +37,7 @@
 -  Generate and award certificates to students who successfully complete your courses.
 -  Monitor revenue earned from course enrollments.
 
-### administrator: 
+#### administrator: 
 -  Manage all users
 -  Approve registration to become a lecturer
 -  Manage payment methods
@@ -48,9 +48,10 @@
 -  ExpressJS, JWT, MySQL
 #### Frontend:
 -  ReactJS, Redux, Axios, React-Bootstrap, Chakra UI, FontAwesomeIcon
-### Payment:
+#### Payment:
 - Paypal
-### Youtube API v3
+#### Youtube API v3
+- Get/post API with youtube api v3
 #### Database online, Clound:
 - Clever Clound, Cloundinary, Google Cloud Console
 #### Deploy:
