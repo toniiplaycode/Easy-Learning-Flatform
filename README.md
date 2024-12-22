@@ -119,7 +119,15 @@
 #### Revenue management: 
 ![image](https://github.com/user-attachments/assets/ce74c400-748f-4e21-83bd-21424d8328c5)
 
+## Administrator Interface
+#### Login of administrator: 
+![image](https://github.com/user-attachments/assets/4cda6f96-3525-4458-9a2f-33459fcd63e4)
 
+#### Users management:
+![image](https://github.com/user-attachments/assets/8ec9ef86-7414-4997-9449-bfb27a75236d)
+
+#### Payment methods management:
+![image](https://github.com/user-attachments/assets/f3c7a12a-368c-46b6-93ed-f290298475e2)
 
 
 
