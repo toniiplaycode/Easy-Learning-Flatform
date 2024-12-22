@@ -72,7 +72,7 @@
 <img src="https://github.com/user-attachments/assets/22f130dc-4970-403d-ba5e-bae4e30b9c7f" alt="Easy Learning" border="0">
 
 #### Detail a course:
-![image](https://github.com/user-attachments/assets/68292917-8fdd-4c92-a944-faf0f714435b)
+![image](https://github.com/user-attachments/assets/a84a8ba8-c7d8-4435-bcf4-b6bfe07654b4)
 ![image](https://github.com/user-attachments/assets/661c32fe-faf1-452f-a402-f2e4a6575128)
 
 #### Video lectures of a course:
