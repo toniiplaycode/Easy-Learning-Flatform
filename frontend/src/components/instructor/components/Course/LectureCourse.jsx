@@ -441,11 +441,14 @@ const LectureCourse = () => {
           onChange={handleSectionChange}
         >
           <option value="">Chọn chương</option>
-          {sectionAllLectureEachCourse?.map((section) => (
-            <option key={section.id} value={section.id}>
-              Chương {section.position}. {section.title}
-            </option>
-          ))}
+          {sectionAllLectureEachCourse
+            ?.slice()
+            ?.sort((a, b) => a.position - b.position)
+            ?.map((section) => (
+              <option key={section.id} value={section.id}>
+                Chương {section.position}. {section.title}
+              </option>
+            ))}
         </select>
         {!validate.section_id && (
           <p style={{ color: "red", marginTop: "5px" }}>Vui lòng chọn chương</p>
