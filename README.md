@@ -59,34 +59,36 @@
 
 ### Some project Screenshot:
 
+
+## Student Interface
 #### Homepage:
-<img src="https://github.com/user-attachments/assets/51f7a46d-0420-4f79-b8ab-d2b8ce06cb65" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/51f7a46d-0420-4f79-b8ab-d2b8ce06cb65" alt="Easy Learning" border="0">
 
 #### Login and sign up (can use your google account)
-<img src="https://github.com/user-attachments/assets/e0200f14-bd9f-40fb-aacc-75c85c398977" alt="Chat App" border="0">
-<img src="https://github.com/user-attachments/assets/13848963-ee71-44ed-b07a-e19aa7eb3b78" alt="Chat App" border="0">
-<img src="https://github.com/user-attachments/assets/22f130dc-4970-403d-ba5e-bae4e30b9c7f" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/e0200f14-bd9f-40fb-aacc-75c85c398977" alt="Easy Learning" border="0">
+<img src="https://github.com/user-attachments/assets/13848963-ee71-44ed-b07a-e19aa7eb3b78" alt="Easy Learning" border="0">
+<img src="https://github.com/user-attachments/assets/22f130dc-4970-403d-ba5e-bae4e30b9c7f" alt="Easy Learning" border="0">
 
 #### Detail a course:
-<img src="https://github.com/user-attachments/assets/48b5212c-9449-4cf1-aa6e-56d604067715" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/05212984-00cb-48b6-b278-4da2983c22af" alt="Easy Learning" border="0">
 #### You can preview the video to get coupon:
-<img src="https://github.com/user-attachments/assets/a790d308-369d-4053-8eb1-44866ce16b1f" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/a790d308-369d-4053-8eb1-44866ce16b1f" alt="Easy Learning" border="0">
 
 #### Video lectures of a course:
-<img src="https://github.com/user-attachments/assets/37662c5e-385b-441f-a6c9-8cf3c046894c" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/37662c5e-385b-441f-a6c9-8cf3c046894c" alt="Easy Learning" border="0">
 
 #### Your Courses was enrollment:
-<img src="https://github.com/user-attachments/assets/808a1e94-4b4c-43c7-be55-edcd2a5e4a17" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/808a1e94-4b4c-43c7-be55-edcd2a5e4a17" alt="Easy Learning" border="0">
 
 #### Your cart, you can apply a coupon to reduce the price of a course:
-<img src="https://github.com/user-attachments/assets/c27e0b6e-658b-4cde-8291-2216663def42" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/c27e0b6e-658b-4cde-8291-2216663def42" alt="Easy Learning" border="0">
 
 #### Payment with PAYPAL:
-<img src="https://github.com/user-attachments/assets/399260ce-f7d2-4927-a3eb-1a30d8d8c9c5" alt="Chat App" border="0">
-### It will be forwarded to your paypal login to make payment.
-<img src="https://github.com/user-attachments/assets/8ee3756e-aded-474a-93af-fc58873f4b8c" alt="Chat App" border="0">
-<img src="https://github.com/user-attachments/assets/d13701c3-9d15-4675-bb43-6b251626af5e" alt="Chat App" border="0">
-<img src="https://github.com/user-attachments/assets/831b450b-dc71-4e80-b3c2-d1abbed2da85" alt="Chat App" border="0">
+<img src="https://github.com/user-attachments/assets/399260ce-f7d2-4927-a3eb-1a30d8d8c9c5" alt="Easy Learning" border="0">
+#### It will be forwarded to your paypal login to make payment:
+<img src="https://github.com/user-attachments/assets/8ee3756e-aded-474a-93af-fc58873f4b8c" alt="Easy Learning" border="0">
+<img src="https://github.com/user-attachments/assets/d13701c3-9d15-4675-bb43-6b251626af5e" alt="Easy Learning" border="0">
+<img src="https://github.com/user-attachments/assets/831b450b-dc71-4e80-b3c2-d1abbed2da85" alt="Easy Learning" border="0">
 
 #### Your profile:
 ![image](https://github.com/user-attachments/assets/e52c0714-62bf-472e-9ab4-ed4f44af745a)
@@ -96,8 +98,26 @@
 ![image](https://github.com/user-attachments/assets/8a3efde7-7848-4386-b4c3-28909974b1ac)
 ![image](https://github.com/user-attachments/assets/6e5759c4-269b-49b2-aaa3-eb243d1c3ba2)
 
+## Instructor Interface
+#### Courses management: 
+![image](https://github.com/user-attachments/assets/fb5c9f7b-e41d-4684-99c0-982d7adcac58)
+![image](https://github.com/user-attachments/assets/cd06b6af-9d22-4478-bb1d-5790cc180604)
+![image](https://github.com/user-attachments/assets/dd252784-9746-4a5c-ac1f-d8f897e4f1a3)
+![image](https://github.com/user-attachments/assets/4a4b2e58-7c24-402c-af46-ee733695e59f)
 
+#### Students management and their review: 
+![image](https://github.com/user-attachments/assets/3e6a5a8b-7b23-4b7f-a724-ccf49b494635)
+![image](https://github.com/user-attachments/assets/6949aa2a-c193-43ee-965f-fa64954710ec)
 
+#### Coupons management: 
+![image](https://github.com/user-attachments/assets/93091ad7-e651-407b-9357-50ff81d69622)
+![image](https://github.com/user-attachments/assets/5ddd85c6-7769-42f8-81da-7dab44b3ac53)
+
+#### Certificates management: 
+![image](https://github.com/user-attachments/assets/b9df50cb-4fa0-41cc-894d-ee3ab73aad27)
+
+#### Revenue management: 
+![image](https://github.com/user-attachments/assets/ce74c400-748f-4e21-83bd-21424d8328c5)
 
 
 
