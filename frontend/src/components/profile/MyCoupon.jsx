@@ -7,6 +7,7 @@ import {
   faCalendarDays,
   faChalkboardTeacher,
 } from "@fortawesome/free-solid-svg-icons";
+import { formatDate } from "../../utils/common";
 
 const MyCoupon = () => {
   const [couponData, setCouponData] = useState([]);
@@ -29,15 +30,6 @@ const MyCoupon = () => {
   const handleCopy = (code) => {
     setCopiedCode(code); // Track which code was copied
     navigator.clipboard.writeText(code); // Copy the code to clipboard
-  };
-
-  // Format date to dd/mm/yyyy
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-    const year = date.getFullYear(); // Full year (e.g., 2024)
-    return `${day}/${month}/${year}`;
   };
 
   return (
