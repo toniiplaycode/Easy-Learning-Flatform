@@ -252,7 +252,10 @@ const ManagePayment = () => {
               </div>
             ))
           ) : (
-            <div>Không tìm thấy thanh toán nào!</div>
+            <div className="list-empty">
+              <h3>Chưa có doanh thu ! </h3>
+              <img src="/imgs/emptybox.png" style={{ width: "200px" }} />
+            </div>
           )}
         </div>
       </div>

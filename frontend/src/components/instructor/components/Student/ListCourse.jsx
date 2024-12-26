@@ -68,7 +68,7 @@ const ListCourse = () => {
             );
           })
         ) : (
-          <div className="course-list-empty">
+          <div className="list-empty">
             <h3>Chưa có khóa học nào ! </h3>
             <img src="/imgs/emptybox.png" />
           </div>

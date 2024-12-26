@@ -42,12 +42,18 @@ const MyCoupon = () => {
 
   return (
     <Box w="100%" p={6}>
-      {/* Render coupons in a responsive grid layout */}
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={4}>
-        {couponData.length === 0 ? (
-          <Box>Chưa có mã giảm giá nào</Box>
-        ) : (
-          couponData.map((coupon, index) => {
+      {couponData.length === 0 ? (
+        <div className="mycourse__empty-container">
+          <h3 className="mycourse__empty">Chưa có mã giảm giá nào!</h3>
+          <img className="mycourse__empty-img" src="/imgs/emptybox.png" />
+          <button className="mycourse__empty-btn" onClick={() => navigate(`/`)}>
+            Trang chủ
+          </button>
+        </div>
+      ) : (
+        // Render coupons in a responsive grid layout
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={4}>
+          {couponData.map((coupon, index) => {
             const isCouponExpired = new Date() > new Date(coupon.valid_until);
 
             // Find the course title based on course_id
@@ -63,36 +69,35 @@ const MyCoupon = () => {
                 bg={isCouponExpired ? "gray.100" : "white"}
                 opacity={isCouponExpired ? 0.6 : 1}
                 filter={isCouponExpired ? "grayscale(100%)" : "none"}
-                borderColor={isCouponExpired ? "gray" : "gray.200"}
+                borderColor={isCouponExpired ? "gray.300" : "gray.200"}
                 transition="all 0.3s ease"
-                boxShadow={"0px 4px 10px rgba(0, 0, 0, 0.3)"}
+                boxShadow="0px 4px 10px rgba(0, 0, 0, 0.1)"
               >
                 {/* Coupon Code */}
                 <Flex justifyContent="space-between" mb={4}>
-                  <Text fontSize={"1.3em"} fontWeight="bold" color="#007bff">
+                  <Text fontSize="1.3em" fontWeight="bold" color="#007bff">
                     {coupon.code}
                   </Text>
-                  <Text fontSize={"1.3em"} color="green.500">
+                  <Text fontSize="1.3em" color="green.500">
                     {coupon.discount_percentage}%
                   </Text>
                 </Flex>
 
-                {/* Coupon Course (Term) */}
+                {/* Coupon Course */}
                 <Box mb={1}>
-                  <Flex alignItems="flex-start" height={"80px"}>
+                  <Flex alignItems="flex-start" height="80px">
                     <Text color="gray.600">
-                      {/* Display course title if found */}
                       <FontAwesomeIcon icon={faChalkboardTeacher} />{" "}
-                      {course ? course.title : "Course not found"}
+                      {course ? course.title : "Khóa học không tồn tại"}
                     </Text>
                   </Flex>
                 </Box>
 
-                {/* Expiration Information */}
-                <Flex flexDirection={"column"} mb={4} color="gray.600">
+                {/* Expiration Info */}
+                <Flex flexDirection="column" mb={4} color="gray.600">
                   <Text>
                     <FontAwesomeIcon icon={faCalendarDays} /> Hết hạn:{" "}
-                    {formatDate(coupon.valid_until)} {/* Using custom format */}
+                    {formatDate(coupon.valid_until)}
                   </Text>
                 </Flex>
 
@@ -123,7 +128,7 @@ const MyCoupon = () => {
                   }}
                 >
                   {isCouponExpired ? (
-                    <>Hết hạn !</>
+                    <>Hết hạn!</>
                   ) : copiedCode === coupon.code ? (
                     <>
                       <FaClipboardCheck style={{ marginRight: "8px" }} />
@@ -138,9 +143,9 @@ const MyCoupon = () => {
                 </Button>
               </Box>
             );
-          })
-        )}
-      </SimpleGrid>
+          })}
+        </SimpleGrid>
+      )}
     </Box>
   );
 };

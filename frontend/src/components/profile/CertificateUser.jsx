@@ -47,7 +47,19 @@ const CertificateUser = () => {
             </div>
           ))
         ) : (
-          <div>Chưa có chứng chỉ nào !</div>
+          <div className="mycourse__empty-container">
+            <h3 className="mycourse__empty">Chưa có chứng chỉ nào ! </h3>
+            <img className="mycourse__empty-img" src="/imgs/emptybox.png" />
+
+            <button
+              className="mycourse__empty-btn"
+              onClick={() => {
+                navigate(`/`);
+              }}
+            >
+              Trang chủ
+            </button>
+          </div>
         )}
       </div>
     </div>

@@ -65,9 +65,9 @@ export const uploadVideo = async (req, res) => {
 
   oauth2Client.setCredentials({
     access_token:
-      "ya29.a0ARW5m74MMSWApeeG3xvcbEt1UGqeIdo_BKfslHaVPVayTB1eDnVwo5b8Ts-ftMnwspCcl8uU6YCrTJfWxV2XWX0vjdATLOwsXR7Qp41iBqIUm7VqOLRjnJ1UEX0m4rIHx-R0a7MazM_IXU5510jiA1eiBUtJkKJonRjojUtVaCgYKAckSARESFQHGX2MiLkKTcyS1N46OwaKPr6Jz4A0175",
+      "ya29.a0ARW5m76o7gNz5i61aVMODQ81CTb0qRl8qJ7YSPPzVfoJNqOyz7GfxRtbME23kPxRTCGqzOTcxAhKrFD-JMvrtXtIHafoWkuekvaIngyaxD-m23OLBi4dO4iKcxwpiPkifytQ_iKysXBFok6uk6TfvypK3QENc9zjrhUpeTquaCgYKAfwSARESFQHGX2MiCYLFlzfRV5P-zSl6djd3XQ0175",
     refresh_token:
-      "1//0er7vaI1Kmcz6CgYIARAAGA4SNwF-L9IroykcRmrQLBVxaGmQYnw72u0Nq5FGRewpr-X88hHqEz_bM2ENjN47VX1CkpPiljm_ZYs",
+      "1//0gwtMZD7Jhw59CgYIARAAGBASNwF-L9IrZBKruTLaBI4Y7gzigwnhuFr5N8bW-UmunmBWPtN8T-0tvIDY5zTbW30E2HF9ZrP_mWc",
     scope: "https://www.googleapis.com/auth/youtube.upload",
   });
 

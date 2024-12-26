@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAllCourseWithCoupon } from "../../../../reducers/apiCourse";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTicketSimple } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAlignJustify,
+  faTicketSimple,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ListCoupon = () => {
   const dispatch = useDispatch();
@@ -55,7 +58,10 @@ const ListCoupon = () => {
           );
         })
       ) : (
-        <div>Chưa có mã giảm giá nào !</div>
+        <div className="list-empty">
+          <h3>Chưa có mã giảm giá nào ! </h3>
+          <img src="/imgs/emptybox.png" style={{ width: "200px" }} />
+        </div>
       )}
     </div>
   );
