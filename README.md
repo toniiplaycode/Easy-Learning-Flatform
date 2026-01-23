@@ -1,9 +1,9 @@
 <h2>
   <img src="https://github.com/user-attachments/assets/48c399c1-372a-458b-992a-3f2b8be8e532" alt="Easy Learning" style="width: 20px; height: 20px;">
-  Easy Learning Flatform
+  Easy Learning Platform
 </h2>
 
-### Live Preview: https://easy-learning-flatform.vercel.app
+### Live Preview: https://easy-learning-platform.vercel.app
 
 ### You can use account test or sign up:
 
@@ -12,7 +12,7 @@
 -  Instructor account: <br/>
   email: toan@gmail.com, password: 123
 -  Administrator account: <br/>
-  email: admin@gmail.com, password: 123 (Visit link: https://easy-learning-flatform.vercel.app/admin)
+  email: admin@gmail.com, password: 123 (Visit link: https://easy-learning-platform.vercel.app/admin)
 
 ### About this project:
 
@@ -131,6 +131,7 @@
 
 #### Payment methods management:
 ![image](https://github.com/user-attachments/assets/f3c7a12a-368c-46b6-93ed-f290298475e2)
+
 
 
 
